@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 const Nav = () => {
   return (
     <nav className="wrapper text-base font-semibold text-slate-600 mt-lg">
-      <ul className="nav cluster max-md:justify-start max-sm:gap-[8px]">
+      <ul className="nav cluster max-md:justify-start max-sm:gap-[8px] list-none">
         {navLink.map((item) => (
           <li key={item.label} className="border-animated">
             <NavLink
