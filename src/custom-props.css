@@ -1,0 +1,27 @@
+/* VARIABLES GENERATED WITH TAILWIND CONFIG ON 17/9/2023.
+    Tokens location: ./tailwind.config.js */
+
+:root {
+  --color-slate-50: #f8fafc;
+  --color-slate-300: #cbd5e1;
+  --color-slate-600: #475569;
+  --color-slate-950: #020617;
+  --color-red-50: #fef2f2;
+  --color-red-300: #fca5a5;
+  --color-red-600: #dc2626;
+  --color-red-900: #7f1d1d;
+  --space-xs: clamp(0.75rem, calc(0.63rem + 0.59vw), 0.94rem);
+  --space-sm: clamp(1rem, calc(0.84rem + 0.78vw), 1.25rem);
+  --space-md: clamp(1.5rem, calc(1.27rem + 1.17vw), 1.88rem);
+  --space-lg: clamp(2rem, calc(1.69rem + 1.56vw), 2.5rem);
+  --space-xl: clamp(3rem, calc(2.53rem + 2.34vw), 3.75rem);
+  --space-2xl: clamp(4rem, calc(3.38rem + 3.13vw), 5rem);
+  --space-3xl: clamp(6rem, calc(5.06rem + 4.69vw), 7.5rem);
+  --size-size-0: clamp(0.83rem, calc(0.77rem + 0.33vw), 0.94rem);
+  --size-base: clamp(1rem, calc(0.84rem + 0.78vw), 1.25rem);
+  --size-size-1: clamp(1.2rem, calc(0.91rem + 1.46vw), 1.67rem);
+  --size-size-2: clamp(1.44rem, calc(0.95rem + 2.44vw), 2.22rem);
+  --size-size-3: clamp(1.73rem, calc(0.96rem + 3.85vw), 2.96rem);
+  --size-size-4: clamp(2.07rem, calc(0.9rem + 5.85vw), 3.95rem);
+  --size-size-5: clamp(2.49rem, calc(0.76rem + 8.66vw), 5.26rem);
+}

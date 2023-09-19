@@ -1,0 +1,10 @@
+  /*
+WRAPPER UTILITY
+A common wrapper/container
+*/
+.wrapper {
+    margin-inline: auto;
+    width: clamp(16rem, 95vw, 52rem);
+    padding-inline: var(--space-sm);
+    position: relative;
+  }
