@@ -2,9 +2,9 @@ import React from "react";
 
 const About = () => {
   return (
-    <div className="wrapper flow mt-xl">
-      <h2 className="dark:text-slate-300 text-size-2"># Acerca de mi</h2>
-      <div className="flow text-base dark:text-slate-300">
+    <div className="wrapper mt-xl">
+      <h2 className="dark:text-slate-300 text-size-2 mt-2xl"># Acerca de mi</h2>
+      <div className="flow text-base dark:text-slate-300 mt-lg">
         <p>
           Hola! Soy Wilson, Soy diseñador gráfico con gusto por el diseño y el
           desarrollo web moderno

@@ -3,12 +3,12 @@ import { navLink } from "../constant";
 import { NavLink } from "react-router-dom";
 const Nav = () => {
   return (
-    <nav className="wrapper text-base font-semibold text-slate-600 mt-lg">
-      <ul className="nav cluster max-md:justify-start max-sm:gap-[8px] list-none">
+    <nav className="wrapper text-base font-semibold text-slate-600 mt-2xl">
+      <ul className="nav cluster md:justify-center max-sm:gap-[8px] list-none">
         {navLink.map((item) => (
           <li key={item.label} className="border-animated">
             <NavLink
-              className="flex gap-[4px] p-[10px] items-center dark:text-slate-300"
+              className="flex gap-[4px] p-[10px] no-underline items-center dark:text-slate-300"
               to={item.href}
             >
               <svg

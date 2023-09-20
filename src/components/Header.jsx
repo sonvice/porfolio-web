@@ -38,7 +38,7 @@ const Header = () => {
       <div className="flex justify-between px-lg items-center">
         <div>
           <a href="/">
-            <img width={42} height={42} src={logo} alt="Logo" />
+            <img width={40} height={40} src={logo} alt="Logo" />
           </a>
         </div>
         <button onClick={toggleTheme} className="bg-transparent border-0 cursor-pointer">

@@ -9,9 +9,9 @@ const CardProject = ({ nunCard,titleMain }) => {
 
 
   return (
-    <div className="wrapper mt-xl">
+    <div className="wrapper mt-2xl">
       <h2 className="dark:text-slate-300 text-size-2"># {titleMain}</h2>
-      <div className="box-grid gap-lg mt-md">
+      <div className="box-grid gap-lg mt-lg">
         {newArr.map((figure) => (
           <div key={figure.label} className="card">
             <figure>

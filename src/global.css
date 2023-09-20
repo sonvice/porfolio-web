@@ -42,7 +42,6 @@ h3 {
 
 a {
   color: currentcolor;
-  text-decoration-color: var(--color-slate-950);
 }
 
 a:hover {
