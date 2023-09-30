@@ -11,7 +11,7 @@ const About = () => {
         </p>
         <p>
           Me interesó mucho la programación y el diseño web allá por el 2008
-          cuando hice un curso vacacional de "Confección de paginas web" con
+          cuando hice un curso vacacional de "Confección de páginas web" con
           HTML y CSS, en ese tiempo se escribía código en el block de notas :).
           Poder saber que un diseño en Photoshop o en Illustrator se podía
           convertir a código y hacerlo interacrivo fue como un ¡woow! y me animé
@@ -29,9 +29,9 @@ const About = () => {
         </p>
         <p>
           Practico de manera autodidacta creando proyectos web y pequeñas App
-          para seguir aumentando mis habilidades, utilizo principalmente Figma
+          para seguir mejorando mis habilidades, utilizo principalmente Figma
           para diseñar y tecnologías front end como React o JavaScript vanilla,
-          css etc. para desarrollar cualquier proyecto web, sigo la actulidad
+          Css etc. para desarrollar cualquier proyecto web, sigo la actulidad
           del desarrollo web que evoluciona muy rápido.
         </p>
       </div>

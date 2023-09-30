@@ -5,6 +5,7 @@
 body {
   padding: var(--space-size-2) var(--space-size-1);
   @apply bg-slate-50 text-slate-950 text-size-1 font-sans;
+  overflow-x: hidden;
 }
 
 h1,
@@ -49,7 +50,7 @@ a:hover {
 }
 
 .btn-link{
-  @apply bg-transparent border-0 underline underline-offset-2 font-bold text-size-0 cursor-pointer hover:no-underline hover:text-slate-600;
+  @apply bg-transparent border-0 underline underline-offset-2 font-bold text-size-0 cursor-pointer hover:no-underline hover:text-slate-600 decoration-red-600;
 }
 
 .border-animated{

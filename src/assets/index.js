@@ -1,12 +1,16 @@
+import imgCode from './code-illustration.svg'
+import imgCodeDark from './code-illustration-dark.svg'
+
 import imgCareerrist from './careerist.jpg'
 import imgDentis from './dentis.jpg'
-import imgCode from './code-illustration.svg'
 import imgGalllery from './gallery.jpg'
 import imgJustice from './justice.jpg'
 import imgPeli from './peli.jpg'
 import imgPeople from './people.jpg'
+import imgEasybank from './easybank.jpg'
+
 import logo from './logo-wilson.svg'
-import imgCodeDark from './code-illustration-dark.svg'
+
 
 
 export{
@@ -18,6 +22,7 @@ imgGalllery,
 imgJustice,
 imgPeli,
 imgPeople,
-imgCodeDark
+imgCodeDark,
+imgEasybank
 
 }

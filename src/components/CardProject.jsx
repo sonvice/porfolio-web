@@ -26,7 +26,7 @@ const CardProject = ({ nunCard,titleMain }) => {
             <Figcaption {...figure} otroValor={'Valor'}></Figcaption>
             </figure>
             <div className="mt-xs">
-            <a className="btn-link dark:text-slate-400 dark:decoration-slate-400" href={figure.href} target="_blank">{figure.title} <RiShareBoxLine className="align-middle"></RiShareBoxLine></a>
+            <a className="btn-link dark:text-slate-400" href={figure.href} target="_blank">{figure.title} <RiShareBoxLine className="align-middle"></RiShareBoxLine></a>
                 <a href={figure.gitHub} target="_blank"><RiGithubFill className="align-middle ml-sm dark:text-slate-400 dark:decoration-slate-400"></RiGithubFill></a>
             </div>
           </div>

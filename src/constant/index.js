@@ -1,6 +1,7 @@
 import {
   imgCareerrist,
   imgDentis,
+  imgEasybank,
   imgGalllery,
   imgJustice,
   imgPeli,
@@ -80,5 +81,14 @@ export const figures = [
     href: "https://clon-careerist.netlify.app/",
     label: "careerist",
     gitHub:'https://github.com/sonvice/clon-careerist.com'
+  },
+  {
+    img: imgEasybank,
+    title: 'Landing Page',
+    description:
+      "Este proyecto es una landing page diseñada como práctica para el desafío de Frontend Mentor. La landing page está construida utilizando React, Sass, y se han implementado las siguientes tecnologías y metodologías: Menú accesible para una mejor experiencia de usuario. Plugins de PostCSS para optimizar el código CSS .Metodología de arquitectura CSS basada en el patrón 7-1 y clases de utilidad.",
+    href: "https://easybank-fmentor.netlify.app/",
+    label: "easybank",
+    gitHub:'https://github.com/sonvice/easybank'
   },
 ];
