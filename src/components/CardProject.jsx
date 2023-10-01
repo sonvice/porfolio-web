@@ -17,9 +17,11 @@ const CardProject = ({ nunCard,titleMain }) => {
             <figure>
               <a href={figure.href} target="_blank">
                 <img
-                  className="aspect-video object-cover dark:brightness-75"
+                  className="aspect-video object-cover h-auto dark:filter-dark"
                   src={figure.img}
                   alt={figure.label}
+                  width={376*2}
+                  height={212*2}
                 />
               </a>
               <h3 className="text-base mt-sm dark:text-slate-300">{figure.title}</h3>

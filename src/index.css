@@ -12,3 +12,9 @@
 
 /* Tailwind utilities */
 @tailwind utilities;
+
+@layer utilities{
+    .filter-dark{
+        filter: brightness(.9);
+      }
+}

@@ -29,15 +29,6 @@ export const navLink = [
 
 export const figures = [
   {
-    img: imgDentis,
-    title: 'Landing Page',
-    description:
-      "Landing diseñada desde cero utilizando herramientas como Adobe XD, Photoshop,Illustrator. Para el desarrollo utilice HTML CSS3 y Vanilla JavaScript y la grid de Bootstrap",
-    href: "https://dentis1.netlify.app/",
-    label: "dentis",
-    gitHub:'https://github.com/sonvice/dentis'
-  },
-  {
     img: imgJustice,
     title: 'Landing Page',
     description:
@@ -45,6 +36,15 @@ export const figures = [
     href: "https://sonvice.github.io/justice/",
     label: "justice",
     gitHub:'https://github.com/sonvice/justice'
+  },
+  {
+    img: imgDentis,
+    title: 'Landing Page',
+    description:
+      "Landing diseñada desde cero utilizando herramientas como Adobe XD, Photoshop,Illustrator. Para el desarrollo utilice HTML CSS3 y Vanilla JavaScript y la grid de Bootstrap",
+    href: "https://dentis1.netlify.app/",
+    label: "dentis",
+    gitHub:'https://github.com/sonvice/dentis'
   },
   {
     img: imgPeople,
