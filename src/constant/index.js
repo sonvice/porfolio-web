@@ -11,7 +11,7 @@ import {
 
 export const navLink = [
   {
-    href: "/",
+    href: "",
     label: "Home",
     icon:'carbon:home'
   },
