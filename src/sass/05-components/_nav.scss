@@ -1,0 +1,20 @@
+.nav {
+  grid-area: nav;
+
+  &__list{
+    --gutter: var(--space-m);
+  }
+
+  &__link {
+    text-decoration: none;
+    --gutter: var(--space-3xs);
+    font-weight: var(--fw-semiBold);
+    text-transform: capitalize;
+  }
+
+}
+.active[aria-current="page"],.active{
+    background-size: 100% 4px;
+  }
+
+

@@ -1,0 +1,59 @@
+---
+import { getCollection } from "astro:content"
+import Layout from "../../layouts/Layout.astro";
+import { Icon } from "astro-icon";
+import CardPost from "../../components/CardPost.astro";
+export async function getStaticPaths(){
+    const posts = await getCollection('posts')
+    //Devuelve un array con con todos los tags
+    const tagsCollection = posts.map((tag) => [...tag.data.tags]);
+    // Aplanando los array con flat y new Set para generar una colección sin duplicados
+    const allTags =  [...new Set(tagsCollection.flat())];
+    //Generando rutas para cada tag
+    return allTags.map((tagTarget)=>{
+        return {
+            params:{tags: tagTarget},
+            props: {tagTarget},
+        }
+    
+    })
+}
+
+
+
+const {tagTarget} = Astro.props
+
+//Filtrando los post que contiene una etiqueta específica
+const posts = await getCollection('posts', ({data})=>{
+    return data.tags.includes(tagTarget)
+})
+
+---
+<Layout title={tagTarget} description={`Post relacionados en ${tagTarget}`}>    
+    <div class="container">
+        <nav class="nav | mt-space-3xl">
+            <ul role="list" class="nav__list | nav-post d-flex">
+                <li>
+                    <a class="nav__link | d-flex px-space-3xs py-space-xs border-animated" href={'/blog'}>
+                      <Icon name='ic:outline-article'/> Blog
+                    </a>
+                </li>
+                <span>&rsaquo;</span>
+                <li>
+                    <a class="nav__link | d-flex px-space-3xs py-space-xs border-animated" href={`/tags/${tagTarget}`}>
+                      <Icon name='carbon:tag'/> {tagTarget}
+                    </a>
+                </li>
+                <span>&rsaquo;</span>
+            </ul>
+        </nav>
+        <div class="mb-space-3xl mt-space-m">
+            <h2 class="uppercase">{tagTarget}</h2>
+        </div>
+        <ul role="list" class="blog-post | flow">
+        {posts.map((post)=>{
+            return(<CardPost post={post}/>)
+        })}
+        </ul>
+    </div>
+</Layout>

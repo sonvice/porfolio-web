@@ -3,16 +3,22 @@ import React, { useState } from "react";
 
 const Figcaption = ({ description }) => {
   const [toggle, setToggle] = useState(true);
+   
+  const showInfo = (e)=>{
+    e.preventDefault()
+    setToggle(!toggle)
+  }
 
   return (
-    <figcaption className="text-size-0 text-slate-600 dark:text-slate-400 mt-xs">
-      {toggle ? description.substring(0, 60)+'...' : description} 
-      <button
-        onClick={() => setToggle(!toggle)}
-        className="btn-link dark:text-slate-400"
+    <figcaption className="size--1 my-space-xs">
+      {toggle ? description.substring(0, 80)+'...' : description} 
+      <a href="#"
+      className="fw-semibold px-space-0"
+        onClick={(e) => showInfo(e)}
+        
       >
-        {toggle ? 'Ver más' : 'Ver menos'}
-      </button>
+        {toggle ? 'Ver más' : ' Ver menos'}
+      </a>
     </figcaption>
   );
 };

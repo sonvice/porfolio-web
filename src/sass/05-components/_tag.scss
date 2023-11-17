@@ -1,0 +1,8 @@
+.tag{
+    & a{
+        text-decoration: none;
+    }
+    &:hover a{
+        background-color: var(--color-secondary);
+    }
+}

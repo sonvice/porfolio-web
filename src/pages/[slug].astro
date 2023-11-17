@@ -1,0 +1,69 @@
+---
+import JamComments from '@jam-comments/astro';
+import { getCollection } from "astro:content"
+import Layout from "../layouts/Layout.astro";
+import Icon from "astro-icon";
+import Submit from "../components/Submit.astro";
+export async function getStaticPaths(){
+    const posts = await getCollection('posts');
+
+    return posts.map((post)=>{
+        return {
+            params: {slug: post.slug},
+            props: {post},
+        }
+    
+    })
+}
+
+//Options
+const options: Intl.DateTimeFormatOptions = {
+  weekday: "long",
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+};
+
+//Props
+const {post,url} = Astro.props 
+const { Content } = await post.render()
+---
+<Layout title={post.data.title} canonical={post.slug} description={post.data.description}>
+    <div class="hero-nav | container">
+        
+        <nav class="nav mt-space-xl">
+            <ul role="list" class="nav__list nav-post | d-flex">
+                <li>
+                    <a class="nav__link | d-flex px-space-3xs py-space-xs border-animated" href={'/'}>
+                      <Icon name='carbon:home'/> Home
+                    </a>
+                </li>
+                <span>&rsaquo;</span>
+                <li>
+                    <a class="nav__link | d-flex px-space-3xs py-space-xs border-animated active"  href={'/blog'}>
+                      <Icon name='ic:outline-article'/> Blog
+                    </a>
+                </li>
+                <span>&rsaquo;</span>
+                <li>
+                    <a href={`/${post.slug}`} class="nav__link | d-flex px-space-3xs py-space-xs"} aria-current="page">
+                      <Icon name='ph:article-medium-thin'/> {`${post.data.title.substring(0,12)} ...`}
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+<article>
+    <div class="container">
+        <div class="post mt-space-3xl flow">
+            <time datetime={post.data.date.toISOString()}>
+                {post.data.date.toLocaleDateString(undefined, options)}
+            </time>
+            <h1>{post.data.title}</h1>
+            <Content/>
+            <JamComments path={url} />
+        </div>
+        <Submit/>
+    </div>
+</article>
+</Layout>

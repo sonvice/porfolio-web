@@ -1,9 +1,7 @@
-import iconSunny from './sunny.svg'
-import gitHub from './github.svg'
-import iconMoon from './ri_moon-fill.svg'
+import logo from './logo-wilson.svg';
+import sunny from './sunny.svg'
 
 export{
-iconSunny,
-gitHub,
-iconMoon
+logo,
+sunny
 }

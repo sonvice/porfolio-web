@@ -1,0 +1,14 @@
+.footer{
+    &__info{
+        --a-horizontal:space-between;
+        --gutter:var(--space-m);
+    }
+    &__icon{
+        --gutter:var(--space-s);
+
+        & svg{
+            vertical-align: middle;
+        }
+    }
+
+}

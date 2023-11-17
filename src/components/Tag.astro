@@ -1,0 +1,8 @@
+---
+
+const {tag} = Astro.props;
+---
+
+<li class="tag | size--1">
+    <a class="p-space-3xs radius bg-color-slate-950 text-color-slate-50" href={`/tags/${tag}`}>{tag}</a>
+</li>

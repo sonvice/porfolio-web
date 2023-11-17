@@ -1,0 +1,32 @@
+---
+import Tag from "./Tag.astro";
+const options: Intl.DateTimeFormatOptions = {
+  weekday: "long",
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+};
+
+const { post } = Astro.props;
+---
+
+<li>
+  <small class="d-block size--1 my-space-xs">
+    <time datetime={post.data.date.toISOString()}>
+      {post.data.date.toLocaleDateString(undefined, options)}
+    </time>
+  </small>
+  <h3 class="size-2">
+    <a href={`/${post.slug}`}>{post.data.title}</a>
+  </h3>
+  <ul role="list" class="tag-block | d-flex mt-space-s">
+    {
+      post.data.tags.map((tag) => {
+        return <Tag tag={tag} />;
+      })
+    }
+  </ul>
+  <p class="mt-space-s">
+    {post.data.description}
+  </p>
+</li>

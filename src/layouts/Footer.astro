@@ -1,0 +1,26 @@
+---
+import { Icon } from 'astro-icon'
+let date = new Date();
+---
+
+<footer class="footer | container-lg mt-space-3xl mb-space-l">
+    <div class="footer__info | d-flex mt-space-l">     
+        <div class="footer__name d-flex">
+            <small>{`Wilson © ${date.getFullYear()}`}</small>
+            <small>
+                Este sitio está construido con <a href='https://astro.build/'>Astro</a></small>
+        </div>
+        <div class="footer__icon | d-flex">
+            <a href="https://github.com/sonvice" target="_blank" aria-label="GitHub">
+                <Icon name="prime:github"/>
+            </a>
+            <a href="https://www.linkedin.com/in/wilsonmunozc" target="_blank" aria-label="Linkedin">
+                <Icon name="prime:linkedin"/>
+            </a>
+            <a href="https://www.instagram.com/wilsonvmc" target="_blank" aria-label="Instagram">
+                <Icon name="prime:instagram"/>
+            </a>
+        </div>
+   
+    </div>
+</footer>

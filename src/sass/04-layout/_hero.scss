@@ -1,0 +1,36 @@
+@use '../01-abstracts' as ab;
+.hero{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas: "hero";
+
+    &__title{
+        --a-vertical:flex-end;
+        grid-area: hero;
+
+        @include ab.breakpoint(lg){
+            padding-inline: var(--space-l);
+            align-self: center;
+        
+        }
+
+    }
+    &__svg{
+     display: none;
+     
+        @include ab.breakpoint(lg){
+            position: relative;
+            display: block;
+            grid-row: 1;
+            grid-column: 1;
+
+        }
+    }
+    & svg{
+        fill: currentColor;
+        max-width: 100%;
+        height: auto;
+        vertical-align: middle;
+    }
+}
+

@@ -1,0 +1,13 @@
+.blog-roll {
+  --gap:var(--space-l);
+  &__item {
+    border: 1px solid var(--color-slate-600);
+    padding: var(--space-m);
+  }
+
+  & a::after{
+    content: '';
+    position: absolute;
+    inset: 0;
+}
+}

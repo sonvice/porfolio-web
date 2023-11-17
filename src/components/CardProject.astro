@@ -1,0 +1,14 @@
+---
+import Card from "./Card.astro";
+interface Props{
+    quantity?: number
+}
+
+const {quantity} = Astro.props
+---
+
+<div class="mt-space-xl">
+  <ul role="list" class="card-project | d-grid">
+    <Card quantity={quantity}/>
+  </ul>
+</div>

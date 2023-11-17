@@ -1,0 +1,17 @@
+---
+import CardProject from '../../components/CardProject.astro';
+import Layout from '../../layouts/Layout.astro'
+import Hero from '../../layouts/Hero.astro';
+import Nav from '../../components/Nav.astro';
+const description = 'Proyectos web que he realizado con tecnologías front end como HTML, CSS3, JavaScrip, Astro, React y Tailwindcss'
+---
+<Layout title='Projects' canonical='projects' description={description}>
+    <div class="hero-nav | container">
+        <Hero title='Projects'/>
+        <Nav/>
+      </div>
+    <div class="container | mt-space-3xl">
+        <h2># Proyectos</h2>
+        <CardProject>
+    </div>
+</Layout>

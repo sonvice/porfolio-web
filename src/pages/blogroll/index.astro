@@ -1,0 +1,28 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import Hero from '../../layouts/Hero.astro';
+import Nav from '../../components/Nav.astro';
+import { blogroll } from '../../constant';
+const description = 'Blogs de desarroladores Front End que sigo y que me gusta leer'
+---
+<Layout title='Blogroll' canonical='blogroll' description={description}>
+    <div class="hero-nav | container">
+        <Hero title='Blogroll'/>
+        <Nav/>
+      </div>
+      <div class="container mt-space-3xl">
+          <h2># Blogroll</h2>
+          <p class="mt-space-s">Blogs de desarroladores Front End que sigo y que me gusta leer</p>
+          <ul role="list" class="blog-roll | mt-space-xl d-grid">
+            {blogroll.map((blog)=>{
+            return(
+            <li class="blog-roll__item | relative">
+                <h2 class="size-1">{blog.author}</h2>
+                <a class="mt-space-xs d-block text-ellipsis" href={blog.link}>{blog.link}</a>
+            </li>)
+            
+            
+            })}
+          </div>
+      </div>
+</Layout>

@@ -1,0 +1,35 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Hero from "../../layouts/Hero.astro";
+import Nav from "../../components/Nav.astro";
+const description = ' Hola! Soy Wilson, Soy diseñador gráfico con gusto por el diseño y el desarrollo web moderno'
+---
+
+<Layout title="Acerca de mi" canonical="about" description={description}>
+  <div class="hero-nav | container">
+    <Hero title="About"/>
+    <Nav/>
+  </div>
+  <div class="flow mt-space-3xl container">
+    <h2 class="mb-space-xl"># Acerca de mi</h2>
+    <p>
+      ¡Hola! Soy Wilson, Diseñador gráfico con un gran interés en el desarrollo web moderno.
+    </p>
+    <p>
+      Mi aventura en el mundo del diseño y la programación web comenzó en 2008, cuando realicé un curso vacacional de "Confección de páginas web" utilizando HTML y CSS, En aquel entonces, escribíamos código directamente en el bloc de notas. Poder saber que un
+      diseño en Photoshop o en Illustrator se podía convertir a código y hacerlo
+      interacrivo me dejó asombrado y me impulsó a explorar aún más el mundo de la programación y diseño web.
+    </p>
+    <p>
+      Mi entusiasmo me llevó a estudiar diseño gráfico, con la esperanza de que las clases de programación web y diseño formaran parte del programa. Aunque esas clases fueron breves, no desistí en seguir porque es algo que me gusta hacer.
+    </p>
+    <p>
+      Luego de completar mi carrera en 2018, decidí especializarme y me inscribí en un Máster Front End. Fue en ese momento que me sumergí completamente en el diseño y desarrollo web, trabajando con código HTML, CSS y JavaScript. Conbinando mis
+      habilidades de diseño y código para construir algo desde cero e interactivo hizo un aprendizaje muy interesante.
+    </p>
+    <p>
+      Practico de manera autodidacta creando proyectos web y pequeñas App para
+      seguir mejorando mis habilidades, utilizo principalmente Figma cuando se trata de diseñar algo o hacer algun retoque de algo y tecnologías front end como HTML, CSS3 y JavaScript, junto con un dominio de tecnologías modernas como Astro, React y Tailwind CSS etc.
+    </p>
+  </div>
+</Layout>

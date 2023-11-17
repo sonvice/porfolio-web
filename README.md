@@ -1,41 +1,39 @@
-![Portafolio Web](https://i.ibb.co/grNNxnW/portafolio-wilson.jpg)
+# Wilson Muñoz Castro
 
-# Portafolio y Sitio Web Personal
+Soy un apasionado Front-end Developer y Diseñador y me encanta transformar conceptos de diseño en código HTML, CSS3 y JavaScript, conbinarlas con tecnologías modernas como Astro, React y Tailwind.
 
-¡Bienvenido a mi portafolio y sitio web personal! Aquí muestro parte de mi trabajo.
+## Tecnologías Destacadas
 
-## Acerca de mí
+- **HTML5:** Creo estructuras sólidas y semánticas para mis proyectos.
+- **CSS3:** Diseño interfaces atractivas y responsivas.
+- **JavaScript:** Agrego interactividad y dinamismo a mis paginas web.
+- **Astro:** Utilizo esta tecnología para construir sitios web rápidos y eficientes.
+- **React:** Desarrollo componentes reutilizables para construir interfaces de usuario dinámicas.
+- **Tailwind CSS:** Optimizo el flujo de trabajo con estilos utilitarios predefinidos.
+- **Photoshop:** Lo utilizo para retocar imágenes entre otras cosas
+- **Illustrator:** Me gusta utilizarlo para manipular, modificar o crear archivos SVG
+- **Figma:** Lo utilizo para crear algún prototipo web y también para archivos SVG
 
-Soy un desarrollador web con cuatro años de experiencia en la creación de sitios web interactivos y atractivos. Mi enfoque principal es utilizar las tecnologías web para dar vida a las ideas y crear experiencias únicas que puedan ayudar y resolver problemas de usuario.
+## Cómo Contactarme
 
-## Tecnologías que manejo
+Estoy siempre abierto a nuevas oportunidades y colaboraciones. ¡Siéntete libre de contactarme!
 
-A lo largo de mi carrera, he trabajado con diversas tecnologías y herramientas. Algunas de las principales incluyen:
+- **Correo Electrónico:** wvmc_es@hotmail.com
+- **LinkedIn:** [Wilson Muñoz Castro](https://www.linkedin.com/in/wilsonmunozc/)
+- **GitHub:** [sonvice](https://github.com/sonvice/)
 
-- **HTML:** Llevo cuatro años trabajando con HTML para estructurar el contenido de mis sitios web y garantizar una base sólida para la accesibilidad.
+¡Gracias por visitar mi portafolio! Espero que disfrutes explorando mis proyectos tanto como yo disfruté creándolos.
 
-- **CSS:** Durante cuatro años, he perfeccionado mis habilidades en CSS para diseñar interfaces atractivas y garantizar una experiencia de usuario agradable.
+## 🧞 Commands
 
-- **JavaScript:** Tengo una experiencia do dos años en JavaScript, lo que me permite crear interacciones dinámicas y funcionales en mis proyectos web.
+All commands are run from the root of the project, from a terminal:
 
-## Diseño Gráfico
-
-Además de mi experiencia en desarrollo web, también tengo habilidades en diseño gráfico. He trabajado con varias herramientas de diseño, incluyendo:
-
-- **Adobe Photoshop:** Utilizo Photoshop para la edición de imágenes y la creación de gráficos personalizados para mis proyectos.
-
-- **Adobe Illustrator:** Con Illustrator, puedo diseñar ilustraciones vectoriales de alta calidad pequeños logos e iconos para los sitios web.
-
-- **Figma:** Figma es mi herramienta de preferencia para diseñar interfaces de usuario, lo que me permite crear diseños colaborativos y centrados en el usuario.
-
-
-## Contacto
-
-Si deseas colaborar en un proyecto o simplemente charlar sobre desarrollo web o diseño gráfico, ¡no dudes en contactarme!
-
-- Correo electrónico: [wvmc_es@example.com](mailto:wvmc_es@hotmail.com)
-- LinkedIn: [wilsonmunozc](https://www.linkedin.com/in/wilsonmunozc/)
-- Twitter: [@wilvmc](https://twitter.com/wilvmc)
-
-¡Gracias por visitar mi sitio web!
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `npm install`             | Installs dependencies                            |
+| `npm run dev`             | Starts local dev server at `localhost:4321`      |
+| `npm run build`           | Build your production site to `./dist/`          |
+| `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `npm run astro -- --help` | Get help using the Astro CLI                     |
 

@@ -1,0 +1,38 @@
+---
+import { Image, Picture } from 'astro:assets';
+import { projects } from "../constant";
+import Figcaption from "./Figcaption";
+import { Icon } from 'astro-icon'
+
+interface Props{
+    quantity?:number,
+}
+
+const {quantity} = Astro.props
+
+---
+
+{
+    projects.slice(quantity).map((project) => {
+      return (
+        <li class="card">
+          <figure>
+            <a href={project.href} target="_blank" rel="noopener">
+              <Image src={project.img} widths={[ project.img.width / 1.5, project.img.width ]}  sizes={`(max-width: 39.9em) ${project.img.width / 2}px, ${project.img.width}px`}  alt={project.description}/>
+             
+            </a>
+            <h3 class="mt-space-m">{project.title}</h3>
+            <Figcaption client:visible description={project.description} />
+            </figure>
+          <div class="fw-semibold d-flex size--1 mt-space-xs mb-space-l">
+            <a class="card__link | d-flex" href={project.href} target="_blank" rel="noopener" aria-label={project.title}>
+              {project.title} <Icon name="ion:open-outline" width="1em" heigh="1em"/>
+            </a>
+            <a class="card__link-github" href={project.gitHub} target="_blank" rel="noopener" aria-label={project.title}>
+              <Icon name="prime:github"/>
+            </a>
+          </div>
+        </li>
+      );
+    })
+  }

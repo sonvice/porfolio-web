@@ -1,0 +1,15 @@
+@use '../01-abstracts' as ab;
+.card{
+
+    & figure{
+        border-bottom: 1px solid var(--color-slate-600);
+    }
+
+    &__link{
+        --gutter:var(--space-2xs);
+    }
+
+    &__link-github{
+        line-height: normal;
+    }
+}
