@@ -118,7 +118,6 @@ export const blogroll = [
   {author:'Cassie Evans',link:'https://www.cassie.codes/'},
   {author:'Chen Hui-Jing',link:'https://chenhuijing.com/'},
   {author:'Chris Coyier',link:'https://chriscoyier.net/'},
-  {author:'Eric Bailey',link:'https://ericwbailey.design/'},
   {author:'Hidde de Vries',link:'https://hidde.blog/'},
   {author:'Josh W Comeau',link:'https://joshwcomeau.com/'},
   {author:'Lea Verou',link:'https://lea.verou.me/'},
@@ -130,4 +129,5 @@ export const blogroll = [
   {author:'Una Kravets',link:'https://una.im/'},
   {author:'Aleksandr',link:'https://www.aleksandrhovhannisyan.com/'},
   {author:'Dan Mall',link:'https://danmall.com/'},
+  {author:'Jim Nielsen',link:'https://blog.jim-nielsen.com/'},
 ]
