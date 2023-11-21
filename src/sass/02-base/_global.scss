@@ -4,7 +4,7 @@
 
   @media (prefers-color-scheme: dark){
       --color-bg:var(--color-slate-950);
-      --color-txt:var(--color-slate-50);
+      --color-txt:var(--color-slate-300);
       --filter-dark:var(--filter);
       --color-svg: var(--color-primary);
   }
@@ -111,8 +111,9 @@ li {
   max-width: 68ch;
   font-weight: var(--fw-regular);
 }
-p {
+p,figcaption {
   line-height: 1.75;
+  color: var(--color-txt, var(--color-slate-600));
 }
 
 h1 {
