@@ -28,7 +28,7 @@ const options: Intl.DateTimeFormatOptions = {
 const {post,url} = Astro.props 
 const { Content } = await post.render()
 ---
-<Layout title={post.data.title} canonical={post.slug} description={post.data.description}>
+<Layout title={post.data.title} canonical={`/${post.slug}`} description={post.data.description}>
     <div class="hero-nav | container">
         
         <nav class="nav mt-space-xl">

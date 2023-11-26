@@ -29,18 +29,18 @@ const posts = await getCollection('posts', ({data})=>{
 })
 
 ---
-<Layout title={tagTarget} description={`Post relacionados en ${tagTarget}`}>    
+<Layout title={tagTarget} canonical={`/${tagTarget}`} description={`Post relacionados en ${tagTarget}`}>    
     <div class="container">
         <nav class="nav | mt-space-3xl">
             <ul role="list" class="nav__list | nav-post d-flex">
                 <li>
-                    <a class="nav__link | d-flex px-space-3xs py-space-xs border-animated" href={'/blog'}>
+                    <a class="nav__link | d-flex px-space-3xs py-space-xs border-animated active" href={'/blog'}>
                       <Icon name='ic:outline-article'/> Blog
                     </a>
                 </li>
                 <span>&rsaquo;</span>
                 <li>
-                    <a class="nav__link | d-flex px-space-3xs py-space-xs border-animated" href={`/tags/${tagTarget}`}>
+                    <a class="nav__link | d-flex px-space-3xs py-space-xs border-animated" aria-current="page" href={`/tags/${tagTarget}`}>
                       <Icon name='carbon:tag'/> {tagTarget}
                     </a>
                 </li>
