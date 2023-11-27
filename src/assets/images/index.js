@@ -10,6 +10,8 @@ import imgPeople from './people.jpg'
 import imgEasybank from './easybank.jpg'
 import imgBoldo from './boldo.png'
 
+//import socialImg from './default-social.png'
+
 
 
 
@@ -23,6 +25,6 @@ imgPeli,
 imgPeople,
 imgCodeDark,
 imgEasybank,
-imgBoldo
+imgBoldo,
 
 }
