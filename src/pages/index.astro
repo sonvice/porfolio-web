@@ -8,8 +8,8 @@ const allPosts = await getCollection("posts");
 import Hero from "../layouts/Hero.astro";
 import Nav from "../components/Nav.astro";
 
-const personal = '🖥️Con +4 años de experiencia en diseño y desarrollo web, tengo muy buen dominio de HTML5, CSS3 y JavaScript y en programas de Adobe como son Photoshop e Illustrator, así como tecnologías modernas como Astro, React y Tailwind.'
-const {canonicalURL,project} = Astro.props
+const personal = 'Experto con +4 años en diseño y desarrollo web. Dominio de HTML5, CSS3, JavaScript, Adobe (Photoshop, Illustrator) y tecnologías modernas como Astro, React y Tailwind. 🖥️'
+const {canonicalURL} = Astro.props
 ---
 
 <Layout title="Front End Developer | Designer" canonical={canonicalURL} description={personal}>
