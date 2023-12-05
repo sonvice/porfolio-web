@@ -1,0 +1,29 @@
+---
+
+---
+
+<p class="mt-space-2xl">¿Tiene alguna pregunta o comentario? Déjame un mensaje para ponernos en contacto.</p>
+<form
+  name="contact"
+  method="POST"
+  data-netlify-recaptcha="true"
+  data-netlify="true"
+  class="submit | flow mt-space-m"
+>
+  <p class="d-flex">
+    <label class="visually-hidden">
+      Email: 
+    </label>
+    <input class="submit__input-mail" required type="text" placeholder="email" name="name" />
+  </p>
+  <p class="d-flex">
+    <label class="visually-hidden">
+      Message: 
+    </label>
+    <textarea name="message" required rows="4" cols="50"  placeholder="Message"></textarea>
+  </p>
+  <div data-netlify-recaptcha="true"></div>
+  <p>
+    <button class="submit__button | bg-color-primary" type="submit">Send</button>
+  </p>
+</form>

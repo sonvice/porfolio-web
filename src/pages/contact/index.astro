@@ -1,0 +1,19 @@
+---
+import Contact from "../../components/Form.astro";
+import Layout from "../../layouts/Layout.astro";
+import Hero from "../../layouts/Hero.astro";
+import Nav from "../../components/Nav.astro";
+const {canonicalURL} = Astro.props
+---
+
+<Layout title="Contact" canonical={canonicalURL} description='Mi formulario de contacto'>
+    <header class="container">
+
+        <Hero title="Contact" />
+        <Nav />
+    </header>
+    <main class="container">
+
+        <Contact/>
+    </main>
+</Layout>

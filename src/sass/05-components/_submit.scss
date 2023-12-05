@@ -6,32 +6,23 @@
     @include ab.breakpoint(sm){
     --gutter:0;
     }
-    &__input-mail,&__button{
+    &__input-mail,&__button,textarea{
         padding-inline:var(--space-xs);
         padding-block: var(--space-xs);
         border-radius: 4px;
     }
-    &__input-mail{
-        flex-grow: 2;
+    &__input-mail,textarea{
+        flex-grow: 1;
         flex-basis: ab.px-to-rem(400px);
         border: none;
         border: 1px solid var(--color-slate-600);
-        @include ab.breakpoint(sm){
-            border-top-left-radius: 4px;
-            border-bottom-left-radius: 4px;
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
-            }
+        border-radius: 4px;
+
     }
 
     &__button{
     flex-grow: 1;
-    @include ab.breakpoint(sm){
-        border-top-right-radius: 4px;
-        border-bottom-right-radius: 4px;
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-        }
+    border-radius: 4px;
     &:hover{
         background-color: var(--color-redDark);
     }

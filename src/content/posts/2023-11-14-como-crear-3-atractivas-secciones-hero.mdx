@@ -3,7 +3,7 @@ tags: [html, css, css-grid, desing]
 date: 2023-11-14
 featured: false
 image: ./images/como-crear-3-atractivas-secciones-hero/01.jpg
-title: Cómo Crear 3 Atractivas Secciones Hero con CSS Grid y Seudoelementos
+title: ¿Cómo Crear 3 Atractivas Secciones Hero con CSS Grid y Seudoelementos?
 slug: como-crear-3-atractivas-secciones-hero-con-css-grid-y-seudoelementos
 description: >
     Optimiza tu Diseño Web: Cómo Crear 3 Atractivas Secciones Hero con CSS Grid y Seudoelementos
@@ -48,7 +48,7 @@ A continuación te muestro una imagen y luego el código de como esta funcionand
     <div class="C">C</div>
     <div class="D">D</div>
     <div class="E">E</div>
-</div>`} lang="html" theme='monokai'/>
+</div>`} lang="html" theme='slack-dark'/>
 Definimos nuestros elementos html en nuestro grid container
 
 <Code code={`.grid {
@@ -60,7 +60,7 @@ Definimos nuestros elementos html en nuestro grid container
     "A A A B B B"
     "A A A B B B"
     "C C D D E E";
-}`} lang="css" theme='monokai'/>
+}`} lang="css" theme='slack-dark'/>
 Creamos las areas a ocupar, en este caso son seis áreas de las cuales A y B ocupan tres columnas y dos filas y C, D y E ocupan dos columnas cada una.
 
 <Code code={`.A {
@@ -77,7 +77,7 @@ Creamos las areas a ocupar, en este caso son seis áreas de las cuales A y B ocu
 }
 .E {
   grid-area: E;
-}`} lang="css" theme='monokai'/>
+}`} lang="css" theme='slack-dark'/>
  
 Cada elemento se colocará en su área reservada asígnandole la propiedad `grid-area` y su valor respectivo, [visualiza nuestro ejemplo en vivo](https://2y3qv2.csb.app/).
 
@@ -99,7 +99,7 @@ Empezamos con nuestro marcado, contaremos con nuestro contedio de texto más el 
         </div>
     </div>
     <img src="./images/hero-img.jpg" alt="Hero img">
-</header>`} lang='html' theme="monokai" />
+</header>`} lang='html' theme='slack-dark'/>
 
 <Code code={`header{
     display: grid;
@@ -108,7 +108,7 @@ Empezamos con nuestro marcado, contaremos con nuestro contedio de texto más el 
     place-items: center;
     overflow: hidden;
     background-color: rgba(0, 0, 0, 0.5);
-}`} lang="css" theme='monokai' />
+}`} lang="css" theme='slack-dark'/>
 
 <Picture  widths={[720, gridHero.width]} sizes={`(min-width: 39.9em) 720px`}  src={gridHero} alt="Gif mostrando las grid áreas en firefox"/>
 
@@ -118,16 +118,16 @@ El primer hijo principal que es nuestro texto y queda dentro del área pero nues
 
 <Code code={`header > *{
     grid-area: hero;
-}`} lang="css" theme='monokai' />
+}`} lang="css" theme='slack-dark' />
 
 Aquí le estamos diciendo que todos los hijos directos de `<header>` acupen toda el área **hero** que hemos nombrado antes en nuestro container grid
 
 <Code code={`img{
-height: 90vh;
-object-fit: cover;
-width: 100%;
-z-index: -1;
-}`} lang="css" theme='monokai' />
+    height: 90vh;
+    object-fit: cover;
+    width: 100%;
+    z-index: -1;
+}`} lang="css" theme='slack-dark' />
 
 A nuestra imagen le vamos da dar un alto definido igual a su contenedor padre para que en tamaños de pantallas más pequenas se adapte bien, y el `object-fit: cover;` para que cubra todo el contenedor y no se deforme nuestra imagen.
 
@@ -145,7 +145,7 @@ Veamos como va quedando, con el `z-index: -1;` esta indicando que se coloque por
     grid-area: hero;
     width: 100%;
     height: 100%;
-}`} lang="css" theme='monokai' />
+}`} lang="css" theme='slack-dark' />
 
 Ahora es el turno de nuestro elemento `::after` que serán unas líneas verticales con una opacidad de un 50% y acupara toda el área, como ves no ha sido necesario posicionarlo con un `z-index` ya que al estar después de nuestro elemento principal no ha hecho falta ya que por delante esta nuestro texto principal.
 
@@ -186,7 +186,7 @@ La estructura de nuestro segundo hero cambiará un poco, todo nuestro contenido 
           </div>
     </div>
     <img src="./images/hero-img.jpg" alt="Hero img">
-</header>`} lang="html" theme="monokai"/>
+</header>`} lang="html" theme='slack-dark'/>
 
 La mayoría de los estilos de nuestro primer hero nos servirá para este ejemplo, no me explayaré mucho ya que a estas alturas ya sabes como posicionar los elementos en un grid container y me centraré en nuestro contenedor con la clase **hero__content** que es donde esta la magia para este segundo ejemplo.
 
@@ -200,7 +200,7 @@ Te dejo un link para que puedas ver y revisar el códgio completo de [nuestro se
     align-items: center;
     justify-content: center;
     padding: 10vh 2rem;
-}`} lang="css" theme="monokai"/>
+}`} lang="css" theme='slack-dark'/>
 
 Además de nuestro `<header>` nuesto **.hero__content** tambien le daremos la propiedades de `display:grid`, y crearemos la dos columnas con la propiedad `grid-template-columns: repeat(auto-fit,minmax(34ch,auto));`, con esta propiedad le estamos diciendo que cree columnas automáticas con un minimo de ancho de 34ch y auto que sería lo que mida el contenido, la unidad relativa **ch** sigifica **(Medida de avance (ancho) del glifo "0" de la letra del elemento)**, alineamos nuestros elementos tanto horizontal como verticalmene y añadimos un padding para un mejor espacio en pantallas pequenas.
 
@@ -211,7 +211,7 @@ Además de nuestro `<header>` nuesto **.hero__content** tambien le daremos la pr
     background-image: linear-gradient(90deg,#3A00DB 50%,#2bd5d9);
     background-repeat: no-repeat;
     align-self: end;
-}`} lang="css" theme="monokai"/>
+}`} lang="css" theme='slack-dark'/>
 
 Ahora nuestro degradado en le pie de nuestro segundo hero, que es un seudoelemento, el cual ocupa toda el área **hero** con un alto de 4px y un gradiente que le da un aspecto moderno, y finalmente alineamos `align-self: end;` nuestro gradiente para que quede al final.
 
@@ -237,7 +237,7 @@ solo he sustituido el formulario por la imagen.
             <img src="./images/img.png" width="614" height="721" alt="Hero img">
         </div>
     </div>
-</header>`} lang='html' theme='monokai'/>
+</header>`} lang='html' theme='slack-dark'/>
 
 La diferencia esta en que hemos añadido dos seudoelementos, te dejo el link de nuestro tercer hero para que [mires el diseño y el código.](https://codepen.io/sonvice/pen/qBgVgze)
 

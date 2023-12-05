@@ -7,9 +7,10 @@ import { getCollection } from "astro:content";
 import Submit from "../../components/Submit.astro";
 const allPosts = await getCollection("posts");
 const description = 'Blog | Wilson Muñoz Castro, Front-end developer, designer, me gusta convertir diseños a código con HTML5, CSS3, JavaScript | Astro, React, Tailwindcss'
+const {canonicalURL} = Astro.props
 ---
 
-<Layout title="Blog" canonical="/blog" description={description}>
+<Layout title="Blog" canonical={canonicalURL} description={description}>
   <div class="hero-nav | container">
     <Hero title="Blog" />
     <Nav />
@@ -18,7 +19,7 @@ const description = 'Blog | Wilson Muñoz Castro, Front-end developer, designer,
     <h2 class="mb-space-xl"># Blog</h2>
     <ul role="list" class="blog-post | flow">
       {
-        allPosts.map((post) => {
+        allPosts.reverse().map((post) => {
           return (
             <CardPost post={post}/>
           );

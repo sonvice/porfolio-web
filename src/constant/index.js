@@ -42,6 +42,7 @@ export const projects = [
     description:
       "De los primeros proyectos es una landing para abogados diseñada desde cero, herramientas utilizadas en este proyecto Adobe XD, Photoshop, Illustrator, para el código HTML CSS JavaScript también utilice librerias JavaScript para los slider y otra para efectos de scroll",
     href: "https://sonvice.github.io/justice/",
+    alt:'Screenshot de una landing page moderna para abogados',
     label: "justice",
     gitHub:'https://github.com/sonvice/justice'
   },
@@ -51,6 +52,7 @@ export const projects = [
     description:
       "Landing diseñada desde cero utilizando herramientas como Adobe XD, Photoshop,Illustrator. Para el desarrollo utilice HTML CSS3 y Vanilla JavaScript y la grid de Bootstrap",
     href: "https://dentis1.netlify.app/",
+    alt:'Screenshot de una landing page moderna de una clínica dental',
     label: "dentis",
     gitHub:'https://github.com/sonvice/dentis'
   },
@@ -60,33 +62,19 @@ export const projects = [
     description:
       "También es un proyecto de una landing page diseñada desde cero, con Photoshop para el retoque de imágenes, e Illustrator para los vectores como logo e iconos. Librerias Js para el slider y css moderno utilizando variables css",
     href: "https://clinica1.netlify.app/",
+    alt:'Screenshot de una landing page moderna con temática de un clínica',
     label: "people",
     gitHub:'https://github.com/sonvice/clinic'
   },
-  {
-    img: imgGalllery,
-    title: 'App | Download Images',
-    description:
-      "Galería de imágenes consumiendo una api, utilice JavaScript Vanilla y funciones como localStorage para poder guardar las imagenes favoritas que se elijan, css moderno, como grid y variables",
-    href: "https://save-gallery.netlify.app/",
-    label: "gallery",
-    gitHub:'https://github.com/sonvice/save-galeria/tree/main'
-  },
-  {
-    img: imgPeli,
-    title: 'App | Current Movies',
-    description:
-      "Es una pequeña app para ver los thiller de las últimas películas, en este proyecto se consume una api TMDB con JavaScript, listando tanto las últimas películas como series de Tv.",
-    href: "https://thrillers-populares.netlify.app/",
-    label: "peli",
-    gitHub:'https://github.com/sonvice/thrillers-populares'
-  },
+
+
   {
     img: imgCareerrist,
     title: 'Careerist | Landing Page',
     description:
       "Este proyecto es un clon de la página web 'careerist.com' desarrollado en React. Careerist es una plataforma líder en la búsqueda de empleo y desarrollo profesional, y este clon se ha creado con el propósito de aprender y demostrar mis habilidades en desarrollo web utilizando React y Tailwind CSS.",
     href: "https://clon-careerist.netlify.app/",
+    alt:'Screenshot de una landing page careerist.com, construida utilizando React',
     label: "careerist",
     gitHub:'https://github.com/sonvice/clon-careerist.com'
   },
@@ -96,6 +84,7 @@ export const projects = [
     description:
       "Este proyecto es una landing page diseñada como práctica para el desafío de Frontend Mentor. La landing page está construida utilizando React, Sass, y se han implementado las siguientes tecnologías y metodologías: Menú accesible para una mejor experiencia de usuario. Plugins de PostCSS para optimizar el código CSS .Metodología de arquitectura CSS basada en el patrón 7-1 y clases de utilidad.",
     href: "https://easybank-fmentor.netlify.app/",
+    alt:'Screenshot de una landing page, construida utilizando React, Sass',
     label: "easybank",
     gitHub:'https://github.com/sonvice/easybank'
   },
@@ -105,11 +94,34 @@ export const projects = [
     description:
       "Este proyecto es un sitio web que ha sido desarrollado utilizando Astro Framework, React, Sass y JavaScript. El objetivo principal de este proyecto es traducir un diseño de Figma en un sitio web accesible y optimizado.",
     href: "https://boldo-figma.netlify.app/",
+    alt:'Screenshot de una landing page, desarrollada utilizando Astro Framework, React, Sass y JavaScript.',
     label: "boldo",
     gitHub:'https://github.com/sonvice/figma-to-code'
   },
 ];
 
+export const projectsApp =[
+  {
+    img: imgGalllery,
+    title: 'App | Download Images',
+    description:
+      "Galería de imágenes consumiendo una api, utilice JavaScript Vanilla y funciones como localStorage para poder guardar las imagenes favoritas que se elijan, css moderno, como grid y variables",
+    href: "https://save-gallery.netlify.app/",
+    alt:'Screenshot de una galería de imágenes consumiendo una API, construida utilizando JavaScript',
+    label: "gallery",
+    gitHub:'https://github.com/sonvice/save-galeria/tree/main'
+  },
+  {
+    img: imgPeli,
+    title: 'App | Current Movies',
+    description:
+      "Es una pequeña app para ver los thiller de las últimas películas, en este proyecto se consume una api TMDB con JavaScript, listando tanto las últimas películas como series de Tv.",
+    href: "https://thrillers-populares.netlify.app/",
+    alt:'Screenshot de un pequeña App para ver los thiller de las últimas películas y series',
+    label: "peli",
+    gitHub:'https://github.com/sonvice/thrillers-populares'
+  },
+]
 
 export const blogroll = [
   {author:'Ahmad Shadeed',link:'https://ishadeed.com/'},

@@ -3,10 +3,10 @@ import Layout from "../../layouts/Layout.astro";
 import Hero from "../../layouts/Hero.astro";
 import Nav from "../../components/Nav.astro";
 const description = ' Hola! Soy Wilson, Soy diseñador gráfico con gusto por el diseño y el desarrollo web moderno'
-const {canonical} = Astro.props
+const {canonicalURL} = Astro.props
 ---
 
-<Layout title="Acerca de mi" canonical='/about' description={description}>
+<Layout title="Acerca de mi" canonical={canonicalURL} description={description}>
   <div class="hero-nav | container">
     <Hero title="About"/>
     <Nav/>

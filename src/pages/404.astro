@@ -3,8 +3,9 @@ import Layout from "../layouts/Layout.astro";
 import Hero from "../layouts/Hero.astro";
 import Nav from "../components/Nav.astro";
 const err  = 'Error 404'
+const {canonicalURL} = Astro.props
 ---
-<Layout title="404" canonical="/404" description="Página no encontrada">
+<Layout title="404" canonical={canonicalURL} description="Página no encontrada">
     <div class="container">
         <Hero title="Hola! esta página no existe" personal={err}/>
         <Nav/>

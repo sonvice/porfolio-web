@@ -4,8 +4,9 @@ import Hero from '../../layouts/Hero.astro';
 import Nav from '../../components/Nav.astro';
 import { blogroll } from '../../constant';
 const description = 'Blogs de desarroladores Front End que sigo y que me gusta leer'
+const {canonicalURL} = Astro.props
 ---
-<Layout title='Blogroll' canonical='/blogroll' description={description}>
+<Layout title='Blogroll' canonical={canonicalURL} description={description}>
     <div class="hero-nav | container">
         <Hero title='Blogroll'/>
         <Nav/>

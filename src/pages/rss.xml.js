@@ -15,7 +15,7 @@ import { getCollection } from "astro:content"
         items: posts.map((post) => ({
           title: post.data.title,
           pubDate: post.data.date,
-          link: `/blog/${post.slug}/`,
+          link: `/${post.slug}/`,
           // Nota: esto no procesará componentes ni expresiones JSX en archivos MDX.
           content: sanitizeHtml(parser.render(post.body)),
           ...post.data,

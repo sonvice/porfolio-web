@@ -9,7 +9,8 @@ interface Props {
 }
 
 const { title,description,canonical } = Astro.props;
-
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const socialImageURL = new URL('/default-social.png', Astro.url);
 import '../sass/style.scss'
 
 ---
@@ -22,7 +23,7 @@ import '../sass/style.scss'
 		<meta property="og:type" content="website">
 		<meta property="og:url" content="https://wilsonmunoz.com">
 		<meta property="og:description" content={description}>
-		<meta property="og:image" content="/default-social.png">
+		<meta property="og:image" content={socialImageURL}>
 		<meta name="description" content={description}>
 		<!-- Twitter Meta Tags -->
 		<meta name="twitter:card" content="summary_large_image">
@@ -43,7 +44,7 @@ import '../sass/style.scss'
 		<meta name="color-scheme" content="normal">
 		<meta name="theme-color" content="#ffffff" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="canonical" href=`https://wilsonmunoz.com${canonical}`/>
+		<link rel="canonical" href={canonicalURL}/>
 		<title>{`Wilson Muñoz Castro | ${title}` }</title>
 		<ViewTransitions />
 	</head>

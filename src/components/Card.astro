@@ -1,24 +1,21 @@
 ---
 import { Image, Picture } from 'astro:assets';
-import { projects } from "../constant";
 import Figcaption from "./Figcaption";
 import { Icon } from 'astro-icon'
 
-interface Props{
-    quantity?:number,
-}
 
-const {quantity} = Astro.props
+
+const {quantity,project} = Astro.props
 
 ---
 
 {
-    projects.slice(quantity).map((project) => {
+    project.slice(quantity).map((project) => {
       return (
         <li class="card">
           <figure>
             <a href={project.href} target="_blank" rel="noopener">
-              <Image src={project.img} widths={[ project.img.width / 1.5, project.img.width ]}  sizes={`(max-width: 39.9em) ${project.img.width / 2}px, ${project.img.width}px`}  alt={project.description}/>
+              <Image src={project.img} widths={[ project.img.width / 1.5, project.img.width ]}  sizes={`(max-width: 39.9em) ${project.img.width / 2}px, ${project.img.width}px`}  alt={project.alt}/>
              
             </a>
             <h3 class="mt-space-m">{project.title}</h3>
