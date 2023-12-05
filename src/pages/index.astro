@@ -7,19 +7,18 @@ import { getCollection } from "astro:content";
 const allPosts = await getCollection("posts");
 import Hero from "../layouts/Hero.astro";
 import Nav from "../components/Nav.astro";
-const description = 'Wilson Muñoz Castro, Front-end developer, designer, me gusta convertir diseños a código con HTML5, CSS3, JavaScript | Astro, React, Tailwindcss'
 
 const personal = '🖥️Con +4 años de experiencia en diseño y desarrollo web, tengo muy buen dominio de HTML5, CSS3 y JavaScript y en programas de Adobe como son Photoshop e Illustrator, así como tecnologías modernas como Astro, React y Tailwind.'
 const {canonicalURL,project} = Astro.props
 ---
 
-<Layout title="Front End Developer | Designer" canonical={canonicalURL} description={description}>
+<Layout title="Front End Developer | Designer" canonical={canonicalURL} description={personal}>
   <div class="container">
       <Hero title="Hola!👋, Soy Wilson" personal={personal}/>
       <Nav/>
     <h2 class="mt-space-3xl"># Últimos Proyectos</h2>
     <CardProject quantity={-2} project={projects}/>
-    <h2 class="mb-space-xl mt-space-xl"># Último Post</h2>
+    <h2 class="mb-space-xl mt-space-2xl"># Último Post</h2>
     <ul role="list" class="blog-post | flow">
       {
         allPosts.slice(-1).map((post) => {
