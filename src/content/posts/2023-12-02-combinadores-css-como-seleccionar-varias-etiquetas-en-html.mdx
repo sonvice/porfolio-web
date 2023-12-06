@@ -44,7 +44,7 @@ En este tutorial, exploraré los combinadores que posibilitan la utilización de
 
 <Picture quality={100} src={hermanoG} widths={[720, hermanoG.width]}  sizes={`(min-width: 39.9em) 720px`} alt="Esquema del combinador de hermanos generales (~)"/>
 
-**Combinador de hermanos generales (~)**: Selecciona todos los elementos que siguen a otro elemento y ambos tienen el mismo padre. Ejemplo: `h2 ~ p` selecciona todos los elementos span que están después de un párrafo. Esto cambiará el color y añade una línea inferior de todos los elementos p que están después de un h2.
+**Combinador de hermanos generales (~)**: Selecciona todos los elementos que siguen a otro elemento y ambos tienen el mismo padre. Ejemplo: `h2 ~ p` selecciona todos los elementos p que están después de un encabezado de nivel 2. Esto cambiará el color y añade una línea inferior de todos los elementos p que están después de un h2.
 
 <Code code={`h2 ~ p {
   text-decoration: underline;
