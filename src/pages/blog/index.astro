@@ -4,7 +4,6 @@ import Hero from "../../layouts/Hero.astro";
 import Nav from "../../components/Nav.astro";
 import CardPost from "../../components/CardPost.astro";
 import { getCollection } from "astro:content";
-import Submit from "../../components/Submit.astro";
 const allPosts = await getCollection("posts");
 const description = 'Blog | Wilson Muñoz Castro, Front-end developer, designer, me gusta convertir diseños a código con HTML5, CSS3, JavaScript | Astro, React, Tailwindcss'
 const {canonicalURL} = Astro.props
