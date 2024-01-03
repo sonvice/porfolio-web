@@ -1,7 +1,6 @@
-import  designThinkig  from "./design-thinking-web.jpg";
-import diagrama from './diagrama-design-thinking.png'
+import esquema from './esquema-design-thinking.png';
+
 
 export{
-    designThinkig,
-    diagrama
+    esquema,
 }

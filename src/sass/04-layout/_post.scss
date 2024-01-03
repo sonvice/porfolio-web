@@ -6,8 +6,8 @@
         margin-left: 50%;
     }
 
-    & h2,pre,picture,ol{
-        --flow:var(--space-xl);
+    & h2,h3,pre,picture,ol{
+        --flow:var(--space-xl); 
     }
 
     & blockquote{
@@ -41,5 +41,9 @@
             height: 100%;
             background-color: hsl(var(--color-secondary-hsl));
         }
+    }
+    & strong svg{
+        vertical-align: sub;
+    margin-right: .5rem;
     }
 }
