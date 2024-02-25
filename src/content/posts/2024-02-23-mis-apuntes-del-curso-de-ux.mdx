@@ -1,0 +1,256 @@
+---
+tags: [UX, design,figma]
+date: 2024-02-23
+featured: false
+image: ./images/mis-apuntes-del-curso-de-ux/maqueta-de-alta-fidelidad.png
+title: > 
+    Mis apuntes del curso de UX de Google: ¿Cómo diseñar una página web o un producto digital desde cero?
+slug: mis-apuntes-del-curso-de-ux-de-google-como-disenar-una-pagina-web-o-un-producto-digital-desde-cero
+description: >
+    En este curso, aprendí los fundamentos del diseño UX y cómo aplicarlos a la creación de una página web o un producto digital desde cero.
+---
+import { Picture } from "astro:assets"
+import { personas,historyUser, userMap, problem,esquema,prototipoBajo,mapaSitio, maquetaAlta } from './images/mis-apuntes-del-curso-de-ux'
+ 
+> En este curso, aprendí los fundamentos del diseño UX(Metodología de diseño, Wireframes, Prototipos,Tipografía etc.) y cómo aplicarlos a la creación de una página web o un producto digital desde cero.
+
+## La empatía
+
+Ante de empezar a diseñar tenemos que empatizar, y no es nada más que comprender los sentimientos o pensamientos de otra persona en una situación determinada. Como diseñadores de UX, debemos comprender en gran medida los sentimientos o pensamientos de los usuarios para diseñar productos que sean realmente útiles, agradables y accesibles.
+Para este ejemplo lo haremos bajo la consigna: **"Diseñar una web centrada en el usuario para la donación de alimentos"**
+### **¿Y cómo lo hacemos?**
+Debemos realizar una investigación y hablar con usuarios reales para **descubrir sus dificultades**, es decir, cualquier problema de UX que frustre al usuario y bloquee al usuario a la hora de obtener lo que necesita.
+
+### Personas
+Una vez hecha la investigación del usuario, es el momento de crear personas,
+las personas son usuarios ficticios cuyos objetivos y características representan las necesidades de un grupo más amplio de usuarios reales.
+
+<Picture quality={100} src={personas} widths={[720, personas.width]}  sizes={`(min-width: 39.9em) 720px`} alt="Pensonas en base a investigación ux"/>
+
+### Historia de usuario
+Como recordatorio, una historia de usuario es una historia ficticia, narrada en una frase desde el punto de vista de la persona para inspirar y fundamentar las decisiones de diseño.
+
+También resaltan un problema o necesidad del usuario para que los desarrolladores de software puedan determinar qué características priorizar e incorporar en un producto.
+
+Puedes usar este formato para escribir historias de usuarios: 
+Soy un **_tipo de usuario_** (quién) y quiero hacer una **_acción_** (qué) para producir un **_beneficio_** (por qué).
+
+<Picture quality={100} src={historyUser} widths={[720, historyUser.width]}  sizes={`(min-width: 39.9em) 720px`} alt="Historia de usuario en ux"/>
+
+### Mapas de recorrido del usuario
+Crear la mejor experiencia del usuario requiere trazar los pasos, o **el recorrido**, que los usuarios realizarán cuando interactúen con el diseño. Como recordatorio, un **recorrido del usuario** es la serie de experiencias que tiene un usuario a medida que va realizando acciones para alcanzar un objetivo específico.
+
+<Picture quality={100} src={userMap} widths={[720, userMap.width]}  sizes={`(min-width: 39.9em) 720px`} alt="Mapa de recorrido de usuario"/>
+
+## Definición
+
+La etapa de **_definición_** es donde se establecerá una idea clara de exactamente qué problema se resolverá para el usuario.
+Luego, hay que dar forma a un **_planteamiento del problema_** que actuará como brújula durante todo el proceso de diseño.
+
+Como segundo paso en el proceso de Design Thinking, la etapa de definición está dedicada a definir el problema: ¿qué problema de usuario intentará resolver? En otras palabras, ¿cuál es su desafío de diseño?
+
+La etapa de definición está precedida por la **_fase de empatía_** , donde se habrá aprendido todo lo posible sobre sus usuarios, realizando entrevistas y utilizando una variedad de técnicas de inmersión y observación. 
+
+La etapa de definición garantiza que **comprender completamente** el objetivo del proyecto de diseño.
+
+Una vez que se haya empatizado con los usuarios, se puede pasar a la segunda etapa del proceso de Design Thinking.
+
+Durante la fase de definición, se creará un **planteamiento del problema**, que es una descripción clara de la necesidad del usuario que debe abordarse. 
+
+Recuerdar que se puedes crear fácilmente un planteamiento del problema usando esta plantilla:
+
+**_[Nombre de usuario]_** es un/a **_[características del usuario]_** que necesita **_[necesidad del usuario]_** porque [idea].
+
+
+
+### Preguntas correctas para el planteamiento del problema
+
+Hacer las preguntas correctas le ayudará a identificar el planteamiento correcto del problema. Con todos los hallazgos de la fase de empatía en un solo lugar, pregúntese las cuatro preguntas: ¿ Quién , qué , dónde y por qué?
+
+**_¿Quién está experimentando el problema?_** En otras palabras, ¿quién es su usuario objetivo? ¿Quién será el foco del planteamiento de su problema?
+
+**_¿Cuál es el problema?_** Según las observaciones que hizo durante la fase de empatía, ¿cuáles son los problemas y puntos débiles que surgieron con frecuencia? ¿Qué tarea intenta realizar el usuario y qué se interpone en su camino?
+
+**_¿Dónde se presenta el problema?_** ¿En qué espacio (físico o digital), situación o contexto se encuentra el usuario cuando enfrenta este problema? ¿Hay otras personas involucradas?
+
+**_¿Por qué eso importa?_** ¿Por qué es importante que se solucione este problema? ¿Qué valor aportaría una solución al usuario y a la empresa?
+
+### Formular el plateamiento del problema
+
+Empieza por el nombre del usuario.
+
+Agrega una breve descripción de las características del usuario.
+
+Describe claramente la necesidad del usuario.
+
+Explica por qué el usuario tiene esa necesidad; en otras palabras, una visión del usuario.
+
+_«Ana Rodríguez es una Gerente de una pequeña empresa y necesita donar alimentos
+de manera rápida y sencilla porque se preocupa por su comunidad y medio ambiente»._
+
+<Picture quality={100} src={problem} widths={[720, problem.width]}  sizes={`(min-width: 39.9em) 720px`} alt="Mapa de recorrido de usuario"/>
+
+## Idear
+
+Una forma de generar ideas para soluciones de diseño es comparar el sitio web que se diseñará con sitios web y existentes de organizaciones similares.
+
+Puedes llevar a cabo una **auditoría competitiva**, que se trata de una descripción general de las fortalezas y debilidades de los competidores, para recopilar información.
+
+### Resumem de la auditoría competitiva
+
+- Revisar los productos que ofrecen los competidores.
+
+- Comprender cómo se posicionan los competidores en el mercado.
+
+- Examinar lo que la competencia hace bien y lo que podría mejorar.
+
+- Considerar cómo se describen los competidores.
+
+- Examinar las fortalezas y debilidades que tienen tus competidores.
+
+- Destacar los déficits en los productos de tus competidores.
+
+- Identificar oportunidades para que tu producto se destaque.
+
+ Es importante evaluar la auditoría competitiva que se realizó anteriormente y encontrar el área en que la competencia no haya satisfecho las necesidades de la persona.
+
+Usa el planteamiento del problema para crear los bocetos **"Idea con Crazy Eights"**, explorar 
+ideas a ritmo rápido.
+
+### Idea con Crazy Eights
+
+El objetivo de Crazy Eights, llevar a cabo una lluvia de ideas y posibles soluciones para una oportunidad que he identificado para mi producto. Seguir el método mobile first.
+
+<Picture quality={100} src={esquema} widths={[720, esquema.width]}  sizes={`(min-width: 39.9em) 720px`} alt="Mapa de recorrido de usuario"/>
+
+## Prototipar (Dibujar esquemas de página en papel)
+
+    Anteriormente se crearon bocetos para proponer ideas para el diseño del proyecto.
+    Ahora es el momento de usar esos bocetos para crear esquemas de páginas para la aplicación y
+    sitio web (Mobile First). 
+    
+    Crear una versión básica de la aplicación móvil o página web.
+    Se empezará por crear esquemas de páginas en papel para proporcionar muchas ideas, luego 
+    se tomarán las mejores partes de los esquemas de página en papel y secreará el esquema de 
+    página digital en Figma u otro programa.
+
+    Después estos esquemas de página digitales se convertirán en un prototipo de baja fidelidad,
+    listo para funcionar y será el momento de recibir feedback de personas reales sobre el diseño.
+    Se planificará y realizará un estudiio de usabilidad y se analizará y sentetizará los resultados de 
+    esta investigación.
+
+    Y finalmente se realizará cambios en función de las conclusiones de la invetigación
+
+    Importante que antes de crear los esquemas de página, es asegurarse de tener en cuenta, la 
+    **[Arquitectura de Información](https://xd.adobe.com/ideas/process/information-architecture/introductory-guide-to-information-architecture/)** de la aplicación o sitio web. _Mapa de sitio y esquemas alámbricos_
+
+    <Picture quality={100} src={mapaSitio} widths={[720, mapaSitio.width]}  sizes={`(min-width: 39.9em) 720px`} alt="Mapa de recorrido de usuario"/>
+
+    ### Los esquemas de página
+    1. Escribe una lista rápida de los elementos que debes incluir en tus esquemas de página.
+    2. Crea cinco versiones diferentes de cómo estructurar la información en la página.
+    3. Elige qué elementos refinar (Añadir estrella a la parte o partes favoritas).
+    4. Combina elementos en un esquema de página refinado.
+
+    ### Esquemas de páginas digitales
+    Una vez obtenido la versión final del esquema de página lo tenenmos 
+    que llevar a digitalización y el siguiente paso será para 
+    crear un **prototipo de baja fidelidad**
+    [Diseño de web comunes](https://xd.adobe.com/ideas/principles/web-design/11-website-layouts-that-made-content-shine-in-2019/)
+
+    <Picture quality={100} src={prototipoBajo} widths={[720, prototipoBajo.width]}  sizes={`(min-width: 39.9em) 720px`} alt="Mapa de recorrido de usuario"/>
+
+
+## Estudio de investigación en UX 
+En esta parte se crea un plan de investigación, y posterior a eso el estudio
+de usabilidad con mi prototipo de baja fidelidad
+
+_Un plan de investigación consta de siete componentes clave que incluyen:_
+
+1. Antecedentes del proyecto:qué te llevó a realizar la investigación y por qué es necesaria
+
+2. Objetivos de la investigación: cuál es el resultado deseado de la investigación
+
+3. Preguntas de investigación detalladas: las preguntas que el estudio intenta responder
+
+4. Indicadores clave de rendimiento (KPI): mediciones del progreso hacia un objetivo de investigación
+    elige los KPI que deseas medir
+
+    Usando la plantilla, escribe de 2 a 3 KPI que te ayuden a medir el progreso hacia tu objetivo de investigación.
+
+    Hay seis tipos de KPI usados normalmente en la investigación en UX:
+
+    Tiempo dedicado a la tarea: cuánto tiempo tarda un usuario en completar una tarea
+
+    NOTA: El tiempo dedicado a la tarea puede cambiar en función de si el usuario utiliza tecnologías de asistencia o si tiene otras necesidades de accesibilidad.
+
+    Uso de navegación frente al uso de búsqueda: la cantidad de usuarios que navegan de manera informal en comparación con aquellos que usan la función de búsqueda.
+
+    Índices de error del usuario: con qué frecuencia los usuarios cometen errores
+
+    Índices de abandono: la cantidad de usuarios que se dan por vencidos sin lograr un objetivo
+
+    Índices de conversión: la cantidad de usuarios que alcanzan su objetivo con éxito
+
+    Escala de usabilidad del sistema (SUS): una serie de 10 preguntas que evalúan qué tan fácil o difícil es usar tu producto
+
+5. Metodología: los pasos que debes seguir para llevar a cabo la investigación
+
+6. Participantes: las personas que participarán en tu estudio de usabilidad
+
+7. Un guion: una lista de tareas y preguntas de seguimiento dadas a los participantes durante el estudio de usabilidad
+    El guion debe incluir lo siguiente:
+
+    Una introducción
+
+    Una preparación para ayudar a los participantes a empezar
+
+    Tareas específicas relacionadas con tus objetivos de investigación
+
+    Preguntas de seguimiento para cada tarea
+
+
+## Crear maquetas
+Las maquetas son diseños de alta fidelidad estáticos.
+
+- [Diseños de web comunes.](https://xd.adobe.com/ideas/principles/web-design/11-website-layouts-that-made-content-shine-in-2019/)
+- Uso de [cuadrículas para administrar el espacio](https://m2.material.io/design/layout/responsive-layout-grid.html#columns-gutters-and-margins) (Grid).
+- Contención de elementos.
+
+    Divisores: líneas simples para separar las secciones de una página.
+
+    Bordes: líneas continuas que suelen crear formas, como cuadrados o rectángulos, para dividir las secciones de una página.
+
+    Relleno: asigna colores a bordes y formas.
+
+    Sombras: crea una dimensión en combinación con bordes o relleno.
+
+- Principios de diseño (Énfasis, Jerarquía, Escala, Proporción, Unidad, Variedad),
+    [Principios de Gestalt](https://www.toptal.com/designers/ui/exploring-the-gestalt-principles-of-design)
+
+- Finalmente, a medida que decidas cómo organizar los elementos en tus maquetas, deberás tener en cuenta el uso del espacio negativo. Recuerda que el espacio negativo es el área que rodea un objeto dentro de una imagen.
+<Picture quality={100} src={maquetaAlta} widths={[720, maquetaAlta.width]}  sizes={`(min-width: 39.9em) 720px`} alt="Mapa de recorrido de usuario"/>
+
+## Crear un pequeño sistema de diseño
+
+**Base importante**, tipografía, colores, íconos, espacios y aquitectura de la información
+[airbnb](https://airbnb.design/building-a-visual-language/)
+
+Un sistema de diseño es una serie de elementos y pautas reutilizables que permiten
+a los equipos diseñar y desarrollar un producto mediante estándares predeterminados.
+
+Puedes crer un sistema de diseño que ahorrará tiempo para costruir 
+otros productos de diseño, o puedes descargar un kit de interfaz de usuario.
+
+Como diseñador de UX, usarás sistemas de diseño todo el tiempo para mejorar 
+la velocidad y la coherencia de tu trabajo. 
+
+[Material design de Google](https://m2.material.io/resources/) 
+
+[Sistema de diseño Polaris de Shopify](https://polaris.shopify.com/)
+
+[Sistema Fluent Design de Microsoft](https://fluent2.microsoft.design/) 
+
+## Estudios de usabilidad
+
+Sin embargo, en el mundo real, deberías realizar sin dudas una investigación sobre los diseños de alta fidelidad antes de terminarlos. ¿Por qué? Las pruebas y la iteración son partes sumamente importantes del proceso de diseño de UX. La única forma de seguir mejorando los diseños es obtener mucho feedback. (Igual que el prototipo de baja fidelidad).
