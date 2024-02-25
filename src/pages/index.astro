@@ -10,6 +10,7 @@ import Nav from "../components/Nav.astro";
 
 const personal = '🖥️ Con +4 años en diseño y desarrollo web. Dominio de HTML5, CSS3, JavaScript, Adobe (Photoshop, Illustrator) y tecnologías modernas como Astro, React y Tailwind.'
 const {canonicalURL} = Astro.props
+
 ---
 
 <Layout title="Front End Developer | Designer" canonical={canonicalURL} description={personal}>
@@ -21,7 +22,7 @@ const {canonicalURL} = Astro.props
     <h2 class="mb-space-l mt-space-2xl"># Último Post</h2>
     <ul role="list" class="blog-post | flow">
       {
-        allPosts.slice(-1).map((post) => {
+        allPosts.slice(allPosts.length -1).map((post) => {
           return (
             <CardPost post={post}/>
           );
