@@ -18,7 +18,7 @@ const {canonicalURL} = Astro.props
     <h2 class="mb-space-l"># Blog</h2>
     <ul role="list" class="blog-post | flow">
       {
-        allPosts.reverse().map((post) => {
+        allPosts.slice().reverse().map((post) => {
           return (
             <CardPost post={post}/>
           );

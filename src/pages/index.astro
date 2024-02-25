@@ -22,7 +22,7 @@ const {canonicalURL} = Astro.props
     <h2 class="mb-space-l mt-space-2xl"># Último Post</h2>
     <ul role="list" class="blog-post | flow">
       {
-        allPosts.slice(allPosts.length -1).map((post) => {
+        allPosts.slice(-1).map((post) => {
           return (
             <CardPost post={post}/>
           );
