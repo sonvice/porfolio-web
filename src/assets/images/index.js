@@ -9,6 +9,7 @@ import imgPeli from './peli.jpg'
 import imgPeople from './people.jpg'
 import imgEasybank from './easybank.jpg'
 import imgBoldo from './boldo.png'
+import imgIaLanding from './ia-landing.png'
 
 //import socialImg from './default-social.png'
 
@@ -26,5 +27,6 @@ imgPeople,
 imgCodeDark,
 imgEasybank,
 imgBoldo,
+imgIaLanding
 
 }

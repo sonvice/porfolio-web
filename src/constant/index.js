@@ -6,7 +6,8 @@ import {
   imgJustice,
   imgPeli,
   imgPeople,
-  imgBoldo
+  imgBoldo,
+  imgIaLanding
 } from "../assets/images";
 
 export const navLink = [
@@ -78,6 +79,7 @@ export const projects = [
     label: "careerist",
     gitHub:'https://github.com/sonvice/clon-careerist.com'
   },
+ 
   {
     img: imgEasybank,
     title: 'Easybank | Landing Page',
@@ -92,11 +94,21 @@ export const projects = [
     img: imgBoldo,
     title: 'Boldo | Figma to Code',
     description:
-      "Este proyecto es un sitio web que ha sido desarrollado utilizando Astro Framework, React, Sass y JavaScript. El objetivo principal de este proyecto es traducir un diseño de Figma en un sitio web accesible y optimizado.",
+    "Este proyecto es un sitio web que ha sido desarrollado utilizando Astro Framework, React, Sass y JavaScript. El objetivo principal de este proyecto es traducir un diseño de Figma en un sitio web accesible y optimizado.",
     href: "https://boldo-figma.netlify.app/",
     alt:'Screenshot de una landing page, desarrollada utilizando Astro Framework, React, Sass y JavaScript.',
     label: "boldo",
     gitHub:'https://github.com/sonvice/figma-to-code'
+  },
+  {
+    img: imgIaLanding,
+    title: 'Ia | Landing Page',
+    description:
+      "Este proyecto es una página web inspirada en jsm-brainwave.com, construida con tecnologías alternativas. A diferencia del tutorial de YouTube que utiliza React y Tailwind CSS, esta versión utiliza Astro, Sass y CSS para el desarrollo del frontend. Además, se ha integrado la librería JavaScript Locomotive Scroll para agregar efectos de animación al desplazarse por la página.",
+    href: "https://ia-landing.netlify.app/",
+    alt:'Screenshot de una landing page, construida utilizando Astro, css, Sass',
+    label: "ia landing",
+    gitHub:'https://github.com/sonvice/ia-landing'
   },
 ];
 
