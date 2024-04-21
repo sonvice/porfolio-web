@@ -10,6 +10,7 @@ import imgPeople from './people.jpg'
 import imgEasybank from './easybank.jpg'
 import imgBoldo from './boldo.png'
 import imgIaLanding from './ia-landing.png'
+import imgTravel from './travel-landing.png'
 
 //import socialImg from './default-social.png'
 
@@ -27,6 +28,7 @@ imgPeople,
 imgCodeDark,
 imgEasybank,
 imgBoldo,
-imgIaLanding
+imgIaLanding,
+imgTravel
 
 }

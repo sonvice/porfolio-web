@@ -7,7 +7,7 @@ import {
   imgPeli,
   imgPeople,
   imgBoldo,
-  imgIaLanding
+  imgIaLanding,imgTravel
 } from "../assets/images";
 
 export const navLink = [
@@ -109,6 +109,16 @@ export const projects = [
     alt:'Screenshot de una landing page, construida utilizando Astro, css, Sass',
     label: "ia landing",
     gitHub:'https://github.com/sonvice/ia-landing'
+  },
+  {
+    img: imgTravel,
+    title: 'Travel | Landing Page',
+    description:
+      "Este proyecto es una landing page temática de viajes, diseñada desde cero en Figma y luego desarrollada con Astro framework. La página web es completamente responsive y utiliza Sass para modularizar el CSS, lo que facilita el mantenimiento y la escalabilidad del código.",
+    href: "https://landingtravel.netlify.app/",
+    alt:'Screenshot de una landing page, construida utilizando Astro, css, Sass,js',
+    label: "travel landing",
+    gitHub:'https://github.com/sonvice/travel'
   },
 ];
 
