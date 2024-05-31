@@ -22,7 +22,7 @@ export const navLink = [
     icon: 'ic:outline-info'
   },
   { href: "/projects", 
-    label: "Porjects",
+    label: "Projects",
     icon: 'ic:sharp-web-asset'},
   {
     href: "/blog",
