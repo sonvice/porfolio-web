@@ -11,7 +11,7 @@ import imgEasybank from './easybank.jpg'
 import imgBoldo from './boldo.png'
 import imgIaLanding from './ia-landing.png'
 import imgTravel from './travel-landing.png'
-
+import imgPixelPunk from './pixel-punk.png'
 //import socialImg from './default-social.png'
 
 
@@ -29,6 +29,6 @@ imgCodeDark,
 imgEasybank,
 imgBoldo,
 imgIaLanding,
-imgTravel
-
+imgTravel,
+imgPixelPunk
 }

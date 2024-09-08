@@ -7,7 +7,8 @@ import {
   imgPeli,
   imgPeople,
   imgBoldo,
-  imgIaLanding,imgTravel
+  imgIaLanding,imgTravel,
+  imgPixelPunk
 } from "../assets/images";
 
 export const navLink = [
@@ -79,17 +80,6 @@ export const projects = [
     label: "careerist",
     gitHub:'https://github.com/sonvice/clon-careerist.com'
   },
- 
-  {
-    img: imgEasybank,
-    title: 'Easybank | Landing Page',
-    description:
-      "Este proyecto es una landing page diseñada como práctica para el desafío de Frontend Mentor. La landing page está construida utilizando React, Sass, y se han implementado las siguientes tecnologías y metodologías: Menú accesible para una mejor experiencia de usuario. Plugins de PostCSS para optimizar el código CSS .Metodología de arquitectura CSS basada en el patrón 7-1 y clases de utilidad.",
-    href: "https://easybank-fmentor.netlify.app/",
-    alt:'Screenshot de una landing page, construida utilizando React, Sass',
-    label: "easybank",
-    gitHub:'https://github.com/sonvice/easybank'
-  },
   {
     img: imgBoldo,
     title: 'Boldo | Figma to Code',
@@ -119,6 +109,16 @@ export const projects = [
     alt:'Screenshot de una landing page, construida utilizando Astro, css, Sass,js',
     label: "travel landing",
     gitHub:'https://github.com/sonvice/travel'
+  },
+  {
+    img: imgPixelPunk,
+    title: 'Pixel Punk | Landing Page',
+    description:
+      "Este proyecto es una landing page futurista inspirada en la estética Cyberpunk, diseñada en Figma y desarrollada utilizando el Astro Framework. La página es completamente responsive, aprovechando el poder de Sass para gestionar los estilos de manera eficiente. El diseño incorpora un enfoque moderno, utilizando CSS Grid, animaciones y degradados llamativos, y elementos visuales en SVG.",
+    href: "https://pixelpunk-ia.netlify.app/",
+    alt:'Screenshot de una landing page, construida utilizando Astro, css, Sass,js',
+    label: "travel landing",
+    gitHub:'https://github.com/sonvice/pixel-punk-landing'
   },
 ];
 
