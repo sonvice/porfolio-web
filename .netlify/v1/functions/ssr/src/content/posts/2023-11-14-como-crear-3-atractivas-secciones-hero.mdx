@@ -1,0 +1,245 @@
+---
+tags: [html, css, css-grid, desing]
+date: 2023-11-14
+featured: false
+image: ./images/como-crear-3-atractivas-secciones-hero/01.jpg
+title: ¿Cómo Crear 3 Atractivas Secciones Hero con CSS Grid y Seudoelementos?
+slug: como-crear-3-atractivas-secciones-hero-con-css-grid-y-seudoelementos
+description: >
+    Optimiza tu Diseño Web: Cómo Crear 3 Atractivas Secciones Hero con CSS Grid y Seudoelementos
+---
+import {img1,img2,img3,gridArea,gridHero,imgHeroArea,heroAfter} from './images/como-crear-3-atractivas-secciones-hero'
+import { Picture } from "astro:assets"
+import { Code } from 'astro:components';
+
+Optimiza tu Diseño Web: Cómo Crear 3 Atractivas Secciones Hero con CSS Grid y Seudoelementos.
+
+Si generalmente solias hacer este tipo de diseños con posición absoluta para colocar lo elementos en su ubicación deseada, te voy a dar otra forma moderna y óptima de crear encabezados con la propiedad `grid-template-areas` te dejo una [guía para profundizar](https://www.smashingmagazine.com/understanding-css-grid-template-areas/).
+
+A continuación te muestro los diseños que estarememos construyendo:
+
+1. Hero con texto central más dos botones de llamada a la acción y lineas verticales como seudoelementos. [Preview aquí](https://x24mqq.csb.app/)
+
+
+<Picture quality={90} src={img1} widths={[720, img1.width]}  sizes={`(min-width: 39.9em) 720px`} alt="Hero con texto central más dos botones de llamada a la acción"/>
+
+
+2. Dos secciones texto y formulario, y un seudoelemento de un degradado en el pie de nuestro hero sección. [Preview aquí](https://527jm9.csb.app/)
+
+
+<Picture quality={90} src={img2} widths={[720, img2.width]} sizes={`(min-width: 39.9em) 720px`} alt="Dos partes texto y formulario, y un seudoelemento en el pie de nuestro hero sección"/>
+
+
+3. Dos secciones texto e imagen con seudoelemento en la imagen y en la parte superior del título [Preview aquí](https://gd3wld.csb.app/)
+
+<Picture quality={90} src={img3} widths={[720, img3.width]} sizes={`(min-width: 39.9em) 720px`} alt="Dos secciones texto e imagen con seudoelemento en la imagen"/>
+
+
+## Cómo funciona Grid Template Áreas
+Para comprender como posicionar nuestros elementos html, hay que ver como funciona la propiedad `grid-template-areas`, veamos un pequeño ejemplo en el que acupamos diferentes áreas de nuestro grid container.
+
+A continuación te muestro una imagen y luego el código de como esta funcionando esta propiedad.
+
+<Picture  widths={[720, gridArea.width]} sizes={`(min-width: 39.9em) 720px`}  src={gridArea} alt="Gif mostrando las grid áreas en firefox"/>
+
+<Code code={`<div class="grid">
+    <div class="A">A</div>
+    <div class="B">B</div>
+    <div class="C">C</div>
+    <div class="D">D</div>
+    <div class="E">E</div>
+</div>`} lang="html" theme='slack-dark'/>
+Definimos nuestros elementos html en nuestro grid container
+
+<Code code={`.grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: 90px;
+  gap: 1rem;
+  grid-template-areas:
+    "A A A B B B"
+    "A A A B B B"
+    "C C D D E E";
+}`} lang="css" theme='slack-dark'/>
+Creamos las areas a ocupar, en este caso son seis áreas de las cuales A y B ocupan tres columnas y dos filas y C, D y E ocupan dos columnas cada una.
+
+<Code code={`.A {
+  grid-area: A;
+}
+.B {
+  grid-area: B;
+}
+.C {
+  grid-area: C;
+}
+.D {
+  grid-area: D;
+}
+.E {
+  grid-area: E;
+}`} lang="css" theme='slack-dark'/>
+ 
+Cada elemento se colocará en su área reservada asígnandole la propiedad `grid-area` y su valor respectivo, [visualiza nuestro ejemplo en vivo](https://2y3qv2.csb.app/).
+
+## La Estructura Html Para Nuestro Primer Hero
+
+Empezamos con nuestro marcado, contaremos con nuestro contedio de texto más el bloque de los botones y nuestra imagen que la posicionaremos detrás de nuestro texto principal
+
+<Code code={`<header>
+    <div class="hero__content flow">
+        <p>welcome to</p>
+        <h1>modern hero section with css grid</h1>
+        <p>Design <span>·</span> Development <span>·</span> Marketing</p>
+        <div class="buttons d-flex">
+            <button class="btn primary">Get Started <svg xmlns="http://www.w3.org/2000/svg" width="18" height="15" fill="none" viewBox="0 0 18 15">
+                <path fill="#fff" d="M10.5 0 9.428 1.045l5.684 5.705H0v1.5h15.113l-5.685 5.68L10.5 15 18 7.5 10.5 0Z"/>
+              </svg>
+              </button>
+            <button class="btn secondary">Learn More</button>
+        </div>
+    </div>
+    <img src="./images/hero-img.jpg" alt="Hero img">
+</header>`} lang='html' theme='slack-dark'/>
+
+<Code code={`header{
+    display: grid;
+    grid-template-areas: "hero";
+    height: 90vh;
+    place-items: center;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.5);
+}`} lang="css" theme='slack-dark'/>
+
+<Picture  widths={[720, gridHero.width]} sizes={`(min-width: 39.9em) 720px`}  src={gridHero} alt="Gif mostrando las grid áreas en firefox"/>
+
+Después de crear nuestro contenedor grid, le asignamos el área a acupar `grid-template-areas:"hero"` centramos nuestro contenido tanto horizontal como verticalmene con `place-items:center` ocualtamos lo que sobresalga de nuestro contenedor y le añadimos un background que más adelante posicionaremos encima de la imagen para dar contraste a nuestro texto. 
+
+El primer hijo principal que es nuestro texto y queda dentro del área pero nuestra imagen que es el segundo hijo directo no, lo que haremos será decirle a todos los hijos directos de nuestro `<header>` que ocupen el área "hero" eso incluye nuestra imagen.
+
+<Code code={`header > *{
+    grid-area: hero;
+}`} lang="css" theme='slack-dark' />
+
+Aquí le estamos diciendo que todos los hijos directos de `<header>` acupen toda el área **hero** que hemos nombrado antes en nuestro container grid
+
+<Code code={`img{
+    height: 90vh;
+    object-fit: cover;
+    width: 100%;
+    z-index: -1;
+}`} lang="css" theme='slack-dark' />
+
+A nuestra imagen le vamos da dar un alto definido igual a su contenedor padre para que en tamaños de pantallas más pequenas se adapte bien, y el `object-fit: cover;` para que cubra todo el contenedor y no se deforme nuestra imagen.
+
+<Picture  widths={[720, imgHeroArea.width]} sizes={`(min-width: 39.9em) 720px`}  src={imgHeroArea} alt="Gif mostrando las grid áreas en firefox"/>
+
+Veamos como va quedando, con el `z-index: -1;` esta indicando que se coloque por detrás del degradado oscuro que le hemos dado antes a nuestro `<header>` para de esta manera dar un mejor contraste con el texto. 
+
+<Picture  widths={[720, heroAfter.width]} sizes={`(min-width: 39.9em) 720px`}  src={heroAfter} alt="Hero con su elemento after"/>
+
+<Code code={`header::after{
+    content: '';
+    background-image: url('data:image/svg+xml;base64,PCEtLSBSZXBsYWNlIHRoZSBjb250ZW50cyBvZiB0aGlzIGVkaXRvciB3aXRoIHlvdXIgU1ZHIGNvZGUgLS0+Cgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjI4MCIgaGVpZ2h0PSIxMDI0IiBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgMjgwIDEwMjQiPgogIDxwYXRoIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLW9wYWNpdHk9Ii41IiBzdHJva2Utd2lkdGg9Ii41IiBkPSJNLjI1IDB2MTAyNCIvPgogIDxwYXRoIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIuNSIgZD0iTS4yNSAzMzd2OCIvPgogIDxwYXRoIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLW9wYWNpdHk9Ii41IiBzdHJva2Utd2lkdGg9Ii41IiBkPSJNMjc5Ljc1IDEwMjRWMCIvPgogIDxwYXRoIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIuNSIgZD0iTTI3OS43NSA2ODd2LTgiLz4KPC9zdmc+Cg==');
+    background-position: center center;
+    opacity: 0.5;
+    grid-area: hero;
+    width: 100%;
+    height: 100%;
+}`} lang="css" theme='slack-dark' />
+
+Ahora es el turno de nuestro elemento `::after` que serán unas líneas verticales con una opacidad de un 50% y acupara toda el área, como ves no ha sido necesario posicionarlo con un `z-index` ya que al estar después de nuestro elemento principal no ha hecho falta ya que por delante esta nuestro texto principal.
+
+<div class='nota'>
+    No hace falta dar un `position:relative` o `position:absolute` a nuestro contenedores grid o flexbox para para posicionar a sus hijos directos con `z-index`, puedes utilizarlo sin ello, incluso si das márgenes verticales a sus elementos no colapsarán.
+</div>
+
+Visualiza el resultado final de nuestro [primer hero](https://x24mqq.csb.app/)
+
+## Nuestro Segundo Hero
+
+La estructura de nuestro segundo hero cambiará un poco, todo nuestro contenido estará dentro de un div con la clase **hero__content**, dentro incluirá dos bloques, uno para nuestra información principal como es el título, parrafo y botones, y el segundo bloque nuestro formulario.
+
+<Code code={`<header>
+    <div class="hero__content">
+        <div class="hero__info flow">
+            <p>welcome to</p>
+            <h1>modern hero section with css grid</h1>
+            <p>Design <span>·</span> Development <span>·</span> Marketing</p>
+            <div class="buttons d-flex">
+                <button class="btn primary">Explore more <svg xmlns="http://www.w3.org/2000/svg" width="18" height="15" fill="none" viewBox="0 0 18 15">
+                    <path fill="#fff" d="M10.5 0 9.428 1.045l5.684 5.705H0v1.5h15.113l-5.685 5.68L10.5 15 18 7.5 10.5 0Z"/>
+                  </svg>
+                  </button>
+                <button class="btn secondary">Learn More</button>
+            </div>
+        </div>
+        <div class="hero__form d-flex">
+            <h2>register Now</h2>
+            <p>TAKE YOUR FREE TRIAL</p>
+            <form action="/" class="d-flex hero__form-box">
+              <label class="sr-only" for="name">Enter your name:</label>
+              <input id="name" placeholder="Enter your name" name="name" type="text" />
+              <label class="sr-only" for="email">Enter your email:</label>
+              <input id="email" placeholder="Enter your email" name="email" type="email" />
+              <button class="btn primary" type="submit">get a quote</button>
+            </form>
+          </div>
+    </div>
+    <img src="./images/hero-img.jpg" alt="Hero img">
+</header>`} lang="html" theme='slack-dark'/>
+
+La mayoría de los estilos de nuestro primer hero nos servirá para este ejemplo, no me explayaré mucho ya que a estas alturas ya sabes como posicionar los elementos en un grid container y me centraré en nuestro contenedor con la clase **hero__content** que es donde esta la magia para este segundo ejemplo.
+
+Te dejo un link para que puedas ver y revisar el códgio completo de [nuestro segundo hero](https://527jm9.csb.app/).
+
+<Code code={`.hero__content{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(34ch,auto));
+    gap: 2rem;
+    width: 100vw;
+    align-items: center;
+    justify-content: center;
+    padding: 10vh 2rem;
+}`} lang="css" theme='slack-dark'/>
+
+Además de nuestro `<header>` nuesto **.hero__content** tambien le daremos la propiedades de `display:grid`, y crearemos la dos columnas con la propiedad `grid-template-columns: repeat(auto-fit,minmax(34ch,auto));`, con esta propiedad le estamos diciendo que cree columnas automáticas con un minimo de ancho de 34ch y auto que sería lo que mida el contenido, la unidad relativa **ch** sigifica **(Medida de avance (ancho) del glifo "0" de la letra del elemento)**, alineamos nuestros elementos tanto horizontal como verticalmene y añadimos un padding para un mejor espacio en pantallas pequenas.
+
+<Code code={`header::after{
+    content: '';
+    grid-area: hero;
+    height: 4px;
+    background-image: linear-gradient(90deg,#3A00DB 50%,#2bd5d9);
+    background-repeat: no-repeat;
+    align-self: end;
+}`} lang="css" theme='slack-dark'/>
+
+Ahora nuestro degradado en le pie de nuestro segundo hero, que es un seudoelemento, el cual ocupa toda el área **hero** con un alto de 4px y un gradiente que le da un aspecto moderno, y finalmente alineamos `align-self: end;` nuestro gradiente para que quede al final.
+
+## Tercer Hero
+Nuestro marcado o estructura html para nuestro tercer hero, es practicamente el mismo,
+solo he sustituido el formulario por la imagen.
+
+<Code code={`<header>
+    <div class="hero__content">
+        <div class="hero__info flow">
+            <p>welcome to</p>
+            <h1>modern hero section with css grid</h1>
+            <p>Design <span>·</span> Development <span>·</span> Marketing</p>
+            <div class="buttons d-flex">
+                <button class="btn primary">Get Started <svg xmlns="http://www.w3.org/2000/svg" width="18" height="15" fill="none" viewBox="0 0 18 15">
+                    <path fill="#fff" d="M10.5 0 9.428 1.045l5.684 5.705H0v1.5h15.113l-5.685 5.68L10.5 15 18 7.5 10.5 0Z"/>
+                  </svg>
+                  </button>
+                <button class="btn secondary">Learn More</button>
+            </div>
+        </div>
+        <div class="hero__img">
+            <img src="./images/img.png" width="614" height="721" alt="Hero img">
+        </div>
+    </div>
+</header>`} lang='html' theme='slack-dark'/>
+
+La diferencia esta en que hemos añadido dos seudoelementos, te dejo el link de nuestro tercer hero para que [mires el diseño y el código.](https://codepen.io/sonvice/pen/qBgVgze)
+
+Con estos conceptos fundamentales para crear secciones de hero complejas y actractivas,
+puedes realizar diseños complejos de forma mucho más fácil, [mira este post en css tricks que lo ejemplifica muy bien.](https://css-tricks.com/using-grid-named-areas-to-visualize-and-reference-your-layout/)
