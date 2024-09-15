@@ -7,7 +7,7 @@ import { getCollection } from "astro:content";
 import SearchForm from "../../components/SearchForm.astro";
 export const prerender = false;
 
-const query = Astro.url.searchParams.get("query");
+const query = Astro.url.searchParams.get("query") || ''; // Valor predeterminado para evitar errores si es null
 
 const allPosts = await getCollection("posts");
 
