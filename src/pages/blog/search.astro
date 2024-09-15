@@ -16,21 +16,26 @@ const personal =
 const { canonicalURL } = Astro.props;
 
 // Filter articles based on query
-const searchResults = allPosts.filter((article) => {
-  const titleMatch: boolean = article.data.title
-    .toLowerCase()
-    .includes(query!.toLowerCase());
+let searchResults = [];
 
-  const bodyMatch: boolean = article.body
-    .toLowerCase()
-    .includes(query!.toLowerCase());
+if (query) {
+  searchResults = allPosts.filter((article) => {
+    const titleMatch = article.data.title
+      .toLowerCase()
+      .includes(query.toLowerCase());
 
-  const slugMatch: boolean = article.slug
-    .toLowerCase()
-    .includes(query!.toLowerCase());
+    const bodyMatch = article.body
+      .toLowerCase()
+      .includes(query.toLowerCase());
 
-  return titleMatch || bodyMatch || slugMatch;
-});
+    const slugMatch = article.slug
+      .toLowerCase()
+      .includes(query.toLowerCase());
+
+    return titleMatch || bodyMatch || slugMatch;
+  });
+}
+
 ---
 
 <Layout title="Search Results" class:list={'search'} canonical={canonicalURL} description={personal}>
