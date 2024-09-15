@@ -1,31 +1,49 @@
 ---
 import { navLink } from "../constant";
 import { Icon } from "astro-icon";
+const currentPath = Astro.url.pathname; // Obtener la ruta actual
 ---
 
 <nav class="nav | mt-space-xl">
   <ul role="list" class="nav__list | d-flex">
-    {
-      navLink.map((link) => {
-        return (
-          <li>
-            <a class="nav__link | border-animated d-flex px-space-3xs py-space-xs" href={`${link.href}/`}>
-              <Icon name={link.icon} /> {link.label}
-            </a>
-          </li>
-        );
-      })
-    }
+    {navLink.map((link) => {
+      // Si el link es "Blog", se activa para cualquier URL que empiece con "/blog/" pero que no sea "/blogroll"
+      const isActive = link.href === "/blog" 
+        ? currentPath.startsWith("/blog") && !currentPath.startsWith("/blogroll")
+        : currentPath === link.href; // Verificar si el link es la ruta actual
+
+      return (
+        <li>
+          <a
+            class={`nav__link | border-animated d-flex px-space-3xs py-space-xs ${isActive ? 'active' : ''}`}
+            href={`${link.href}`}
+            aria-current={isActive ? "page" : undefined}
+          >
+            <Icon name={link.icon} /> {link.label}
+          </a>
+        </li>
+      );
+    })}
   </ul>
 </nav>
+
 <script>
   document.addEventListener('astro:page-load', () => {
-  document.querySelectorAll(".nav__link").forEach((link) => {
-      if ((link as HTMLAnchorElement).href === window.location.href) {
-          link.classList.add("active");
-          link.setAttribute("aria-current", "page");
+    const currentPath = window.location.pathname;
+    document.querySelectorAll(".nav__link").forEach((link) => {
+      const linkPath = new URL(link.href).pathname;
+      // Comprobar si la ruta es /blog pero no /blogroll
+      if (linkPath === "/blog" && currentPath.startsWith("/blog") && !currentPath.startsWith("/blogroll")) {
+        link.classList.add("active");
+        link.setAttribute("aria-current", "page");
+      } else if (linkPath === currentPath) {
+        link.classList.add("active");
+        link.setAttribute("aria-current", "page");
+      } else {
+        link.classList.remove("active");
+        link.removeAttribute("aria-current");
       }
+    });
   });
-})
-
 </script>
+

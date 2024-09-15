@@ -13,7 +13,7 @@ import {
 
 export const navLink = [
   {
-    href: "",
+    href: "/",
     label: "Home",
     icon:'carbon:home'
   },
@@ -157,7 +157,7 @@ export const blogroll = [
   {author:'Lea Verou',link:'https://lea.verou.me/'},
   {author:'Manuel Matuzović',link:'https://www.matuzo.at/'},
   {author:'Michelle Barker',link:'https://css-irl.info/'},
-  {author:'Sara Soueidan',link:'https://www.sarasoueidan.com/'},
+  {author:'piccalil.li',link:'https://piccalil.li/'},
   {author:'Stefan Judis',link:'https://www.stefanjudis.com/'},
   {author:'Stephanie Eckles',link:'https://thinkdobecreate.com/'},
   {author:'Una Kravets',link:'https://una.im/'},

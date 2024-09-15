@@ -1,0 +1,51 @@
+---
+import CardPost from "../../components/CardPost.astro";
+import Nav from "../../components/Nav.astro";
+import Hero from "../../layouts/Hero.astro";
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import SearchForm from "../../components/SearchForm.astro";
+
+
+const query = Astro.url.searchParams.get("query");
+
+const allPosts = await getCollection("posts");
+
+const personal =
+  "🖥️ Con +4 años en diseño y desarrollo web. Dominio de HTML5, CSS3, JavaScript, Adobe (Photoshop, Illustrator) y tecnologías modernas como Astro, React y Tailwind.";
+const { canonicalURL } = Astro.props;
+
+// Filter articles based on query
+const searchResults = allPosts.filter((article) => {
+  const titleMatch: boolean = article.data.title
+    .toLowerCase()
+    .includes(query!.toLowerCase());
+
+  const bodyMatch: boolean = article.body
+    .toLowerCase()
+    .includes(query!.toLowerCase());
+
+  const slugMatch: boolean = article.slug
+    .toLowerCase()
+    .includes(query!.toLowerCase());
+
+  return titleMatch || bodyMatch || slugMatch;
+});
+---
+
+<Layout title="Search Results" class:list={'search'} canonical={canonicalURL} description={personal}>
+    <div class="container">
+        <Hero title="Hola!👋, Soy Wilson" personal={personal} />
+        <Nav />
+        <h2 class="mt-space-3xl"># Resultados de <strong>{query}</strong></h2>
+        <a href="/blog" class="mt-space-l mb-space-m d-block">Todos los artículos</a>
+        <SearchForm />
+        <ul role="list" class="blog-post | flow">
+          {
+            searchResults.slice().map((post) => {
+              return <CardPost post={post} />;
+            })
+          }
+        </ul>
+    </div>
+</Layout>

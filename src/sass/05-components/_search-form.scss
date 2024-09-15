@@ -1,0 +1,7 @@
+.search-form{
+    --a-vertical:stretch;
+    --gutter:var(--space-2xs);
+    & button{
+        align-items:center
+    }
+}

@@ -1,0 +1,22 @@
+---
+interface Props {
+  prev: string | null;
+  next: string | null;
+}
+
+const { prev, next } = Astro.props;
+import Icon from "astro-icon";
+---
+
+<div class="mt-space-l">
+  {prev ? (
+    <a class="d-flex" href={prev}>
+      <Icon name="lucide:arrow-left"></Icon> Anterior
+    </a>
+  ) : null}
+  {next ? (
+    <a class="d-flex" href={next}>
+      Siguiente <Icon name="lucide:arrow-right"></Icon>
+    </a>
+  ) : null}
+</div>

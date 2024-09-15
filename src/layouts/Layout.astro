@@ -6,9 +6,10 @@ interface Props {
 	title: string;
 	description:string;
 	canonical:string;
+	class?:string;
 }
 
-const { title,description } = Astro.props;
+const { title,description,class:className } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const socialImageURL = new URL('/default-social.png', Astro.url);
 import '../sass/style.scss'
@@ -58,7 +59,7 @@ import '../sass/style.scss'
 		<title>{`Wilson Muñoz Castro | ${title}` }</title>
 		<ViewTransitions />
 	</head>
-	<body>
+	<body class={className}>
 		<Head/>
 		<main class="mt-space-3xl">
 			<slot />

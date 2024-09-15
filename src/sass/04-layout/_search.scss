@@ -1,0 +1,11 @@
+.search,.blog{
+   & .search-form{
+
+        & input[type="text"]{
+            flex-grow: 1;
+            flex-basis: 14rem;
+            max-width: 33.5rem;
+        }
+
+    } 
+}
