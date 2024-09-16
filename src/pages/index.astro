@@ -4,25 +4,26 @@ import CardProject from "../components/CardProject.astro";
 import { projects } from "../constant";
 import CardPost from "../components/CardPost.astro";
 import { getCollection } from "astro:content";
-const allPosts = await getCollection("posts");
+const allPosts = (await getCollection("posts")).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+); // Ordenar los posts en orden descendente.
 import Hero from "../layouts/Hero.astro";
 import Nav from "../components/Nav.astro";
 
 const personal = '🖥️ Con +4 años en diseño y desarrollo web. Dominio de HTML5, CSS3, JavaScript, Adobe (Photoshop, Illustrator) y tecnologías modernas como Astro, React y Tailwind.'
 const {canonicalURL} = Astro.props
-
 ---
 
 <Layout title="Front End Developer | Designer" canonical={canonicalURL} description={personal}>
   <div class="container">
-      <Hero title="Hola!👋, Soy Wilson" personal={personal}/>
-      <Nav/>
+    <Hero title="Hola!👋, Soy Wilson" personal={personal}/>
+    <Nav/>
     <h2 class="mt-space-3xl"># Últimos Proyectos</h2>
     <CardProject quantity={-2} project={projects}/>
     <h2 class="mb-space-l mt-space-2xl"># Último Post</h2>
     <ul role="list" class="blog-post | flow">
       {
-        allPosts.slice(-1).map((post) => {
+        allPosts.slice(0, 1).map((post) => {
           return (
             <CardPost post={post}/>
           );
