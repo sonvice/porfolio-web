@@ -40,7 +40,7 @@ Para comprender como posicionar nuestros elementos html, hay que ver como funcio
 
 A continuación te muestro una imagen y luego el código de como esta funcionando esta propiedad.
 
-<Picture  widths={[720, gridArea.width]} sizes={`(min-width: 39.9em) 720px`}  src={gridArea} alt="Gif mostrando las grid áreas en firefox"/>
+<Picture  widths={[720, gridArea.width]} formats={['avif', 'webp']} sizes={`(min-width: 39.9em) 720px`}  src={gridArea} alt="Gif mostrando las grid áreas en firefox"/>
 
 <Code code={`<div class="grid">
     <div class="A">A</div>
@@ -131,7 +131,7 @@ Aquí le estamos diciendo que todos los hijos directos de `<header>` acupen toda
 
 A nuestra imagen le vamos da dar un alto definido igual a su contenedor padre para que en tamaños de pantallas más pequenas se adapte bien, y el `object-fit: cover;` para que cubra todo el contenedor y no se deforme nuestra imagen.
 
-<Picture  widths={[720, imgHeroArea.width]} sizes={`(min-width: 39.9em) 720px`}  src={imgHeroArea} alt="Gif mostrando las grid áreas en firefox"/>
+<Picture  widths={[720, imgHeroArea.width]} formats={['avif', 'webp']} sizes={`(min-width: 39.9em) 720px`}  src={imgHeroArea} alt="Gif mostrando las grid áreas en firefox"/>
 
 Veamos como va quedando, con el `z-index: -1;` esta indicando que se coloque por detrás del degradado oscuro que le hemos dado antes a nuestro `<header>` para de esta manera dar un mejor contraste con el texto. 
 
