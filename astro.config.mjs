@@ -9,7 +9,7 @@ import netlify from "@astrojs/netlify";
 // https://astro.build/config
 export default defineConfig({
   output: 'hybrid',
-  integrations: [setPrerender(),react(), mdx(), sitemap(), partytown({
+  integrations: [react(), mdx(), sitemap(), partytown({
     config: {
       forward: ["dataLayer.push"]
     }
@@ -25,16 +25,3 @@ export default defineConfig({
 });
 
 
-function setPrerender() {
-  return {
-    name: 'set-prerender',
-    hooks: {
-      'astro:route:setup': ({ route }) => {
-        // Para la ruta "/search", evitar la prerenderización (SSR dinámico)
-        if (route.component.endsWith('/blog/search.astro')) {
-          route.prerender = false;
-        }
-      },
-    },
-  };
-  }
