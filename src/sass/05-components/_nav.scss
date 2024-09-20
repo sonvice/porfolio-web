@@ -12,6 +12,15 @@
     text-transform: capitalize;
   }
 
+  & [aria-current="page"]{
+    & svg{
+      g{
+        fill:canvasText;
+       
+      }
+    }
+  }
+
 }
 .active[aria-current="page"],.active{
     background-size: 100% 4px;

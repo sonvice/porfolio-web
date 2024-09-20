@@ -15,25 +15,25 @@ export const navLink = [
   {
     href: "/",
     label: "Home",
-    icon:'carbon:home'
+    icon:'lucide:home'
   },
   {
     href: "/about",
     label: "About",
-    icon: 'ic:outline-info'
+    icon: 'lucide:info'
   },
   { href: "/projects", 
     label: "Projects",
-    icon: 'ic:sharp-web-asset'},
+    icon: 'lucide:monitor'},
   {
     href: "/blog",
     label: "Blog",
-    icon: 'ic:outline-article'
+    icon: 'lucide:clipboard-list'
   },
   {
     href: "/blogroll",
     label: "Blogroll",
-    icon: 'ion:link-outline'
+    icon: 'lucide:link-2'
   },
 ];
 

@@ -1,20 +1,21 @@
 @use "../01-abstracts/tokens" as color;
 
-@each $class-name, $value in color.$primary {
+@each $class-name, $css-variable in color.$primary {
   //Background
   .bg-#{$class-name} {
-    background-color: $value;
+    background-color: var(#{$css-variable});
   }
   .text-#{$class-name} {
-    color: $value;
+    color: var(#{$css-variable});
   }
 }
-@each $class-name, $value in color.$neutral {
+
+@each $class-name, $css-variable in color.$neutral {
   //Background
   .bg-#{$class-name} {
-    background-color: $value;
+    background-color: var(#{$css-variable});
   }
   .text-#{$class-name} {
-    color: $value;
+    color: var(#{$css-variable});
   }
 }

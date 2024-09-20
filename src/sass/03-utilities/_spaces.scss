@@ -1,56 +1,55 @@
-
 @use "../01-abstracts/tokens" as s;
 
-@each $class-name, $value in s.$spaces {
+@each $class-name, $css-variable in s.$spaces {
     // Margin
     .m-#{$class-name} {
-      margin: $value;
+      margin: var(#{$css-variable});
     }
     .mt-#{$class-name} {
-      margin-top: $value;
+      margin-top: var(#{$css-variable});
     }
     .mr-#{$class-name} {
-      margin-right: $value;
+      margin-right: var(#{$css-variable});
     }
     .mb-#{$class-name} {
-      margin-bottom: $value;
+      margin-bottom: var(#{$css-variable});
     }
     .ml-#{$class-name} {
-      margin-left: $value;
+      margin-left: var(#{$css-variable});
     }
     // Margin en bloque
     .my-#{$class-name} {
-      margin-block: $value;
+      margin-block: var(#{$css-variable});
     }
     // Margin en linea
     .mx-#{$class-name} {
-      margin-inline: $value;
+      margin-inline: var(#{$css-variable});
     }
-  
+
     // Padding
     .p-#{$class-name} {
-      padding: $value;
+      padding: var(#{$css-variable});
     }
     .pt-#{$class-name} {
-      padding-top: $value;
+      padding-top: var(#{$css-variable});
     }
     .pr-#{$class-name} {
-      padding-right: $value;
+      padding-right: var(#{$css-variable});
     }
     .pb-#{$class-name} {
-      padding-bottom: $value;
+      padding-bottom: var(#{$css-variable});
     }
     .pl-#{$class-name} {
-      padding-left: $value;
+      padding-left: var(#{$css-variable});
     }
-  
+
     // Padding en bloque
     .py-#{$class-name} {
-      padding-block: $value;
+      padding-block: var(#{$css-variable});
     }
-  
+
     // Padding en línea
     .px-#{$class-name} {
-      padding-inline: $value;
+      padding-inline: var(#{$css-variable});
     }
-  }
+}
