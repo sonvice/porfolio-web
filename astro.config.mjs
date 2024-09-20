@@ -21,6 +21,13 @@ export default defineConfig({
       wrap: true
     }
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: 'modern',
+      },
+    },
+  },
   adapter: netlify()
 });
 

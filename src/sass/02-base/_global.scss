@@ -1,13 +1,6 @@
 /* @link https://utopia.fyi/space/calculator?c=320,16,1.2,832,18,1.333,5,1,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,2xl,12 */
 
 :root {
-
-  @media (prefers-color-scheme: dark){
-      --color-bg:var(--color-slate-950);
-      --color-txt:var(--color-slate-300);
-      --filter-dark:var(--filter);
-      --color-svg: var(--color-primary);
-  }
     //Colors
   --color-slate-50: #f8fafc;
   --color-slate-300: #cbd5e1;
@@ -51,7 +44,12 @@
 
   --verified-size: var(--space-xl);
   
-
+  @media (prefers-color-scheme: dark){
+    --color-bg:var(--color-slate-950);
+    --color-txt:var(--color-slate-300);
+    --filter-dark:var(--filter);
+    --color-svg: var(--color-primary);
+}
 }
 html{
   //https://blog.jim-nielsen.com/2021/css-system-colors/
