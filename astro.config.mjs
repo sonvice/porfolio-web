@@ -8,7 +8,7 @@ import netlify from "@astrojs/netlify";
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'hybrid',
+  output: 'static',
   integrations: [react(), mdx(), sitemap(), partytown({
     config: {
       forward: ["dataLayer.push"]

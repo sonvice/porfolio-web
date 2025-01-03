@@ -17,7 +17,7 @@ const { post } = Astro.props;
     </time>
   </small>
   <h3 class="size-2">
-    <a href={`/${post.slug}`}>{post.data.title}</a>
+    <a href={`/${post.id}`}>{post.data.title}</a>
   </h3>
   <ul role="list" class="tag-block | d-flex mt-space-s">
     {

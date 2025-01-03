@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content"
+import { getCollection,render } from "astro:content"
 import Layout from "../layouts/Layout.astro";
 import Icon from "astro-icon";
 export async function getStaticPaths(){
@@ -7,7 +7,7 @@ export async function getStaticPaths(){
 
     return posts.map((post)=>{
         return {
-            params: {slug: post.slug},
+            params: {id: post.id},
             props: {post},
         }
     
@@ -24,10 +24,10 @@ const options: Intl.DateTimeFormatOptions = {
 
 //Props
 
-const {post} = Astro.props 
-const { Content } = await post.render()
+const {post} = Astro.props; 
+const { Content } = await render(post);
 ---
-<Layout title={post.data.title} canonical={`/${post.slug}`} description={post.data.description}>
+<Layout title={post.data.title} canonical={`/${post.id}`} description={post.data.description}>
     <div class="hero-nav | container">
         
         <nav class="nav mt-space-xl">
@@ -45,7 +45,7 @@ const { Content } = await post.render()
                 </li>
                 <span>&rsaquo;</span>
                 <li>
-                    <a href={`/${post.slug}`} class="nav__link | d-flex px-space-3xs py-space-xs"} aria-current="page">
+                    <a href={`/${post.id}`} class="nav__link | d-flex px-space-3xs py-space-xs"} aria-current="page">
                       <Icon name='ph:article-medium-thin'/> {`${post.data.title.substring(0,12)} ...`}
                     </a>
                 </li>
