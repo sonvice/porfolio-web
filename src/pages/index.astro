@@ -1,14 +1,14 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import CardProject from "../components/CardProject.astro";
-import { projects } from "../constant";
-import CardPost from "../components/CardPost.astro";
+import Layout from "@layouts/Layout.astro";
+import CardProject from "@components/CardProject.astro";
+import { projects } from "@constant/index";
+import CardPost from "@components/CardPost.astro";
 import { getCollection } from "astro:content";
 const allPosts = (await getCollection("posts")).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 ); // Ordenar los posts en orden descendente.
-import Hero from "../layouts/Hero.astro";
-import Nav from "../components/Nav.astro";
+import Hero from "@layouts/Hero.astro";
+import Nav from "@components/Nav.astro";
 
 const personal = '🖥️ Con +4 años en diseño y desarrollo web. Dominio de HTML5, CSS3, JavaScript, Adobe (Photoshop, Illustrator) y tecnologías modernas como Astro, React y Tailwind.'
 const {canonicalURL} = Astro.props

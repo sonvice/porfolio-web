@@ -12,7 +12,7 @@ import imgBoldo from './boldo.png'
 import imgIaLanding from './ia-landing.png'
 import imgTravel from './travel-landing.png'
 import imgPixelPunk from './pixel-punk.png'
-//import socialImg from './default-social.png'
+import iaRobotics from './robotics.png'
 
 
 
@@ -30,5 +30,6 @@ imgEasybank,
 imgBoldo,
 imgIaLanding,
 imgTravel,
-imgPixelPunk
+imgPixelPunk,
+iaRobotics
 }

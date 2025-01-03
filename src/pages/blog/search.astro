@@ -1,11 +1,11 @@
 ---
 export const prerender = false;
-import CardPost from "../../components/CardPost.astro";
-import Nav from "../../components/Nav.astro";
-import Hero from "../../layouts/Hero.astro";
-import Layout from "../../layouts/Layout.astro";
+import CardPost from "@components/CardPost.astro";
+import Nav from "@components/Nav.astro";
+import Hero from "@layouts/Hero.astro";
+import Layout from "@layouts/Layout.astro";
 import { getCollection } from "astro:content";
-import SearchForm from "../../components/SearchForm.astro";
+import SearchForm from "@components/SearchForm.astro";
 
 const query = Astro.url.searchParams.get("query") || ''; // Valor predeterminado para evitar errores si es null
 

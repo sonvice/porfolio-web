@@ -8,7 +8,8 @@ import {
   imgPeople,
   imgBoldo,
   imgIaLanding,imgTravel,
-  imgPixelPunk
+  imgPixelPunk,
+  iaRobotics
 } from "../assets/images";
 
 export const navLink = [
@@ -38,16 +39,6 @@ export const navLink = [
 ];
 
 export const projects = [
-  {
-    img: imgJustice,
-    title: 'Justice | Landing Page',
-    description:
-      "De los primeros proyectos es una landing para abogados diseñada desde cero, herramientas utilizadas en este proyecto Adobe XD, Photoshop, Illustrator, para el código HTML CSS JavaScript también utilice librerias JavaScript para los slider y otra para efectos de scroll",
-    href: "https://sonvice.github.io/justice/",
-    alt:'Screenshot de una landing page moderna para abogados',
-    label: "justice",
-    gitHub:'https://github.com/sonvice/justice'
-  },
   {
     img: imgDentis,
     title: 'Dentis | Landing Page',
@@ -117,8 +108,18 @@ export const projects = [
       "Este proyecto es una landing page futurista inspirada en la estética Cyberpunk, diseñada en Figma y desarrollada utilizando el Astro Framework. La página es completamente responsive, aprovechando el poder de Sass para gestionar los estilos de manera eficiente. El diseño incorpora un enfoque moderno, utilizando CSS Grid, animaciones y degradados llamativos, y elementos visuales en SVG.",
     href: "https://pixelpunk-ia.netlify.app/",
     alt:'Screenshot de una landing page, construida utilizando Astro, css, Sass,js',
-    label: "travel landing",
+    label: "Pixel Punk",
     gitHub:'https://github.com/sonvice/pixel-punk-landing'
+  },
+  {
+    img: iaRobotics,
+    title: 'AI Robotics | Landing Page',
+    description:
+      "ROM.AI es una landing page moderna y responsiva diseñada para promover soluciones de robótica e inteligencia artificial. Este proyecto destaca por su uso de tecnologías avanzadas y una implementación multilingüe (español e inglés).",
+    href: "https://airobotics.netlify.app/",
+    alt:'Screenshot de una landing page, construida utilizando Astro 5, css, Sass,js',
+    label: "AI Robotics",
+    gitHub:'https://github.com/sonvice/robotics-landing'
   },
 ];
 
