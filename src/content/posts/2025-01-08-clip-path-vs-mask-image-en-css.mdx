@@ -1,0 +1,79 @@
+---
+tags: [css, design, css-avanzado]
+date: 2025-01-08
+featured: false
+cover: ./images/clip-path-vs-mask-image-en-css/landig-portada.png 
+title: > 
+    Clip-Path vs Mask-Image en CSS: Aplicaciones Reales en Dos Landing Pages
+slug: clip-path-vs-mask-image-en-css-aplicaciones-reales-en-dos-landing-pages
+description: >
+    Explora cómo apliqué clip-path y mask-image en dos proyectos web de mi portafolio. Son ejemplos prácticos cómo usar estas propiedades para recortar y diseñar elementos con estilo en CSS.
+---
+import { Picture } from "astro:assets"
+import { Code } from 'astro:components';
+import { figmaSVG,maskImg,svgFooter,landingPortada } from './images/clip-path-vs-mask-image-en-css'
+ 
+> Explora cómo apliqué clip-path y mask-image en dos proyectos web de mi portafolio. Son ejemplos prácticos cómo usar estas propiedades para recortar y diseñar elementos con estilo en CSS.
+
+ <Picture quality={100} src={landingPortada} widths={[720, landingPortada.width]}  sizes={`(min-width: 39.9em) 720px`} alt="Pensonas en base a investigación ux"/> 
+
+## ¿Qué es la propiedad css Clip-Path?
+
+Lo que hace es mostrar parte de un elemento que debe mostrarse, la parte interna se muestra mientras que lo que esta por fuerta queda oculto.
+Se puede crear una ruta de recorte con varias formas básicas o un SVG además que permite [animación](https://css-tricks.com/animating-with-clip-path/).
+
+### **Como lo apliqué.**
+Primero tengo que exportar el **svg** de Figma, tengo una extención llamada [SVG Export](https://www.figma.com/community/plugin/814345141907543603/svg-export), que de paso me optimiza el svg y me permite copiar directamente.
+El svg tiene que estar presente en mi html, para que pueda ser llamado una vez lo aplique en mi css.
+
+ <Picture quality={100} src={figmaSVG} widths={[720, figmaSVG.width]}  sizes={`(min-width: 39.9em) 720px`} alt="Pensonas en base a investigación ux"/> 
+
+<Code code={`.hero__img {
+    -webkit-clip-path: url(#hero-path);
+    clip-path: url(#hero-path);
+    z-index: -1;
+  }
+`} lang="css" theme='slack-dark'/>
+
+Algo importante que descubrí al aplicarlo fue que debía convertir mi **SVG** de [absluto a relativo](https://yoksel.github.io/relative-clip-path/), ya que no se adaptaba al ancho de la pantalla y mi imagen se desbordaba.
+
+<Code code={`<svg width="0" height="0">
+  <clipPath id="hero-path" clipPathUnits="objectBoundingBox"><path d="M0.926,0.061 c0,-0.034,-0.031,-0.061,-0.07,-0.061 H0.074 C0.033,0,0,0.029,0,0.065 v0.625 c0,0.034,0.031,0.061,0.07,0.061 h0.225 c0.041,0,0.074,0.029,0.074,0.065 v0.07 c0,0.034,0.031,0.061,0.07,0.061 h0.078 c0.016,0,0.03,0.004,0.042,0.011 c0.028,0.017,0.056,0.042,0.089,0.042 H0.926 c0.041,0,0.074,-0.029,0.074,-0.065 V0.273 c0,-0.034,-0.037,-0.06,-0.06,-0.088 A0.074,0.064,0,0,1,0.926,0.147 V0.061"></path></clipPath>
+</svg>
+`} lang="html" theme='slack-dark'/>
+
+
+Puedes colocar el svg en cualquier parte de tu html, yo lo suelo poner en el footer de esta manera.
+ <Picture quality={100} src={svgFooter} widths={[720, svgFooter.width]}  sizes={`(min-width: 39.9em) 720px`} alt="Pensonas en base a investigación ux"/> 
+
+## ¿Qué es la propiedad css Mask-Image?
+Al usar esta propiedad css, te da la opción de usar una imagen como máscara. Es decir que puedes usar svg e incluso un gradiente ya que los gradientes son tratados como imagen y puedes conseguir [efectos interesantes](https://web.dev/articles/css-masking?hl=es-419#mask_with_an_image).
+
+Aquí exporto mi máscara pero en formato .png y de color de relleno blanco, que cuado lo aplique será la parte visible de mi contenido.
+
+ <Picture quality={100} src={maskImg} widths={[720, maskImg.width]}  sizes={`(min-width: 39.9em) 720px`} alt="Pensonas en base a investigación ux"/> 
+
+<Code code={`.hero__rank-text {
+   -webkit-mask-image: url("../assets/images/hero/mask.png");
+      mask-image: url("../assets/images/hero/mask.png");
+      mask-size: 100% 100%;
+      -webkit-mask-size: 100% 100%;
+      mask-position: top;
+  }
+`} lang="css" theme='slack-dark'/>
+Y de esta maner se aplica en mi css.
+
+## Landing pages donde aplique estas propiedades
+
+[Pixel Punk | Landing Page](https://pixelpunk-ia.netlify.app/) 
+
+[Ia | Landing Page](https://ia-landing.netlify.app/)
+
+### Recursos
+[Clip Path - MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/clip-path)
+
+[Mask Image - Web Dev](https://web.dev/articles/css-masking?hl=es-419)
+
+[Animación con Clip-Path - CSS-TRICKS](https://css-tricks.com/animating-with-clip-path/)
+
+[Clip Path - CSS-TRICKS](https://css-tricks.com/almanac/properties/c/clip-path/)
