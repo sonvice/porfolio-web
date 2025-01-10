@@ -16,25 +16,25 @@ export const navLink = [
   {
     href: "/",
     label: "Home",
-    icon:'lucide:home'
+    icon:'tabler:home-2'
   },
   {
     href: "/about",
     label: "About",
-    icon: 'lucide:info'
+    icon: 'tabler:user'
   },
   { href: "/projects", 
     label: "Projects",
-    icon: 'lucide:monitor'},
+    icon: 'tabler:scan-position'},
   {
     href: "/blog",
     label: "Blog",
-    icon: 'lucide:clipboard-list'
+    icon: 'tabler:file-text'
   },
   {
     href: "/blogroll",
     label: "Blogroll",
-    icon: 'lucide:link-2'
+    icon: 'tabler:link'
   },
 ];
 

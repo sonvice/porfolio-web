@@ -5,18 +5,18 @@ interface Props {
 }
 
 const { prev, next } = Astro.props;
-import Icon from "astro-icon";
+import { Icon } from 'astro-icon/components'
 ---
 
 <div class="mt-space-l">
   {prev ? (
     <a class="d-flex" href={prev}>
-      <Icon name="lucide:arrow-left"></Icon> Anterior
+      <Icon name="tabler:arrow-badge-left-filled"></Icon> Anterior
     </a>
   ) : null}
   {next ? (
     <a class="d-flex" href={next}>
-      Siguiente <Icon name="lucide:arrow-right"></Icon>
+      Siguiente <Icon name="tabler:arrow-badge-right-filled"></Icon>
     </a>
   ) : null}
 </div>

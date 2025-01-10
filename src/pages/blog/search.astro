@@ -5,36 +5,35 @@ import Nav from "@components/Nav.astro";
 import Hero from "@layouts/Hero.astro";
 import Layout from "@layouts/Layout.astro";
 import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 import SearchForm from "@components/SearchForm.astro";
 
 const query = Astro.url.searchParams.get("query") || ''; // Valor predeterminado para evitar errores si es null
 
 const allPosts = await getCollection("posts");
 
+
 const personal =
   "🖥️ Con +4 años en diseño y desarrollo web. Dominio de HTML5, CSS3, JavaScript, Adobe (Photoshop, Illustrator) y tecnologías modernas como Astro, React y Tailwind.";
 const { canonicalURL } = Astro.props;
 
 // Filter articles based on query
-let searchResults = [];
+let searchResults: CollectionEntry<"posts">[] = [];
 
 if (query) {
   searchResults = allPosts.filter((article) => {
-    const titleMatch = article.data.title
-      .toLowerCase()
-      .includes(query.toLowerCase());
+    const title = article.data?.title?.toLowerCase() ?? "";
+    const body = article.body?.toLowerCase() ?? "";
+    const slug = article.slug?.toLowerCase() ?? "";
 
-    const bodyMatch = article.body
-      .toLowerCase()
-      .includes(query.toLowerCase());
-
-    const slugMatch = article.slug
-      .toLowerCase()
-      .includes(query.toLowerCase());
-
-    return titleMatch || bodyMatch || slugMatch;
+    return (
+      title.includes(query.toLowerCase()) ||
+      body.includes(query.toLowerCase()) ||
+      slug.includes(query.toLowerCase())
+    );
   });
 }
+
 
 ---
 

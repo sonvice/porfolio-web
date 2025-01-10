@@ -6,6 +6,8 @@ import partytown from '@astrojs/partytown';
 
 import netlify from "@astrojs/netlify";
 
+import icon from "astro-icon";
+
 // https://astro.build/config
 export default defineConfig({
   output: 'static',
@@ -13,7 +15,7 @@ export default defineConfig({
     config: {
       forward: ["dataLayer.push"]
     }
-  })],
+  }), icon()],
   site: "https://wilsonmunoz.com/",
   markdown: {
     shikiConfig: {
@@ -30,5 +32,3 @@ export default defineConfig({
   },
   adapter: netlify()
 });
-
-

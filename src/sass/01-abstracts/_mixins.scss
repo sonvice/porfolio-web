@@ -1,3 +1,5 @@
+@use "sass:map";
+
 $breakpointsMin: (
   sm: 40em, //640px
   md: 48em, //768px
@@ -14,7 +16,7 @@ $breakpointsMax: (
 
 // Mixin para generar media queries y recibe como argumento sm, md etc.
 @mixin breakpoint($breakpoint) {
-  $breakpoint-value: map-get($breakpointsMin, $breakpoint);
+  $breakpoint-value: map.get($breakpointsMin, $breakpoint);
 
   @media (min-width: $breakpoint-value) {
     @content;
@@ -23,7 +25,7 @@ $breakpointsMax: (
 
 
 @mixin breakpoint-down($breakpoint) {
-    $breakpoint-value: map-get($breakpointsMax, $breakpoint);
+    $breakpoint-value: map.get($breakpointsMax, $breakpoint);
   
     @media (max-width: $breakpoint-value) {
       @content;

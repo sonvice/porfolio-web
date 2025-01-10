@@ -11,6 +11,7 @@ description: >
 import {img1,img2,img3,gridArea,gridHero,imgHeroArea,heroAfter} from './images/como-crear-3-atractivas-secciones-hero'
 import { Picture } from "astro:assets"
 import { Code } from 'astro:components';
+import { Image } from 'astro:assets';
 
 Optimiza tu Diseño Web: Cómo Crear 3 Atractivas Secciones Hero con CSS Grid y Seudoelementos.
 
@@ -40,7 +41,7 @@ Para comprender como posicionar nuestros elementos html, hay que ver como funcio
 
 A continuación te muestro una imagen y luego el código de como esta funcionando esta propiedad.
 
-<Picture  widths={[720, gridArea.width]} formats={['avif', 'webp']} sizes={`(min-width: 39.9em) 720px`}  src={gridArea} alt="Gif mostrando las grid áreas en firefox"/>
+<Image quality={100}  widths={[720, gridArea.width]} formats={['avif', 'webp']} sizes={`(min-width: 39.9em) 720px`}  src={gridArea} alt="Gif mostrando las grid áreas en firefox"/>
 
 <Code code={`<div class="grid">
     <div class="A">A</div>
