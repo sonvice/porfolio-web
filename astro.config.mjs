@@ -10,10 +10,11 @@ import icon from "astro-icon";
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'static',
   integrations: [react(), mdx(), sitemap(), partytown({
+     dest: "~partytown",
     config: {
-      forward: ["dataLayer.push"]
+      forward: ["dataLayer.push"],
+      debug: true
     }
   }), icon()],
   site: "https://wilsonmunoz.com/",

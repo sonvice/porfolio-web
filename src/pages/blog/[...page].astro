@@ -3,9 +3,18 @@ import { getCollection } from "astro:content";
 import Layout from "@layouts/Layout.astro";
 import Hero from "@layouts/Hero.astro";
 import Nav from "@components/Nav.astro";
-import CardPost from "@components/CardPost.astro";
 import Pagination from '@components/Pagination.astro'
-import SearchForm from "@components/SearchForm.astro";
+import SearchEngine from "@src/components/SearchEngine";
+const allPosts = await getCollection("posts");
+
+const posts = allPosts.map((post) => ({
+  title: post.data.title,
+  slug: post.id,
+  description: post.data.description,
+  date: post.data.date,
+  tags: post.data.tags ?? []
+}));
+
 const { canonicalURL } = Astro.props;
 const description =
   "Blog | Wilson Muñoz Castro, Front-end developer, designer, me gusta convertir diseños a código con HTML5, CSS3, JavaScript | Astro, React, Tailwindcss";
@@ -14,7 +23,6 @@ export async function getStaticPaths({ paginate }) {
     (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
   ); // Orden descendente según la fecha de las publicaciones.(posts más recientes)
   return paginate(allPosts, { pageSize: 5 });
-  //Se devuelve un objeto que contiene las rutas estáticas para cada página de la paginación.
 }
 const { page } = Astro.props;
 ---
@@ -26,15 +34,7 @@ const { page } = Astro.props;
   </div>
   <div class="container mt-space-3xl">
     <h2 class="mb-space-l"># Blog</h2>
-    <SearchForm />
-    <ul role="list" class="blog-post | flow">
-      {
-        page.data.slice().map((post) => {
-          return <CardPost post={post} />;
-        })
-      }
-    </ul>
-
+    <SearchEngine client:load posts={page.data} allPosts={posts} />
     <Pagination prev={page.url.prev} next={page.url.next}></Pagination>
   </div>
 </Layout>
