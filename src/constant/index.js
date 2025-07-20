@@ -1,10 +1,8 @@
 import {
   imgCareerrist,
   imgDentis,
-  imgEasybank,
   imgGalllery,
-  imgJustice,
-  imgPeli,
+  imgCalculaTuLuz,
   imgPeople,
   imgBoldo,
   imgIaLanding,imgTravel,
@@ -135,14 +133,14 @@ export const projectsApp =[
     gitHub:'https://github.com/sonvice/save-galeria/tree/main'
   },
   {
-    img: imgPeli,
-    title: 'App | Current Movies',
+    img: imgCalculaTuLuz,
+    title: 'App | Calculatuluz.es',
     description:
-      "Es una pequeña app para ver los thiller de las últimas películas, en este proyecto se consume una api TMDB con JavaScript, listando tanto las últimas películas como series de Tv.",
-    href: "https://thrillers-populares.netlify.app/",
+      "Calcula el consumo eléctrico de tus electrodomésticos en kWh y euros. Consume la API de la Red Eléctrica Española y te muestra el precio de la luz en tiempo real.",
+    href: "https://calculatuluz.es/",
     alt:'Screenshot de un pequeña App para ver los thiller de las últimas películas y series',
     label: "peli",
-    gitHub:'https://github.com/sonvice/thrillers-populares'
+    gitHub:'https://github.com/sonvice/calculatuluz'
   },
 ]
 
