@@ -9,9 +9,7 @@ const {quantity,project} = Astro.props
 
 ---
 
-{
-    project.slice(quantity).map((project) => {
-      return (
+
         <li class="card">
           <figure>
             <a href={project.href} target="_blank" rel="noopener">
@@ -30,6 +28,3 @@ const {quantity,project} = Astro.props
             </a>
           </div>
         </li>
-      );
-    })
-  }

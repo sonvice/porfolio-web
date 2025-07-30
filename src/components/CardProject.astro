@@ -1,11 +1,15 @@
 ---
+// CardProject.astro
 import Card from "./Card.astro";
 
-const {quantity,project} = Astro.props
+const { quantity, project } = Astro.props;
+const limitedProjects = quantity ? project.slice(0, quantity) : project;
 ---
 
-<div class="mt-space-l">
-  <ul role="list" class="card-project | d-grid">
-    <Card quantity={quantity} project={project}/>
-  </ul>
-</div>
+<ul role="list" class="card-project | d-grid">
+  {
+    limitedProjects.map((project) => (
+      <Card project={project} />
+    ))
+  }
+</ul>
