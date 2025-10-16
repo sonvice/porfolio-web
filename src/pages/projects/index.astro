@@ -1,38 +1,41 @@
 ---
-import CardProject from '@components/CardProject.astro';
-import Layout from '@layouts/Layout.astro'
-import Hero from '@layouts/Hero.astro';
-import Nav from '@components/Nav.astro';
-import { projects,projectsApp } from "../../constant";
+import CardProject from "@components/CardProject.astro";
+import Layout from "@layouts/Layout.astro";
+import Hero from "@layouts/Hero.astro";
+import Nav from "@components/Nav.astro";
+import { projects, projectsApp } from "../../constant";
 interface Project {
-  img: string;
-  title: string;
-  description: string;
-  href: string;
-  alt: string;
-  label: string;
-  gitHub: string;
+    img: string;
+    title: string;
+    description: string;
+    href: string;
+    alt: string;
+    label: string;
+    gitHub: string;
 }
-interface Props{
-    quantity?: number,
-    project: Project[],
-    canonicalURL:string,
+interface Props {
+    quantity?: number;
+    project: Project[];
+    canonicalURL: string;
 }
-const description = 'Proyectos web que he realizado con tecnologías front end como HTML, CSS3, JavaScrip, Astro, React y Tailwindcss'
-const {canonicalURL, quantity} = Astro.props
+const description =
+    "Proyectos web que he realizado con tecnologías front end como HTML, CSS3, JavaScrip, Astro, React y Tailwindcss";
+const { canonicalURL, quantity } = Astro.props;
 ---
-<Layout title='Projects' canonical={canonicalURL} description={description}>
+
+<Layout title="Projects" canonical={canonicalURL} description={description}>
     <div class="hero-nav | container">
-        <Hero title='Projects'/>
-        <Nav/>
-      </div>
+        <Hero title="Projects" />
+        <Nav />
+    </div>
     <div class="container | mt-space-3xl">
-        <h2># Landing Page</h2>
+        <h2 class="mb-space-l"># Landing Page</h2>
         <CardProject project={projects} quantity={quantity}>
-        <h2 class="mt-space-xl mb-space-l"># Pequeñas App</h2>
-    </div>
-    <div class="container | mt-space-2xl">
-        <h2 class="mb-space-l"># App Web</h2>
-        <CardProject project={projectsApp} quantity={quantity}>
-    </div>
-</Layout>
+            <h2 class="mt-space-xl mb-space-l"># Pequeñas App</h2>
+        </CardProject>
+        <div class="container | mt-space-2xl">
+            <h2 class="mb-space-l"># App Web</h2>
+            <CardProject project={projectsApp} quantity={quantity} />
+        </div>
+    </div></Layout
+>

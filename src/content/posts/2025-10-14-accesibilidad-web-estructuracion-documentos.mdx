@@ -1,0 +1,220 @@
+---
+tags: ["accesibilidad", "HTML", "frontend", "semántica", "inclusión"]
+date: 2025-10-14
+featured: false
+cover: ./images/clip-path-vs-mask-image-en-css/landig-portada.png 
+title: > 
+    Capítulo 1: Estructuración de Documentos - Fundamentos de Accesibilidad Web
+slug: estructuracion-de-documentos-fundamentos-de-accesibilidad-web
+description: >
+    Basado en el libro Web Accessibility Cookbook de Manuel Matuzovic (O'Reilly Media, 2025). Aprende cómo la estructura, el idioma, los títulos y los landmarks mejoran la accesibilidad web. 
+---
+
+## Definir el idioma natural de la página
+
+### El problema
+Si una página no define el idioma en el que está escrita, **el software asistivo puede no traducir ni pronunciar correctamente el contenido**.  
+Esto afecta tanto a la comprensión como a la experiencia del usuario.
+
+### La solución
+Definir el idioma principal usando el atributo `lang` en el elemento `<html>`:
+
+```html
+<!doctype html>
+<html lang="es">
+```
+```html
+<p>
+    The Wind-Up Bird Chronicle (<span lang="ja-Latn">Nejimakidori Kuronikuru</span>) 
+  is a novel published in 1994 by Japanese author Haruki Murakami.
+</p>
+```
+    El atributo lang es global, por lo que también se puede usar en otros elementos si hay partes del contenido en idiomas distintos.
+
+## Estilizar por idioma
+
+### El problema
+A veces necesitas aplicar estilos o ajustes tipográficos según el idioma (por ejemplo, ajustes visuales o indicaciones para tipografías específicas).
+Sin técnicas para detectar el idioma en CSS, es más difícil ofrecer una presentación adecuada por idioma.
+
+### La solución
+Usar la seudoclase `:lang()` para aplicar estilos específicos a fragmentos en un idioma determinado:
+```css
+<style>
+  p:lang(de) {
+    border: 10px solid red;
+  }
+
+  p:lang(en) {
+    border: 10px solid blue;
+  }
+</style>
+
+<p lang="de">Deutscher Text</p>
+<p lang="en-GB">English Text</p>
+```
+
+### Beneficio y consejo
+
+Beneficio principal: los lectores de pantalla ajustan automáticamente la pronunciación según el idioma.
+Consejo: usa esta técnica con moderación. Palabras extranjeras comunes como `Download`, `Workshop` o `Link` no suelen necesitar un cambio de idioma.
+
+Si no se define ningún idioma, los lectores de pantalla recurren al idioma predeterminado del sistema, lo que puede producir errores de pronunciación.
+
+## El título del documento
+
+### El problema
+Los usuarios de lectores de pantalla a menudo no saben en qué página están si el título no está correctamente configurado.
+Un título pobre o inexistente dificulta la orientación y reduce la usabilidad.
+
+### La solución
+Usar el tag `<title>` para definir el título de la página web:
+
+```html
+<title>Calculadora de consumo eléctrico | CalculaTuLuz</title>
+```
+
+### Buenas Prácticas para el Título
+
+* **Único y descriptivo**: cada página debe tener un título distinto.
+* **Conciso**: ideal entre 50 y 60 caracteres.
+* **Relevante para el usuario**: pensado primero en la experiencia, no solo en SEO.
+* **Visible en varios contextos**: pestañas, marcadores, resultados de búsqueda y redes sociales.
+* **Útil para accesibilidad**: los lectores de pantalla lo leen al cargar la página.
+* **Prioriza la información clave**: contenido específico $\rightarrow$ nombre del sitio.
+* Puede incluir contexto adicional: pasos, errores, número de resultados, etc.
+
+En resumen, `<title>` es esencial para la **orientación**, **accesibilidad**, **SEO** y **usabilidad**.
+
+## Establecer el Viewport
+
+### El problema
+Si una persona necesita hacer zoom y no puede hacerlo, probablemente la página no tiene configurado el viewport correctamente.
+Sin viewport, los navegadores móviles usan un ancho virtual que puede hacer el texto ilegible y deshabilitar el zoom efectivo.
+
+### La solución
+Añadir la meta etiqueta viewport:
+Esto le dice al navegador cómo debe mostrarse la página en diferentes dispositivos.
+
+```html
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+```
+
+
+### Explicación de los valores
+`width=device-width`: ajusta el ancho de la página al ancho real del dispositivo.
+Sin esto, los navegadores móviles asumen un ancho fijo (980–1024px), provocando textos diminutos y mala experiencia.
+`initial-scale=1.0`: define el zoom inicial al 100%, evitando que la página se vea ampliada o reducida.
+
+Con esta etiqueta, garantizas que tu sitio sea responsivo y accesible, permitiendo el zoom y adaptándose correctamente a cualquier pantalla.
+
+## Optimizar el orden de renderizado
+### El problema
+Algunos elementos del`<head>` pueden ir en cualquier orden, pero otros deben cargarse antes para mejorar el rendimiento y la experiencia de carga.
+Un orden incorrecto puede provocar bloqueo del renderizado, flash de contenido no estilizado (FOUC) o ralentizar la primera pintura útil.
+
+### La solución
+Según el experto Harry Roberts, este es el orden recomendado dentro del `<head>`
+```html
+<head>
+  <!-- Codificación de caracteres -->
+  <meta charset="UTF-8">
+
+  <!-- Viewport para diseño responsivo -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Política de seguridad -->
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <!-- Título -->
+  <title>Johanna's toy store</title>
+
+  <!-- Preconexión -->
+  <link rel="preconnect" href="#" />
+
+  <!-- JS asíncrono (no bloquea el renderizado) -->
+  <script src="" async></script>
+
+  <!-- CSS importado dentro de <style> (menos recomendado por rendimiento) -->
+  <style>
+    @import "file.css";
+  </style>  
+
+  <!-- JS síncrono (bloquea el renderizado hasta cargarse) -->
+  <script src=""></script>
+
+  <!-- CSS principal (bloquea renderizado, recomendado para estilos críticos) -->
+  <link rel="stylesheet" href="/assets/style.css">  
+
+  <!-- Precarga de recursos críticos -->
+  <link rel="preload" href="#" />
+
+  <!-- JS diferido (se ejecuta después de parsear el HTML) -->
+  <script type="module">
+    document.documentElement.classList.replace('no-js', 'js');
+  </script>
+  <script src="" defer></script>
+
+  <!-- Prefetch / Prerender para futuras navegaciones -->
+  <link rel="prefetch" href="#" />
+  <link rel="prerender" href="#" />
+
+  <!-- Otros metadatos (descripción, iconos, open graph, etc.) -->
+  <meta name="description" content="">
+</head>
+```
+
+### Discusión
+Un sitio que tarda en cargarse o no carga con una conexión lenta es, en esencia, un sitio inaccesible.
+Diseñar para la accesibilidad implica optimizar rendimiento, permitir cargas parciales y asegurar que el contenido crítico esté disponible incluso en conexiones limitadas.
+
+## Regiones semánticas (Landmarks)
+### El problema
+Si una página no contiene regiones semánticas, los usuarios con lectores de pantalla no pueden navegar fácilmente entre secciones.
+Esto obliga a recorrer el contenido linealmente, perdiendo eficiencia y contexto.
+
+### La solución 
+Usar landmarks para identificar las áreas clave de la página:
+
+```html 
+<header>...</header>
+<nav>...</nav>
+<main>...</main>
+<form role="search">...</form>
+<footer>...</footer>
+```
+
+### ¿Qué son los landmarks?
+Permiten a los usuarios moverse rápidamente entre secciones clave usando atajos de teclado o gestos, evitando tener que recorrer todo el contenido.
+
+## Ejemplos según Lector de Pantalla
+
+| Lector de Pantalla | Atajo/Navegación |
+| :--- | :--- |
+| **NVDA** (Windows) | `D` o `Shift + D` |
+| **JAWS** (Windows) | R |
+| **VoiceOver** (macOS/iOS) | navegación por regiones |
+| **TalkBack** (Android) | gestos por secciones |
+
+Incluso hay extensiones que añaden navegación por landmarks a usuarios sin lector de pantalla, como *Landmark Navigation via Keyboard or Pop-up*.
+
+### Los Tres Landmarks Más Importantes
+
+1.  **`<header>` → `banner`**
+    * Encabezado global del sitio (logo, navegación principal, buscador, etc.).
+    * Solo actúa como landmark si está **directamente dentro del `<body>`**.
+    * Puede haber varios `<header>`, pero solo uno debe ser el banner principal. 
+
+2.  **`<main>` → `main`**
+    * Contiene el **contenido principal**.
+    * Solo debe haber **uno visible por página**.
+    * En aplicaciones SPA, si hay varios, los inactivos deben estar ocultos (`hidden`) para no confundir a los usuarios.
+
+3.  **`<footer>` → `contentinfo`**
+    * Pie global del sitio (copyright, políticas, enlaces secundarios…).
+    * Solo es landmark si está **directamente en el `<body>`**.
+
+### En resumen
+Usar una buena estructura de documento es la base de cualquier sitio accesible.
+Definir el idioma, el título, el viewport, optimizar el `<head>` y usar landmarks semánticos son pasos fundamentales para mejorar la comprensión, la orientación y la usabilidad de tu sitio.
+Implementar estas prácticas reduce barreras y mejora la experiencia para todo tipo de usuarios.

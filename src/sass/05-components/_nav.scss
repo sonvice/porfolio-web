@@ -1,8 +1,9 @@
 .nav {
   grid-area: nav;
 
-  &__list{
+  &__list {
     --gutter: var(--space-m);
+    font-family: system-ui, sans-serif;
   }
 
   &__link {
@@ -13,8 +14,8 @@
   }
 
 }
-.active[aria-current="page"],.active{
-    background-size: 100% 4px;
-  }
 
-
+.active[aria-current="page"],
+.active {
+  background-size: 100% 4px;
+}

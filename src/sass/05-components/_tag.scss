@@ -1,8 +1,12 @@
-.tag{
-    & a{
+.tag {
+    font-family: system-ui, sans-serif;
+    font-weight: 400;
+
+    & a {
         text-decoration: none;
     }
-    &:hover a{
+
+    &:hover a {
         background-color: var(--color-secondary);
     }
 }

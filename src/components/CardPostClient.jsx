@@ -17,7 +17,7 @@ export default function CardPostClient({ post }) {
       <h3 className="size-2">
         <a href={`/${post.slug ?? post.id}`}>{post.data?.title}</a>
       </h3>
-      <ul role="list" className="tag-block | d-flex mt-space-s">
+      <ul role="list" className="tag-block | d-flex my-space-s">
         {(post.data?.tags ?? []).map((tag) => (
           <li key={tag} className="tag | size--1">
             <a

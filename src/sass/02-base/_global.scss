@@ -1,13 +1,13 @@
 /* @link https://utopia.fyi/space/calculator?c=320,16,1.2,832,18,1.333,5,1,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,2xl,12 */
 
 :root {
-    //Colors
+  //Colors
   --color-slate-50: #f8fafc;
   --color-slate-300: #cbd5e1;
   --color-slate-600: #475569;
   --color-slate-950: #080B15;
   //--color-primary: #dc2626;
-  --color-secondary-hsl:212, 74%, 49%;
+  --color-secondary-hsl: 212, 74%, 49%;
   --color-primary: var(--color-red);
   --color-secondary: hsl(var(--color-secondary-hsl));
   --color-red: hsl(351, 100%, 45%);
@@ -39,51 +39,53 @@
 
   //Font Weight
   --fw-regular: 300;
-  --fw-semiBold:600;
+  --fw-semiBold: 600;
   --fw-bold: 900;
 
   --verified-size: var(--space-xl);
-  
-  @media (prefers-color-scheme: dark){
-    --color-bg:var(--color-slate-950);
-    --color-txt:var(--color-slate-300);
-    --filter-dark:var(--filter);
+
+  @media (prefers-color-scheme: dark) {
+    --color-bg: var(--color-slate-950);
+    --color-txt: var(--color-slate-300);
+    --filter-dark: var(--filter);
     --color-svg: var(--color-primary);
+  }
 }
-}
-html{
+
+html {
   //https://blog.jim-nielsen.com/2021/css-system-colors/
   //https://drafts.csswg.org/css-color-adjust-1/
   color-scheme: light dark;
 }
 
 body {
-  font-family: 'Roboto Mono', monospace, -apple-system, BlinkMacSystemFont,
-  "Segoe UI", "Roboto";
+  font-family: 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', P052, serif;
   font-size: var(--base);
   overflow-x: hidden;
   position: relative;
   background: Canvas;
   color: CanvasText;
-  &::after{
+
+  &::after {
     content: '';
     width: 100%;
     height: 100%;
     inset: 0;
     position: absolute;
-    -webkit-mask-image: url('../assets/images/gradiente.png'),url('../assets/images/gradiente.png');
+    -webkit-mask-image: url('../assets/images/gradiente.png'), url('../assets/images/gradiente.png');
     -webkit-mask-repeat: no-repeat;
-    -webkit-mask-position: top right, bottom left ;
+    -webkit-mask-position: top right, bottom left;
     //-webkit-mask-image: linear-gradient(to top,transparent,50%,#fff,90%,transparent);
     background-image: url("data:image/svg+xml,%3Csvg width='12' height='16' viewBox='0 0 12 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 .99C4 .445 4.444 0 5 0c.552 0 1 .45 1 .99v4.02C6 5.555 5.556 6 5 6c-.552 0-1-.45-1-.99V.99zm6 8c0-.546.444-.99 1-.99.552 0 1 .45 1 .99v4.02c0 .546-.444.99-1 .99-.552 0-1-.45-1-.99V8.99z' fill='%23475569' fill-opacity='0.2' fill-rule='evenodd'/%3E%3C/svg%3E");
     z-index: -1;
-}
+  }
 }
 
 h1,
 h2 {
   line-height: 1.2;
   font-weight: var(--fw-bold);
+  font-family: system-ui, sans-serif;
 }
 
 h1 {
@@ -97,11 +99,12 @@ h2 {
 
 h3 {
   font-weight: var(--fw-semiBold);
+  font-family: system-ui, sans-serif;
 }
 
-ul{
-padding: 0;
-margin: 0;
+ul {
+  padding: 0;
+  margin: 0;
 }
 
 p,
@@ -109,7 +112,9 @@ li {
   max-width: 68ch;
   font-weight: var(--fw-regular);
 }
-p,figcaption {
+
+p,
+figcaption {
   line-height: 1.75;
   color: var(--color-txt, var(--color-slate-600));
 }
@@ -132,6 +137,7 @@ a {
 a:hover {
   text-decoration: currentColor;
 }
+
 button {
   cursor: pointer;
   border: 0;
@@ -141,8 +147,9 @@ button {
 img {
   height: auto;
   color-scheme: light;
-  filter: var(--filter-dark,initial);
+  filter: var(--filter-dark, initial);
 }
+
 *:focus-visible {
   outline: var(--color-secondary) auto 1px;
 }
@@ -154,22 +161,18 @@ img {
 
 [astro-icon]:not([astro-icon="ion:open-outline"]) {
   width: 1.5rem;
-height: 1.5rem;
+  height: 1.5rem;
 }
 
-pre{
-padding:var(--space-s);
-border-radius: 4px;
+pre {
+  padding: var(--space-s);
+  border-radius: 4px;
 }
 
-p code,li code{
+p code,
+li code {
   background: var(--color-slate-300);
   border-radius: 4px;
   padding: 0.2rem;
   color: var(--color-slate-950);
-}
-
-//Estilos para JamComments
-.jc-Shell{
-  --jc-editor-background: none!important;
 }
