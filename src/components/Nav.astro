@@ -1,26 +1,29 @@
 ---
-import { navLink } from "@constant/index"; // Importar la lista de enlaces de navegación
-import { Icon } from 'astro-icon/components'
-const currentPath = Astro.url.pathname; // Obtener la ruta actual
+import { navLink } from "@constant/index";
+import { Icon } from "astro-icon/components";
+const currentPath = Astro.url.pathname;
 ---
 
-<nav class="nav | mt-space-3xl">
+<nav class="nav | mt-space-xl">
   <ul role="list" class="nav__list | d-flex">
     {
       navLink.map((link) => {
-        // Si el link es "Blog", se activa para cualquier URL que empiece con "/blog/" pero que no sea "/blogroll"
-        const isActive =
+        const isVisualActive =
           link.href === "/blog"
-            ? currentPath.startsWith("/blog") &&
-              !currentPath.startsWith("/blogroll")
-            : currentPath === link.href; // Verificar si el link es la ruta actual
+            ? currentPath.startsWith("/blog") && !currentPath.startsWith("/blogroll")
+            : currentPath === link.href;
+
+        const isAriaCurrent = (() => {
+          const normalize = (p) => p.endsWith("/") && p !== "/" ? p.slice(0, -1) : p;
+          return normalize(currentPath) === normalize(link.href);
+        })();
 
         return (
           <li>
             <a
-              class={`nav__link | border-animated d-flex px-space-3xs py-space-xs ${isActive ? "active" : ""}`}
+              class={`nav__link | border-animated d-flex px-space-3xs py-space-xs ${isVisualActive ? "active" : ""}`}
               href={`${link.href}`}
-              aria-current={isActive ? "page" : undefined}
+              aria-current={isAriaCurrent ? "page" : undefined}
             >
               <Icon name={link.icon} /> {link.label}
             </a>
@@ -33,39 +36,32 @@ const currentPath = Astro.url.pathname; // Obtener la ruta actual
 
 <script>
   document.addEventListener("astro:page-load", () => {
-    // Espera a que la página se haya cargado completamente en Astro para empezar el procesamiento.
-
     const normalizePath = (path) =>
-      path.endsWith("/") ? path.slice(0, -1) : path;
-    // Función para normalizar las rutas:
-    // Si la ruta termina con una barra '/', la elimina para evitar comparaciones incorrectas entre URLs con y sin barra final.
+      path.endsWith("/") && path !== "/" ? path.slice(0, -1) : path;
 
     const currentPath = normalizePath(window.location.pathname);
-    // Obtiene la ruta actual desde la barra de direcciones (window.location.pathname) y la normaliza.
 
     document.querySelectorAll(".nav__link").forEach((link) => {
       const linkPath = normalizePath(new URL(link.href).pathname);
-      // Para cada enlace de navegación, obtiene su ruta (link.href) y la normaliza.
 
-      // Si el enlace es para "/blog" y la URL actual empieza con "/blog" pero no con "/blogroll":
-      if (
-        linkPath === "/blog" &&
-        currentPath.startsWith("/blog") &&
-        !currentPath.startsWith("/blogroll")
-      ) {
+      const visualActive =
+        linkPath === "/blog"
+          ? currentPath.startsWith("/blog") && !currentPath.startsWith("/blogroll")
+          : linkPath === currentPath;
+
+      // ariaCurrent only for exact match
+      const ariaCurrent = linkPath === currentPath;
+
+      if (visualActive) {
         link.classList.add("active");
-        link.setAttribute("aria-current", "page");
-        // Añade la clase 'active' al enlace y establece el atributo `aria-current="page"` para accesibilidad,
-        // lo que indica que este es el enlace activo en la navegación.
-      } else if (linkPath === currentPath) {
-        link.classList.add("active");
-        link.setAttribute("aria-current", "page");
-        // Si la ruta del enlace coincide exactamente con la ruta actual (normalizada),
-        // también lo marca como activo y añade el atributo `aria-current`.
       } else {
         link.classList.remove("active");
+      }
+
+      if (ariaCurrent) {
+        link.setAttribute("aria-current", "page");
+      } else {
         link.removeAttribute("aria-current");
-        // Si el enlace no coincide con la ruta actual, elimina cualquier clase 'active' o atributo `aria-current`.
       }
     });
   });
