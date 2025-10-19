@@ -1,29 +1,43 @@
 ---
-import { Icon } from 'astro-icon/components'
+import { Icon } from "astro-icon/components";
 let date = new Date();
 ---
 
 <footer class="footer | container-lg mt-space-3xl mb-space-l">
-    <div class="footer__info | d-flex mt-space-l">     
+    <div class="footer__info | d-flex mt-space-l">
         <div class="footer__name d-flex">
             <small>{`Wilson © 2023 - ${date.getFullYear()}`}</small>
             <small>
-                Este sitio está construido con <a href='https://astro.build/'>Astro</a></small>
+                Este sitio está construido con <a href="https://astro.build/"
+                    >Astro</a
+                ></small
+            >
         </div>
         <div class="footer__icon | d-flex">
-            <a href="https://github.com/sonvice" target="_blank" aria-label="GitHub">
-                <Icon name="prime:github"  width={24} height={24}/>
+            <a
+                href="https://github.com/sonvice"
+                target="_blank"
+                aria-label="GitHub"
+            >
+                <Icon name="prime:github" width={24} height={24} />
             </a>
-            <a href="https://www.linkedin.com/in/wilsonmunozc" target="_blank" aria-label="Linkedin">
-                <Icon name="prime:linkedin" width={24} height={24}/>
+            <a
+                href="https://www.linkedin.com/in/wilsonmunozcastro"
+                target="_blank"
+                aria-label="Linkedin"
+            >
+                <Icon name="prime:linkedin" width={24} height={24} />
             </a>
-            <a href="https://twitter.com/wilvmc" target="_blank" aria-label="Twitter">
-                <Icon name="prime:twitter"/>
+            <a
+                href="https://twitter.com/wilvmc"
+                target="_blank"
+                aria-label="Twitter"
+            >
+                <Icon name="prime:twitter" />
             </a>
             <a href="/contact" aria-label="Contact">
-                <Icon name="ic:round-mail"/>
+                <Icon name="ic:round-mail" />
             </a>
         </div>
-   
     </div>
 </footer>
