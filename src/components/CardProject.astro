@@ -3,13 +3,10 @@
 import Card from "./Card.astro";
 
 const { quantity, project } = Astro.props;
-const limitedProjects = quantity ? project.slice(0, quantity) : project;
+const list = Array.isArray(project) ? project.filter(Boolean) : [];
+const limitedProjects = quantity ? list.slice(0, quantity) : list;
 ---
 
 <ul role="list" class="card-project | d-grid">
-  {
-    limitedProjects.map((project) => (
-      <Card project={project} />
-    ))
-  }
+  {limitedProjects.map((project) => <Card project={project} />)}
 </ul>

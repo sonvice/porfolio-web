@@ -37,27 +37,6 @@ export const navLink = [
 ];
 
 export const projects = [
-  {
-    img: imgDentis,
-    title: 'Dentis | Landing Page',
-    description:
-      "Landing diseñada desde cero utilizando herramientas como Adobe XD, Photoshop,Illustrator. Para el desarrollo utilice HTML CSS3 y Vanilla JavaScript y la grid de Bootstrap",
-    href: "https://dentis1.netlify.app/",
-    alt:'Screenshot de una landing page moderna de una clínica dental',
-    label: "dentis",
-    gitHub:'https://github.com/sonvice/dentis'
-  },
-  {
-    img: imgPeople,
-    title: 'People | Landing Page',
-    description:
-      "También es un proyecto de una landing page diseñada desde cero, con Photoshop para el retoque de imágenes, e Illustrator para los vectores como logo e iconos. Librerias Js para el slider y css moderno utilizando variables css",
-    href: "https://clinica1.netlify.app/",
-    alt:'Screenshot de una landing page moderna con temática de un clínica',
-    label: "people",
-    gitHub:'https://github.com/sonvice/clinic'
-  },
-
 
   {
     img: imgCareerrist,
