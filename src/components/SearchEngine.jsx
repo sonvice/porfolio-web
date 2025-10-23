@@ -16,43 +16,43 @@ export default function SearchEngine({ posts = [], allPosts = [], initialQuery =
     }, [fn, delay]);
   };
 
-const filterPosts = useCallback(
-  (q) => {
-    const term = q.trim().toLowerCase();
-    if (!term) {
-      if (document.startViewTransition) {
-        document.startViewTransition(() => setResults(posts));
-      } else {
-        setResults(posts);
+  const filterPosts = useCallback(
+    (q) => {
+      const term = q.trim().toLowerCase();
+      if (!term) {
+        if (document.startViewTransition) {
+          document.startViewTransition(() => setResults(posts));
+        } else {
+          setResults(posts);
+        }
+        return;
       }
-      return;
-    }
 
-    const matched = allPosts.filter((post) => {
-      const title = post.data?.title?.toLowerCase() || "";
-      const slug = post.slug?.toLowerCase() || "";
-      return title.includes(term) || slug.includes(term);
-    });
+      const matched = allPosts.filter((post) => {
+        const title = post.data?.title?.toLowerCase() || "";
+        const slug = post.slug?.toLowerCase() || "";
+        return title.includes(term) || slug.includes(term);
+      });
 
-    const ranked = matched
-      .map((post) => {
-        const t = post.data?.title?.toLowerCase() || "";
-        const s = post.slug?.toLowerCase() || "";
-        let score = (t.match(new RegExp(term, "g")) || []).length * 2;
-        score += (s.match(new RegExp(term, "g")) || []).length;
-        return { post, score };
-      })
-      .sort((a, b) => b.score - a.score)
-      .map((p) => p.post);
+      const ranked = matched
+        .map((post) => {
+          const t = post.data?.title?.toLowerCase() || "";
+          const s = post.slug?.toLowerCase() || "";
+          let score = (t.match(new RegExp(term, "g")) || []).length * 2;
+          score += (s.match(new RegExp(term, "g")) || []).length;
+          return { post, score };
+        })
+        .sort((a, b) => b.score - a.score)
+        .map((p) => p.post);
 
-    if (document.startViewTransition) {
-      document.startViewTransition(() => setResults(ranked));
-    } else {
-      setResults(ranked);
-    }
-  },
-  [allPosts, posts]
-);
+      if (document.startViewTransition) {
+        document.startViewTransition(() => setResults(ranked));
+      } else {
+        setResults(ranked);
+      }
+    },
+    [allPosts, posts]
+  );
 
 
   const debouncedFilter = useDebounce(filterPosts, 300);
@@ -82,20 +82,20 @@ const filterPosts = useCallback(
         </p>
       )}
 
-<ul role="list" className="mt-6 blog-post | flow">
-  {results.map((post) => {
-    const adaptedPost = post.data ? post : {
-      slug: post.slug || post.id,
-      data: {
-        title: post.title,
-        description: post.description,
-        date: post.date,
-        tags: post.tags,
-      }
-    };
-    return <CardPostClient key={crypto.randomUUID()} post={adaptedPost} />
-  })}
-</ul>
+      <ul role="list" className="mt-6 blog-post | flow">
+        {results.map((post) => {
+          const adaptedPost = post.data ? post : {
+            slug: post.slug || post.id,
+            data: {
+              title: post.title,
+              description: post.description,
+              date: post.date,
+              tags: post.tags,
+            }
+          };
+          return <CardPostClient key={crypto.randomUUID()} post={adaptedPost} />
+        })}
+      </ul>
     </div>
   );
 }

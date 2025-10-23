@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import Layout from "@layouts/Layout.astro";
 import Hero from "@layouts/Hero.astro";
 import Nav from "@components/Nav.astro";
-import Pagination from '@components/Pagination.astro'
+import Pagination from "@components/Pagination.astro";
 import SearchEngine from "@src/components/SearchEngine";
 const allPosts = await getCollection("posts");
 
@@ -12,7 +12,7 @@ const posts = allPosts.map((post) => ({
   slug: post.id,
   description: post.data.description,
   date: post.data.date,
-  tags: post.data.tags ?? []
+  tags: post.data.tags ?? [],
 }));
 
 const { canonicalURL } = Astro.props;
@@ -20,21 +20,27 @@ const description =
   "Blog | Wilson Muñoz Castro, Front-end developer, designer, me gusta convertir diseños a código con HTML5, CSS3, JavaScript | Astro, React, Tailwindcss";
 export async function getStaticPaths({ paginate }) {
   const allPosts = (await getCollection("posts")).sort(
-    (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
   ); // Orden descendente según la fecha de las publicaciones.(posts más recientes)
   return paginate(allPosts, { pageSize: 5 });
 }
 const { page } = Astro.props;
+console.log(page.data);
 ---
 
-<Layout title="Blog" class:list={'blog'} canonical={canonicalURL} description={description}>
+<Layout
+  title="Blog"
+  class:list={"blog"}
+  canonical={canonicalURL}
+  description={description}
+>
   <div class="hero-nav | container">
     <Hero title="Blog" />
-    <Nav  />
+    <Nav />
   </div>
   <div class="container mt-space-3xl">
     <h2 class="mb-space-l"># Blog</h2>
     <SearchEngine client:load posts={page.data} allPosts={posts} />
-    <Pagination prev={page.url.prev} next={page.url.next}></Pagination>
+    <Pagination prev={page.url.prev} next={page.url.next} />
   </div>
 </Layout>
