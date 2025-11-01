@@ -1,0 +1,280 @@
+---
+tags: ["accesibilidad", "html", "frontend", "semántica", "inclusión"]
+date: 2025-11-01
+featured: false
+cover: ./images/cap-2-accesibilidad-web/cap-2-structuring-pages.jpg
+title: > 
+    Capítulo 2: Estructuración de páginas — Landmarks, encabezados y orden lógico
+slug: estructuracion-de-paginas-landmarks-encabezados-orden-dom
+description: >
+  Cómo estructurar páginas complejas: landmarks, nombrado ARIA, diferencias entre <section> y <div>, outline de documento y por qué el orden del DOM (HTML-first) es crucial para la accesibilidad. 
+---
+> En páginas con mucho contenido y componentes interactivos, la estructura semántica (landmarks, encabezados [cap. 1](/blog/estructuracion-de-documentos-fundamentos-de-accesibilidad-web/) y orden lógico) es la base para que los usuarios se orienten y naveguen con eficacia. Este capítulo reúne prácticas esenciales y ejemplos para que tu HTML funcione sin necesidad de estilos.
+
+import { Picture } from "astro:assets"
+import { migasPan } from './images/cap-2-accesibilidad-web'
+
+
+## El problema (resumido)
+Si el contenido no está organizado de forma lógica —o si el orden visual no coincide con el orden del DOM— los usuarios que no pueden “escanear” visualmente se desorientan. Para ellos la página debe tener una estructura lineal clara: qué es principal, qué es secundario y cómo se relacionan las secciones.
+
+## La solución
+Estructura la página top → bottom en el DOM (HTML-first).
+
+ Usa landmarks (`<header>`, `<nav>`, `<main>`, `<aside>`, `<footer>`) y nómbralos cuando sea necesario.
+
+ Mantén una jerarquía de encabezados sensata `(<h1>` → `<h2>` → `<h3>` …).
+
+ Evita reordenar controles interactivos únicamente con CSS.
+
+## Landmarks y navegación: la base para orientarse
+
+### ¿Qué es un landmark?
+
+Un landmark es una región principal de la página que permite a los usuarios saltar directamente a secciones como navegación, contenido principal o pie de página. Muchas etiquetas HTML5 lo proporcionan implícitamente:
+
+```html
+<header>  → role=banner
+<nav>     → role=navigation
+<main>    → role=main
+<aside>   → role=complementary
+<footer>  → role=contentinfo
+```
+Estas etiquetas ya son landmarks por defecto; no es necesario añadir role salvo que tu entorno no permita usar la etiqueta semántica.
+
+## Navegación múltiple: `aria-label` vs `aria-labelledby`
+Cuando hay varios `<nav>` en una página (por ejemplo: principal, secundario, paginación), un lector de pantalla dirá varias veces “navegación”. Para diferenciarlos:
+
+* `aria-labelledby` → referencia un texto visible existente (preferible si ya hay un título).
+* `aria-label` → etiqueta directamente cuando no hay texto visible.
+
+
+
+```html
+  <nav aria-labelledby="pagination_heading">
+    <h2 id="pagination_heading">Páginas</h2>
+    <!-- enlaces de paginación -->
+  </nav>
+```
+Ejemplo (aria-labelledby):
+
+```html
+  <nav aria-label="Principal">
+    <!-- enlaces del menú principal -->
+  </nav>
+  <nav aria-label="Categorías">...</nav>
+  <nav aria-label="Paginación">...</nav>
+```
+Regla práctica: si hay texto visible que funciona de etiqueta, usar `aria-labelledby`. Si no lo hay, usar `aria-label`.
+
+## Migas de pan: pequeñas pero poderosas
+Las migas de pan (o breadcrumbs, si te gusta más el inglés) son esos enlaces que suelen aparecer justo debajo del título o del menú principal, y que muestran dónde estás dentro del sitio web.
+Por ejemplo:
+
+`Inicio` > `Blog` > `Accesibilidad Web`
+
+se recomienda usar el elemento `<nav>` también para este tipo de navegación local, no solo para el menú principal. De esta forma, los lectores de pantalla pueden reconocer rápidamente que ese bloque pertenece a la navegación.
+
+```html
+  <nav aria-label="Migas de pan">
+    <ol>
+      <li><a href="/">Inicio</a></li>
+      <li><a href="/blog/">Blog</a></li>
+      <li aria-current="page">Accesibilidad Web</li>
+    </ol>
+  </nav>
+```
+En la imagen de abajo puedes ver cómo las migas de pan ayudan a ubicar al usuario dentro del sitio.
+Además, el atributo aria-label="Migas de pan" le da un nombre accesible al bloque, indicando claramente su propósito.
+
+Ejemplo El Corte Inglés:
+ <Picture  src={migasPan} widths={[720, migasPan.width]}  sizes={`(min-width: 39.9em) 720px`} alt="Pensonas en base a investigación ux"/> 
+
+## ¿Listas (`<ul>`) dentro de `<nav>` o solo enlaces sueltos?
+
+Técnicamente puedes poner enlaces directos dentro de `<nav>` y seguirá siendo navegación.
+Pero es recomendable usar listas porque los lectores de pantalla anuncian “lista con X elementos”, lo que da contexto útil.
+
+```html
+  <!-- Recomendado -->
+  <nav>
+    <ul>
+      <li><a href="/">Inicio</a></li>
+      <li><a href="/tienda">Tienda</a></li>
+    </ul>
+  </nav>
+
+  <!-- Válido pero menos informativo -->
+  <nav>
+    <a href="/">Inicio</a>
+    <a href="/tienda">Tienda</a>
+  </nav>
+```
+   Usa `<ul>` por defecto; reserva `<ol>` solo para secuencias donde el orden sea significativo (pasos, instrucciones).
+
+## role="region" y landmarks por rol explícito
+
+A veces no puedes usar etiquetas semánticas (por limitaciones del CMS o por diseño). En ese caso puedes promover un contenedor genérico a landmark con role:
+
+```html
+  <!-- Landmark explícito (con nombre accesible) -->
+  <div role="region" aria-label="Resumen rápido">
+    <h2>Resumen rápido</h2>
+    <p>...</p>
+  </div>
+```
+### Puntos clave:
+* role="region" debe tener un nombre accesible (aria-label o aria-labelledby).
+* No conviertas todo en region. Úsalo solo para áreas que merecen aparecer en la lista de landmarks (resumen, resultados de búsqueda, chat).
+* Si tu contenedor necesita foco por teclado (por ejemplo, área scrollable), añade tabindex="0" y gestiona foco apropiadamente.
+
+## `<section>` vs `<div>` — matiz importante
+* `<div>`: contenedor genérico, sin semántica.
+* `<section>`: agrupa contenido temáticamente relacionado y suele empezar con un encabezado. Un `<section>` solo se considera landmark si tiene un nombre accesible (encabezado visible o aria-*).
+
+```html
+  <!-- NO es landmark (sin encabezado ni aria) -->
+  <section>
+    <p>contenido...</p>
+  </section>
+
+  <!-- Sí es landmark (encabezado visible) -->
+  <section>
+    <h2>Últimas noticias</h2>
+    ...
+  </section>
+
+  <!-- Sí es landmark (por aria) -->
+  <section aria-label="Noticias destacadas">
+    ...
+  </section>
+
+```
+Regla: un `<section>` es landmark si tiene nombre accesible, ya sea por encabezado o por aria-label/aria-labelledby.
+
+## Document outline: la jerarquía de headings importa mucho
+Los encabezados (`<h1>` - `<h6>`) ofrecen el índice que usan lectores de pantalla. Una estructura sólida es esencial.
+
+### Buenas prácticas:
+* Un único `<h1>` por página — describe la página actual.
+* Usa `<h2>` para secciones principales, `<h3>` para subsecciones, etc.
+* No saltes niveles sin razón (evita pasar de `<h2>` a `<h4>`).
+* Encabezados breves y descriptivos; deben tener sentido fuera de contexto.
+
+### Ejemplo correcto:
+```html
+  <h1>Tienda de Juguetes</h1>
+
+  <h2>Juguetes</h2>
+    <h3>Para bebés</h3>
+    <h3>Para niños</h3>
+
+  <h2>Libros</h2>
+  <h2>Contacto</h2>
+```
+Por qué importa: los lectores de pantalla permiten listar y saltar por headings (H para saltar por headings en muchos lectores). Si la estructura está rota, la navegación se vuelve inútil.
+
+## Orden lógico del DOM (HTML-first) — top → bottom
+La experiencia lineal (lo que lee un lector de pantalla o el orden de tabulación) viene del DOM. Por eso:
+
+### Orden recomendado en DOM:
+1. Elementos que bloquean el acceso (diálogos que exigen acción, selección de idioma).
+2. `<header>` (skip link, logo, nav, búsqueda).
+3. `<main id="content">` (contenido principal, con `<h1>`).
+4. `<footer>` (info secundaria).
+
+Ejemplo base:
+
+```html
+  <div role="dialog" aria-label="Consentimiento de cookies">...</div>
+
+  <header>
+    <a class="skip-link" href="#content">Saltar al contenido</a>
+    <a href="/" class="logo">Mi Web</a>
+    <nav aria-label="Principal">...</nav>
+  </header>
+
+  <main id="content">
+    <h1>Título de la página</h1>
+    <section>...</section>
+  </main>
+
+  <footer>...</footer>
+```
+## Qué NO hacer (errores comunes)
+* Reordenar controles interactivos solo con CSS (order, position: absolute) — el tab order seguirá el DOM y confundirá a usuarios de teclado.
+* Poner una imagen antes del título en teasers: el lector de pantalla anunciará la imagen sin contexto.
+* Multiplicar landmarks del mismo tipo sin nombre accesible (varios nav sin aria-*) → “navegación, navegación, navegación”.
+
+## Consideraciones prácticas adicionales
+* [Skip links](https://www.w3.org/WAI/test-evaluate/easy-checks/skip-link/): colócalos al principio del DOM para permitir “saltar al contenido” con teclado.
+* Elementos que requieren interacción inmediata (consentimientos, login): deben ir al inicio para que el usuario pueda tratarlos primero.
+* Áreas con scroll interno: si deben recibir foco, añade `tabindex="0"` al contenedor y `role`/nombre si es necesario.
+* Duplicado visual (mismo botón en dos lugares por diseño): evita duplicarlo en el DOM. Si duplicas por diseño, marca la copia con `aria-hidden="true"` y deja una sola copia accesible.
+* Headings ocultos (`.visually-hidden`) pueden ayudar al outline, pero prioriza mostrar la información si aporta valor.
+
+## Mini-guía / Checklist antes de publicar una página
+
+* ¿Hay un único `<h1>` que describe la página?
+
+* ¿Los `<h2>` y `<h3>` están anidados sin saltos innecesarios?
+
+* ¿Los landmarks principales (header, main, nav, aside, footer) están presentes y tienen sentido?
+
+* ¿Hay múltiples nav? ¿Están todos nombrados con aria-label/aria-labelledby si hace falta?
+
+* ¿El orden DOM va de lo más importante a lo menos importante?
+
+* ¿Los elementos interactivos siguen el orden del DOM (tab order lógico)?
+
+* ¿Skip link presente y funcional?
+
+* ¿Áreas scrollables con tabindex="0" cuando deben recibir foco?
+
+* ¿Probaste sin CSS, con teclado y con un lector de pantalla básico (NVDA/VoiceOver/Narrator)?
+
+## Ejemplos prácticos (mal vs bien)
+
+
+```html
+  <!-- Malo -->
+  <img src="teaser.png" alt="Dropdown menus example">
+  <h3>When CSS Isn’t Enough: JavaScript Requirements</h3>
+  <p>by Stephanie Eckles</p>
+```
+**Mal — teaser: imagen antes del título**
+
+```html
+<!-- Bien -->
+<h3>When CSS Isn’t Enough: JavaScript Requirements</h3>
+<img src="teaser.png" alt="Dropdown menus example">
+<p>by Stephanie Eckles</p>
+```
+**Bien — título primero **
+
+```css
+/* CSS */
+.container { display:flex; flex-direction: column; }
+.control { order: -1; } /* visualmente aparece primero, pero en DOM no lo está */
+```
+**Mal — reordenado visualmente (control al principio visualmente, pero DOM después)**
+
+```html
+<!-- DOM: control está al final -->
+<div class="container">
+  <main>...</main>
+  <button class="control">Comprar</button>
+</div>
+```
+
+```html
+<!-- Bien -->
+<div class="container">
+  <button class="control">Comprar</button>
+  <main>...</main>
+</div>
+```
+**Bien — DOM y visual coincidentes**
+### Conclusión
+Estructurar páginas correctamente no es solo “buenas prácticas”: es una obligación de usabilidad y accesibilidad.
+Trabaja HTML-first, nombra landmarks cuando haya multiples, mantén una jerarquía de headings clara y asegúrate de que el orden visual represente el orden del DOM, especialmente cuando hay controles interactivos.
