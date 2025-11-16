@@ -120,12 +120,9 @@ export default function SearchEngine({
           return (
             <CardPostClient
               key={post.slug || post.id}
-              post={{
-                ...post,
-                slug: post.slug || post.id || post.data?.slug || "",
-                _highlightedTitle: highlightMatches(title, terms),
-                _highlightedDesc: highlightMatches(desc, terms),
-              }}
+              post={post}
+              highlightedTitle={highlightMatches(title, terms)}
+              highlightedDesc={highlightMatches(desc, terms)}
             />
           );
         })}

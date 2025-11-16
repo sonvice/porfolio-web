@@ -1,4 +1,8 @@
-export default function CardPostClient({ post }) {
+export default function CardPostClient({
+  post,
+  highlightedTitle,
+  highlightedDesc,
+}) {
   const dateOptions = {
     weekday: "long",
     year: "numeric",
@@ -20,7 +24,7 @@ export default function CardPostClient({ post }) {
 
       <h3 className="size-2">
         <a href={`/blog/${post.slug}`}>
-          {post._highlightedTitle ?? post.data?.title}
+          {highlightedTitle ?? post.data?.title}
         </a>
       </h3>
 
@@ -40,7 +44,7 @@ export default function CardPostClient({ post }) {
       )}
 
       <p className="mt-2 text-gray-700">
-        {post._highlightedDesc ?? post.data?.description}
+        {highlightedDesc ?? post.data?.description}
       </p>
     </li>
   );
