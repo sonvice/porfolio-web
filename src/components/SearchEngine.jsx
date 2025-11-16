@@ -108,34 +108,37 @@ export default function SearchEngine({ posts = [], allPosts = [], initialQuery =
 
       <ul role="list" className="mt-6 blog-post | flow">
         {results.map((post) => {
-          const adaptedPost = post.data
-            ? post
-            : {
-                slug: post.slug || post.id,
-                data: {
-                  title: post.title,
-                  description: post.description,
-                  date: post.date,
-                  tags: post.tags,
-                },
-              };
-
           const terms = query
             .trim()
             .split(/\s+/)
             .map(normalize)
             .filter(Boolean);
 
-          const highlightedTitle = highlightMatches(adaptedPost.data.title, terms);
-          const highlightedDesc = highlightMatches(adaptedPost.data.description, terms);
+          const originalTitle = post.data?.title || post.title || "";
+          const originalDesc = post.data?.description || post.description || "";
+
+          const highlightedTitle = highlightMatches(originalTitle, terms);
+          const highlightedDesc = highlightMatches(originalDesc, terms);
+
+          // Adaptar post asegurando slug y evitando undefined
+          const adaptedPost = {
+            ...post,
+            slug: post.slug || post.id || post.data?.slug || "",
+            data: {
+              ...(post.data ?? {}),
+              title: highlightedTitle,
+              description: highlightedDesc,
+            }
+          };
 
           return (
             <CardPostClient
               key={crypto.randomUUID()}
-              post={{ ...adaptedPost, data: { ...adaptedPost.data, title: highlightedTitle, description: highlightedDesc } }}
+              post={adaptedPost}
             />
           );
         })}
+
       </ul>
     </div>
   );

@@ -7,7 +7,7 @@
     &__title{
         --a-vertical:flex-end;
         grid-area: hero;
-
+        z-index: 10;
         @include ab.breakpoint(lg){
             padding-inline: var(--space-l);
             align-self: center;
