@@ -13,6 +13,33 @@ description: >
 
 > <p> Siguiente: [Capítulo 2: Estructuración de páginas — Landmarks, ...](/blog/estructuracion-de-paginas-landmarks-encabezados-orden-dom)</p>  
 
+import Table from "@components/Table.jsx";
+
+export const columns = [
+  { accessorKey: "lector", header: "Lector de Pantalla" },
+  { accessorKey: "atajo", header: "Atajo/Navegación" },
+];
+
+export const data = [
+  {
+    lector: "NVDA (Windows)",
+    atajo: "D o Shift + D",
+  },
+  {
+    lector: "JAWS (Windows)",
+    atajo: "R",
+  },
+  {
+    lector: "VoiceOver (macOS/iOS)",
+    atajo: "navegación por regiones",
+  },
+  {
+    lector: "TalkBack (Android)",
+    atajo: "gestos por secciones",
+  },
+];
+
+
 ## Definir el idioma natural de la página
 
 ### El problema
@@ -192,12 +219,7 @@ Permiten a los usuarios moverse rápidamente entre secciones clave usando atajos
 
 ## Ejemplos según Lector de Pantalla
 
-| Lector de Pantalla | Atajo/Navegación |
-| :--- | :--- |
-| **NVDA** (Windows) | `D` o `Shift + D` |
-| **JAWS** (Windows) | R |
-| **VoiceOver** (macOS/iOS) | navegación por regiones |
-| **TalkBack** (Android) | gestos por secciones |
+<Table columns={columns} data={data} />
 
 Incluso hay extensiones que añaden navegación por landmarks a usuarios sin lector de pantalla, como *Landmark Navigation via Keyboard or Pop-up*.
 

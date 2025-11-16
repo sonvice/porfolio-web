@@ -10,6 +10,39 @@ description: >
   Cómo crear enlaces accesibles y claros en la web: cuándo usar links o botones, estilos, enfoque con teclado, descargas, email, imágenes como enlaces y buenas prácticas de accesibilidad.
 ---
 
+import Table from "@components/Table.jsx";
+
+export const columns = [
+  { accessorKey: "estado", header: "Estado" },
+  { accessorKey: "significado", header: "Qué significa" },
+  { accessorKey: "ejemplo", header: "Ejemplo de estilo" },
+];
+
+export const data = [
+  {
+    estado: "a:link",
+    significado: "Enlace normal",
+    ejemplo: "Azul y subrayado",
+  },
+  {
+    estado: "a:visited",
+    significado: "Enlace ya visitado",
+    ejemplo: "Púrpura (por ejemplo, rebeccapurple)",
+  },
+  {
+    estado: "a:hover",
+    significado: "Cuando pasas el ratón",
+    ejemplo: "Verde o cambia el subrayado",
+  },
+  {
+    estado: "a:active",
+    significado: "Cuando haces clic",
+    ejemplo: "Rojo",
+  },
+];
+
+
+
 
 > Enlazan a otras páginas web, dentro de la misma, recursos externos, direcciones de correo electrónico, números de teléfonos y archivos.  Los enlaces deben ser **concisos, descriptivos y accesibles**, indicando claramente lo que sucederá al hacer clic.
 
@@ -109,12 +142,7 @@ a:link {
 
 Los enlaces cambian de apariencia según su estado:
 
-| Estado      | Qué significa         | Ejemplo de estilo |
-|-------------|-----------------------|-------------------|
-| `a:link`    | Enlace normal         | Azul y subrayado  |
-| `a:visited` | Enlace ya visitado    | Púrpura (por ejemplo, `rebeccapurple`) |
-| `a:hover`   | Cuando pasas el ratón | Verde o cambia el subrayado |
-| `a:active`  | Cuando haces clic     | Rojo               |
+<Table columns={columns} data={data} />
 
 ```css
     /* Enlace normal */
