@@ -24,18 +24,20 @@ export default function CardPostClient({ post }) {
         </a>
       </h3>
 
-      <ul role="list" className="tag-block | d-flex my-space-s">
-        {(post.data?.tags ?? []).map((tag) => (
-          <li key={tag} className="tag | size--1">
-            <a
-              className="p-space-3xs radius bg-color-slate-600 text-color-slate-50"
-              href={`/tags/${tag}`}
-            >
-              {tag}
-            </a>
-          </li>
-        ))}
-      </ul>
+      {(post.data?.tags?.length ?? 0) > 0 && (
+        <ul role="list" className="tag-block | d-flex my-space-s">
+          {post.data.tags.map((tag) => (
+            <li key={`${post.slug}-${tag}`} className="tag | size--1">
+              <a
+                className="p-space-3xs radius bg-color-slate-600 text-color-slate-50"
+                href={`/tags/${tag}`}
+              >
+                {tag}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
 
       <p className="mt-2 text-gray-700">
         {post._highlightedDesc ?? post.data?.description}

@@ -1,52 +1,19 @@
-import { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import CardPostClient from "./CardPostClient.jsx";
+import { highlightMatches } from "./highlightMatches.jsx";
 
-// Normalizar texto (minúsculas + sin tildes)
+// Normalizar texto
 const normalize = (str) =>
   str
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "");
 
-// Resaltador seguro
-const highlightMatches = (text, terms) => {
-  if (!terms?.length) return text;
-
-  let parts = [text];
-
-  terms.forEach((term) => {
-    const regex = new RegExp(`(${term})`, "gi");
-
-    parts = parts.flatMap((part) => {
-      if (typeof part !== "string") return [part];
-
-      return part.split(regex).map((p) => {
-        if (regex.test(p)) {
-          return (
-            <mark
-              key={`mark-${crypto.randomUUID()}`}
-              className="bg-yellow-200"
-            >
-              {p}
-            </mark>
-          );
-        }
-
-        return (
-          <span key={`txt-${crypto.randomUUID()}`}>
-            {p}
-          </span>
-        );
-      });
-    });
-  });
-
-  return parts;
-};
-
-
-
-export default function SearchEngine({ posts = [], allPosts = [], initialQuery = "" }) {
+export default function SearchEngine({
+  posts = [],
+  allPosts = [],
+  initialQuery = "",
+}) {
   const [query, setQuery] = useState(initialQuery);
   const [results, setResults] = useState(posts);
   const inputRef = useRef(null);
@@ -58,7 +25,7 @@ export default function SearchEngine({ posts = [], allPosts = [], initialQuery =
     debounceRef.current = setTimeout(() => fn(...args), delay);
   };
 
-  // Preprocesamos posts una sola vez
+  // Preprocesado
   const indexedPosts = useMemo(
     () =>
       allPosts.map((post) => ({
@@ -90,18 +57,16 @@ export default function SearchEngine({ posts = [], allPosts = [], initialQuery =
           let score = 0;
 
           terms.forEach((term) => {
-            // coincidencias en título valen más
             if (post._normTitle.includes(term)) score += 5;
             if (post._normDesc.includes(term)) score += 2;
 
-            // coincidencia exacta en palabra del título
             if (post._normTitle.split(" ").includes(term)) score += 8;
           });
 
-          // Bonus para posts recientes
           if (post._date) {
-            const ageDays = (now - post._date.getTime()) / (1000 * 60 * 60 * 24);
-            const recencyBoost = Math.max(0, 15 - ageDays / 30); // decae lentamente
+            const ageDays =
+              (now - post._date.getTime()) / (1000 * 60 * 60 * 24);
+            const recencyBoost = Math.max(0, 15 - ageDays / 30);
             score += recencyBoost;
           }
 
@@ -124,7 +89,6 @@ export default function SearchEngine({ posts = [], allPosts = [], initialQuery =
     inputRef.current?.focus();
   }, []);
 
-  // Render
   return (
     <div className="relative">
       <input
@@ -147,19 +111,20 @@ export default function SearchEngine({ posts = [], allPosts = [], initialQuery =
           const title = post.data?.title || post.title || "";
           const desc = post.data?.description || post.description || "";
 
-          const terms = query.trim().split(/\s+/).map(normalize).filter(Boolean);
-
-          const highlightedTitle = highlightMatches(title, terms);
-          const highlightedDesc = highlightMatches(desc, terms);
+          const terms = query
+            .trim()
+            .split(/\s+/)
+            .map(normalize)
+            .filter(Boolean);
 
           return (
             <CardPostClient
-              key={crypto.randomUUID()}
+              key={post.slug || post.id}
               post={{
                 ...post,
                 slug: post.slug || post.id || post.data?.slug || "",
-                _highlightedTitle: highlightedTitle,
-                _highlightedDesc: highlightedDesc,
+                _highlightedTitle: highlightMatches(title, terms),
+                _highlightedDesc: highlightMatches(desc, terms),
               }}
             />
           );
