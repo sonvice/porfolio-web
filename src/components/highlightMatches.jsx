@@ -1,9 +1,18 @@
-// Resaltador con keys seguras
+import React from "react";
+
+// Normaliza texto: minúsculas + sin tildes
+export const normalize = (str) =>
+  str
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+
+// highlightMatches: devuelve JSX seguro para React
 export const highlightMatches = (text, terms) => {
+  if (!text) return null;
   if (!terms?.length) return text;
 
-  const result = [];
-
+  // Inicializamos con el texto completo
   let chunks = [text];
 
   terms.forEach((term) => {
@@ -11,15 +20,20 @@ export const highlightMatches = (text, terms) => {
     const newChunks = [];
 
     chunks.forEach((chunk) => {
-      if (typeof chunk !== "string") {
+      // Si ya es JSX, lo dejamos tal cual
+      if (React.isValidElement(chunk)) {
         newChunks.push(chunk);
         return;
       }
 
-      const split = chunk.split(regex);
+      // Si es string, lo separamos por el término
+      const parts = chunk.split(regex);
 
-      split.forEach((part) => {
+      parts.forEach((part) => {
+        if (!part) return;
+
         if (regex.test(part)) {
+          // Coincidencia: resaltado
           newChunks.push(
             <mark
               key={`mark-${crypto.randomUUID()}`}
@@ -29,6 +43,7 @@ export const highlightMatches = (text, terms) => {
             </mark>
           );
         } else {
+          // Texto normal envuelto en span con key
           newChunks.push(
             <span key={`txt-${crypto.randomUUID()}`}>{part}</span>
           );
