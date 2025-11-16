@@ -18,21 +18,33 @@ const highlightMatches = (text, terms) => {
     const regex = new RegExp(`(${term})`, "gi");
 
     parts = parts.flatMap((part) => {
-      if (typeof part !== "string") return [part]; // ya es JSX
-      return part.split(regex).map((p, i) =>
-        regex.test(p) ? (
-          <mark key={crypto.randomUUID()} className="bg-yellow-200">
+      if (typeof part !== "string") return [part];
+
+      return part.split(regex).map((p) => {
+        if (regex.test(p)) {
+          return (
+            <mark
+              key={`mark-${crypto.randomUUID()}`}
+              className="bg-yellow-200"
+            >
+              {p}
+            </mark>
+          );
+        }
+
+        return (
+          <span key={`txt-${crypto.randomUUID()}`}>
             {p}
-          </mark>
-        ) : (
-          p
-        )
-      );
+          </span>
+        );
+      });
     });
   });
 
   return parts;
 };
+
+
 
 export default function SearchEngine({ posts = [], allPosts = [], initialQuery = "" }) {
   const [query, setQuery] = useState(initialQuery);
