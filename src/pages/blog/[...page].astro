@@ -11,7 +11,7 @@ const posts = allPosts.map((post) => ({
   title: post.data.title,
   slug: post.id,
   description: post.data.description,
-  date: post.data.date,
+  date: post.data.date.toISOString().slice(0, 10),
   tags: post.data.tags ?? [],
 }));
 

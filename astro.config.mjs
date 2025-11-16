@@ -4,7 +4,7 @@ import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import partytown from '@astrojs/partytown';
 
-import netlify from "@astrojs/netlify";
+
 
 import icon from "astro-icon";
 
@@ -14,7 +14,6 @@ export default defineConfig({
      dest: "~partytown",
     config: {
       forward: ["dataLayer.push"],
-      debug: true
     }
   }), icon()],
   site: "https://wilsonmunoz.com/",
@@ -31,5 +30,5 @@ export default defineConfig({
       },
     },
   },
-  adapter: netlify()
+
 });
