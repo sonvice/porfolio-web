@@ -1,6 +1,9 @@
 export default function CardPostClient({ post }) {
   const dateOptions = {
-    weekday: "long", year: "numeric", month: "long", day: "numeric"
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   };
 
   const date = post.data?.date ? new Date(post.data.date) : null;
@@ -14,9 +17,13 @@ export default function CardPostClient({ post }) {
           </time>
         )}
       </small>
+
       <h3 className="size-2">
-        <a href={`/blog/${post.slug}`}>{post.data?.title}</a>
+        <a href={`/blog/${post.slug}`}>
+          {post._highlightedTitle ?? post.data?.title}
+        </a>
       </h3>
+
       <ul role="list" className="tag-block | d-flex my-space-s">
         {(post.data?.tags ?? []).map((tag) => (
           <li key={tag} className="tag | size--1">
@@ -29,7 +36,10 @@ export default function CardPostClient({ post }) {
           </li>
         ))}
       </ul>
-      <p className="mt-2 text-gray-700">{post.data?.description}</p>
+
+      <p className="mt-2 text-gray-700">
+        {post._highlightedDesc ?? post.data?.description}
+      </p>
     </li>
   );
 }

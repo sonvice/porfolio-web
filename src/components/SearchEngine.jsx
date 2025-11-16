@@ -1,44 +1,62 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import CardPostClient from "./CardPostClient.jsx";
 
-// Función para normalizar texto (minúsculas y sin tildes)
-const normalize = (str) => str
-  .toLowerCase()
-  .normalize("NFD")
-  .replace(/[\u0300-\u036f]/g, "");
+// Normalizar texto (minúsculas + sin tildes)
+const normalize = (str) =>
+  str
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+
+// Resaltador seguro
+const highlightMatches = (text, terms) => {
+  if (!terms?.length) return text;
+
+  let parts = [text];
+
+  terms.forEach((term) => {
+    const regex = new RegExp(`(${term})`, "gi");
+
+    parts = parts.flatMap((part) => {
+      if (typeof part !== "string") return [part]; // ya es JSX
+      return part.split(regex).map((p, i) =>
+        regex.test(p) ? (
+          <mark key={crypto.randomUUID()} className="bg-yellow-200">
+            {p}
+          </mark>
+        ) : (
+          p
+        )
+      );
+    });
+  });
+
+  return parts;
+};
 
 export default function SearchEngine({ posts = [], allPosts = [], initialQuery = "" }) {
   const [query, setQuery] = useState(initialQuery);
   const [results, setResults] = useState(posts);
   const inputRef = useRef(null);
-  const isSearching = query.trim().length > 0;
 
-  const useDebounce = (fn, delay) => {
-    const timeout = useRef(null);
-    return useCallback((...args) => {
-      if (timeout.current) clearTimeout(timeout.current);
-      timeout.current = setTimeout(() => fn(...args), delay);
-    }, [fn, delay]);
+  // Debounce estable
+  const debounceRef = useRef(null);
+  const debounced = (fn, delay, ...args) => {
+    clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(() => fn(...args), delay);
   };
 
-  // Resalta todas las palabras coincidentes
-  const highlightMatches = (text, terms) => {
-    if (!terms || terms.length === 0) return text;
-    const normText = normalize(text);
-    let parts = [text];
-
-    terms.forEach((term) => {
-      parts = parts.flatMap((part) => {
-        if (typeof part !== "string") return [part]; // ya es <mark>
-        const regex = new RegExp(`(${term})`, "gi");
-        return part.split(regex).map((p, i) =>
-          regex.test(p) ? <mark key={crypto.randomUUID()} className="bg-yellow-200">{p}</mark> : p
-        );
-      });
-    });
-
-    return parts;
-  };
+  // Preprocesamos posts una sola vez
+  const indexedPosts = useMemo(
+    () =>
+      allPosts.map((post) => ({
+        ...post,
+        _normTitle: normalize(post.data?.title || post.title || ""),
+        _normDesc: normalize(post.data?.description || post.description || ""),
+        _date: post.data?.date ? new Date(post.data.date) : null,
+      })),
+    [allPosts]
+  );
 
   const filterPosts = useCallback(
     (q) => {
@@ -53,42 +71,48 @@ export default function SearchEngine({ posts = [], allPosts = [], initialQuery =
         return;
       }
 
-      const matched = allPosts
+      const now = Date.now();
+
+      const matches = indexedPosts
         .map((post) => {
-          const title = post.data?.title || post.title || "";
-          const desc = post.data?.description || post.description || "";
-
-          const normTitle = normalize(title);
-          const normDesc = normalize(desc);
-
-          // Contar coincidencias
           let score = 0;
+
           terms.forEach((term) => {
-            if (normTitle.includes(term)) score += 2; // título pesa más
-            if (normDesc.includes(term)) score += 1;
+            // coincidencias en título valen más
+            if (post._normTitle.includes(term)) score += 5;
+            if (post._normDesc.includes(term)) score += 2;
+
+            // coincidencia exacta en palabra del título
+            if (post._normTitle.split(" ").includes(term)) score += 8;
           });
+
+          // Bonus para posts recientes
+          if (post._date) {
+            const ageDays = (now - post._date.getTime()) / (1000 * 60 * 60 * 24);
+            const recencyBoost = Math.max(0, 15 - ageDays / 30); // decae lentamente
+            score += recencyBoost;
+          }
 
           return score > 0 ? { post, score } : null;
         })
         .filter(Boolean)
         .sort((a, b) => b.score - a.score)
-        .map((p) => p.post);
+        .map((x) => x.post);
 
-      setResults(matched);
+      setResults(matches);
     },
-    [allPosts, posts]
+    [indexedPosts, posts]
   );
 
-  const debouncedFilter = useDebounce(filterPosts, 250);
-
   useEffect(() => {
-    debouncedFilter(query);
-  }, [query, debouncedFilter]);
+    debounced(filterPosts, 200, query);
+  }, [query, filterPosts]);
 
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
 
+  // Render
   return (
     <div className="relative">
       <input
@@ -100,7 +124,7 @@ export default function SearchEngine({ posts = [], allPosts = [], initialQuery =
         onChange={(e) => setQuery(e.target.value)}
       />
 
-      {isSearching && results.length === 0 && (
+      {query.trim() && results.length === 0 && (
         <p className="mt-2 text-sm text-slate-500">
           No se encontraron resultados para "<strong>{query}</strong>"
         </p>
@@ -108,37 +132,26 @@ export default function SearchEngine({ posts = [], allPosts = [], initialQuery =
 
       <ul role="list" className="mt-6 blog-post | flow">
         {results.map((post) => {
-          const terms = query
-            .trim()
-            .split(/\s+/)
-            .map(normalize)
-            .filter(Boolean);
+          const title = post.data?.title || post.title || "";
+          const desc = post.data?.description || post.description || "";
 
-          const originalTitle = post.data?.title || post.title || "";
-          const originalDesc = post.data?.description || post.description || "";
+          const terms = query.trim().split(/\s+/).map(normalize).filter(Boolean);
 
-          const highlightedTitle = highlightMatches(originalTitle, terms);
-          const highlightedDesc = highlightMatches(originalDesc, terms);
-
-          // Adaptar post asegurando slug y evitando undefined
-          const adaptedPost = {
-            ...post,
-            slug: post.slug || post.id || post.data?.slug || "",
-            data: {
-              ...(post.data ?? {}),
-              title: highlightedTitle,
-              description: highlightedDesc,
-            }
-          };
+          const highlightedTitle = highlightMatches(title, terms);
+          const highlightedDesc = highlightMatches(desc, terms);
 
           return (
             <CardPostClient
               key={crypto.randomUUID()}
-              post={adaptedPost}
+              post={{
+                ...post,
+                slug: post.slug || post.id || post.data?.slug || "",
+                _highlightedTitle: highlightedTitle,
+                _highlightedDesc: highlightedDesc,
+              }}
             />
           );
         })}
-
       </ul>
     </div>
   );
