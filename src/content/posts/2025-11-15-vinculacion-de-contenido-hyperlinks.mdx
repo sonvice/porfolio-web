@@ -1,0 +1,570 @@
+---
+tags: ["accesibilidad", "html", "frontend", "hipervínculos", "usabilidad"]
+date: 2025-11-15
+featured: false
+cover: ./images/cap-3-vinculacion-contenido/cap-3-links.webp
+title: >
+  Capítulo 3: Vinculación de Contenido (Hyperlinks)
+slug: vinculacion-de-contenido-hyperlinks
+description: >
+  Cómo crear enlaces accesibles y claros en la web: cuándo usar links o botones, estilos, enfoque con teclado, descargas, email, imágenes como enlaces y buenas prácticas de accesibilidad.
+---
+
+
+> Enlazan a otras páginas web, dentro de la misma, recursos externos, direcciones de correo electrónico, números de teléfonos y archivos.  Los enlaces deben ser **concisos, descriptivos y accesibles**, indicando claramente lo que sucederá al hacer clic.
+
+
+> <p> Anterior: [Capítulo 2: Estructuración de páginas — Landmarks, ...](/blog/estructuracion-de-paginas-landmarks-encabezados-orden-dom)</p>  
+
+import { Picture } from "astro:assets"
+import { fileName,retiro,herdphone } from "./images/cap-3-vinculacion-contenido"
+
+## Requisitos básicos de un enlace
+
+1. Debe transmitir su función de enlace.
+2. Tiene un nombre accesible.
+3. La etiqueta es única, concisa y directa.
+4. Es accesible para tecnología de asistencia.
+5. Se puede enfocar con el teclado.
+
+
+## Ejemplos de enlaces en HTML
+
+
+```html
+<!-- Link a un sitio externo -->
+<a href="https://www.oreilly.com/products/books-videos.html">
+  O'Reilly books and videos
+</a>
+
+<!-- Link a una página interna -->
+<a href="/blog">Blog</a>
+
+<!-- Link a un correo -->
+<a href="mailto:support@johannastoys.com">support@johannastoys.com</a>
+
+<!-- Link a un teléfono -->
+<a href="tel:+17078277019">(707) 827-7019</a>
+
+<!-- Link a un ancla dentro de la página -->
+<a href="#content">Skip to content</a>
+```
+## Cuándo usar un link y cuándo un botón
+
+### Link `(<a>)`
+Se usa cuando el usuario irá a otro lugar, ya sea:
+
+- Otra página
+
+- Otra sección de la misma página
+
+- Otro sitio web
+
+```html
+    <a href="/contacto">Ir a la página de contacto</a>
+    <a href="https://example.com">Visitar sitio externo</a>
+    <a href="#seccion2">Ir a la sección 2</a>
+```
+
+### Botón `(<button>)`
+Se usa cuando el usuario ejecuta una acción en la misma página, como enviar un formulario, abrir un menú o mostrar un modal.
+
+```html
+    <button type="submit">Enviar formulario</button>
+    <button onclick="abrirMenu()">Abrir menú</button>
+    <button onclick="mostrarModal()">Ver detalles</button>
+
+```
+
+### Malas prácticas comunes
+
+No uses enlaces falsos (`href="#"` o `javascript:void(0)`) para ejecutar código, siempre usa botones en su lugar.
+
+```html
+    <!-- Incorrecto -->
+    <a href="#" onclick="mostrarModal()">Ver detalles</a>
+    <a href="javascript:void(0)" onclick="abrirMenu()">Abrir menú</a>
+```
+
+## Cómo deben verse los enlaces para ser accesibles
+Los enlaces no solo deben funcionar, también deben verse claramente como enlaces.
+Esto ayuda tanto a usuarios con buena visión como a quienes usan lectores de pantalla o tienen dificultades visuales.
+
+
+### Subrayado y color 
+
+Los enlaces deben estar subrayados; no confíes solo en el color.
+El subrayado es la forma más clara y universal de mostrar que se puede hacer clic.
+
+```css
+a:link {
+  color: blue;
+  text-decoration: underline;
+}
+
+```
+
+
+### Estados de Enlaces CSS
+
+Los enlaces cambian de apariencia según su estado:
+
+| Estado      | Qué significa         | Ejemplo de estilo |
+|-------------|-----------------------|-------------------|
+| `a:link`    | Enlace normal         | Azul y subrayado  |
+| `a:visited` | Enlace ya visitado    | Púrpura (por ejemplo, `rebeccapurple`) |
+| `a:hover`   | Cuando pasas el ratón | Verde o cambia el subrayado |
+| `a:active`  | Cuando haces clic     | Rojo               |
+
+```css
+    /* Enlace normal */
+    a:link {
+        color: blue;
+        text-decoration: underline;
+    }
+
+    /* Enlace visitado */
+    a:visited {
+        color: rebeccapurple;
+        text-decoration: underline;
+    }
+
+    /* Cuando el ratón pasa por encima */
+    a:hover {
+        color: green;
+        text-decoration: none;
+    }
+
+    /* En el momento de hacer clic */
+    a:active {
+        color: red;
+        text-decoration: underline;
+    }
+```
+
+### No dependas solo del color
+
+Combina **color + subrayado** para que todos los usuarios identifiquen los enlaces, incluso personas con daltonismo o visión reducida.
+
+```css
+a {
+    color: blue;
+    text-decoration: underline;
+}
+```
+### Excepciones válidas
+
+Menús de navegación donde se entiende que los elementos son clicables.
+Botones de llamada a la acción.
+
+<div class="nota">
+   **Nota explicativa:** Gracias a que la tecnología de pantallas ha avanzado mucho, hoy en día los dispositivos móviles a veces tienen una resolución comparable a la de los ordenadores. Esto significa que cuando diseñamos webs en CSS, no basta con pensar solo en “tamaño de pantalla” sino también en “cuántos píxeles reales” hay detrás de cada “píxel CSS”.
+
+    Para manejar esto se usa el concepto de [Device Pixel Ratio (DPR)](https://docs.imgix.com/en-US/apis/rendering/device-pixel-ratio) 
+</div>
+
+### En resumen 
+
+- Subraya los enlaces.
+
+- Usa colores distintos para cada estado.
+
+- Muestra el foco claramente.
+
+- No dependas solo de sombras o colores.
+
+## Enlaces de descarga
+
+Cuando un usuario hace clic en un enlace, debe saber qué va a ocurrir antes de pulsar.
+Esto es especialmente importante en los enlaces que llevan a un archivo, porque:
+
+- Puede ser un formato que su dispositivo no soporte.
+- Puede ser un archivo pesado que gaste datos o tarde en abrirse.
+- Puede abrir una aplicación externa sin esperarlo.
+
+Para evitar estas molestias, un buen enlace de descarga debe informar claramente de:
+
+1. Qué contiene el archivo
+
+2. Formato (PDF, JPG, XLS…)
+
+3. Tamaño aproximado
+
+4. Acción (descarga o visualización)
+
+```html
+<!-- Ver PDF -->
+<a href="/menu.pdf">Ver nuestro menú (PDF, 1.2 MB)</a>
+
+<!-- Descargar PDF -->
+<a href="/report.pdf" download>Descargar informe de sostenibilidad 2022 (PDF, 2 MB)</a>
+
+```
+### Un ejemplo incorrecto
+Evita textos genéricos tipo "Ver" o "Descargar" sin contexto:
+
+```html
+<!-- ❌ No indica qué se verá ni qué se descarga -->
+<a href="/images/flower.jpg">Ver</a>
+<a href="/images/flower.jpg" download>Descargar</a>
+
+```
+
+### Informa también del tamaño
+Para conexiones lentas o datos limitados, saber el peso del archivo es crucial, amsterdam.nl lo hace muy bien:
+
+ <Picture  src={fileName} quality={100} widths={[720, fileName.width]}  sizes={`(min-width: 39.9em) 720px`} alt="Ejemplo con el texto `consent form (PDF, 2,3 MB)`"/> 
+ **Fuente**: https://www.amsterdam.nl/en/civil-affairs/first-registration/
+
+### ⚠️ Nota importante sobre el atributo download
+- Solo funciona para archivos del mismo dominio (same-origin).
+- El atributo NO anuncia nada a lectores de pantalla, así que el texto del enlace debe explicarlo.
+
+
+## Enlaces de Email
+
+Cuando ponemos un enlace del tipo mailto: en una web, al hacer clic ocurre algo importante:
+Posible cambio de contexto
+El usuario puede pasar **automáticamente del navegador a su app de correo** (Gmail, Apple Mail, Outlook…).
+Para algunas personas esto es cómodo; para otras, es un problema:
+- Personas que usan lectores de pantalla
+- Usuarios mayores
+- Personas que solo querían copiar el email
+- Usuarios con una configuración donde el clic abre apps que no usan
+- Personas que navegan lento o con varias apps a la vez
+La clave es minimizar la fricción.
+
+### Solución recomendada
+
+Usa SIEMPRE esto:
+
+```html
+<a href="mailto:support@johannastoys.com">support@johannastoys.com</a>
+
+<!-- Varios destinatarios -->
+<a href="mailto:manuel@matuzo.at,office@matuzo.at">manuel@matuzo.at y office@matuzo.at</a>
+
+<!-- Prefill asunto y cuerpo -->
+<a href="mailto:support@johannastoys.com?subject=Pedido&body=Mi%20número%20de%20cliente%20es%3A%20068303">
+  support@johannastoys.com
+</a>
+
+```
+- ✔ El email es visible
+- ✔ El usuario puede copiarlo
+- ✔ Si quiere escribir, solo hace clic
+
+Casos especiales
+
+- ✔ Varios destinatarios
+- ✔ Prefill de asunto y contenido
+
+### Qué NO hacer
+Evita enlaces genéricos como “Contáctanos” o “Haz clic aquí”.
+
+## Imágenes que actúan como enlaces (Link Images)
+Las imágenes dentro de enlaces son extremadamente comunes (logos, iconos sociales, botones gráficos). Pero si su texto alternativo es incorrecto o inexistente, los lectores de pantalla no pueden saber hacia dónde lleva ese enlace. Esto crea enlaces rotos, confusos o imposibles de comprender para muchos usuarios.
+
+### Problema
+ Cuando una imagen dentro de un `<a>` no tiene una etiqueta accesible, los lectores de pantalla dicen cosas como:
+- “imagen sin etiquetar”
+- “gráfico”
+- “link”
+- “https punto barra barra…”
+- O incluso solo el nombre del archivo → logo-final-v2-copy.png
+Esto es muy poco informativo y perjudica seriamente la accesibilidad.
+
+### Solución
+Usa siempre alt para proporcionar el nombre accesible del enlace
+ Si el logo enlaza a la Home, el alt debe ser: `alt="Home page"` 
+ no `alt="Company logo"`.
+Porque en imágenes funcionales se describe la acción, NO el contenido.
+
+### Para SVG, puedes usar `<title>` + `aria-labelledby`
+Cuando el enlace contiene un SVG:
+
+```html
+<a href="/report.pdf" download>
+  <svg aria-labelledby="save_title" role="img">
+    <title id="save_title">Save</title>
+    <path d="..."/>
+  </svg>
+</a>
+```
+Así el lector de pantalla anuncia “Save, link”.
+
+
+### Si la imagen es decorativa → Ocúltala del árbol accesible
+Puedes usar:
+
+`alt=""`
+o en SVG:
+`aria-hidden="true"`
+Pero entonces el enlace necesita un nombre accesible, que puedes añadir así:
+
+```html
+<a href="https://mastodon.social" aria-label="Mastodon">
+    <img src="/images/mastodon-logo.svg" alt="">
+</a>        
+```
+o:
+
+```html
+<a href="https://mastodon.social" aria-label="Mastodon">
+  <svg aria-hidden="true">...</svg>
+</a>
+
+```
+
+### Tipos de imágenes y cómo tratarlas
+ Las imágenes suelen ser de tres tipos:
+
+ ### 1. Imágenes informativas
+ Aportan información relevante
+
+
+  <Picture  src={retiro} quality={100} widths={[720, retiro.width]}  sizes={`(min-width: 39.9em) 720px`} alt="Parque de El Retiro, Plaza de la Independencia, Madrid, España, familia en un bote en pleno verano"/> 
+  Parque de El Retiro, Plaza de la Independencia, Madrid, España
+ 
+ ```html
+ <img src="images/parque-el-retiro-madrid.webp"
+     alt="Parque de El Retiro, Plaza de la Independencia, Madrid, España, familia en un bote en pleno verano">
+
+ ```
+
+ ### 2. Imágenes decorativas
+ (no aportan contenido; solo estética)
+   <Picture  src={herdphone} quality={96} widths={[720, herdphone.width]}  sizes={`(min-width: 39.9em) 720px`} alt=""/> 
+ ```html
+ <img src="images/headphones.webp" alt="">
+ ```
+ Se ocultan de los lectores de pantalla porque no aportan nada.
+ <div class="nota">
+ Nota: a veces una imagen decorativa transmite emoción y puede valer la pena describirla brevemente, como explica Léonie Watson. Pero es opcional según el contexto.
+ </div>
+ 
+
+### 3. Imágenes funcionales
+(se usan como botones o enlaces)
+Ejemplos:
+
+- Icono de descarga
+
+- Icono de redes sociales
+
+- Flecha “siguiente”
+
+- Logo que vuelve al inicio
+
+Aquí NO describes la imagen.
+Describes lo que hace:
+
+```ini
+alt="Download report"
+alt="Go to Home"
+alt="Next slide"
+alt="Follow on Twitter"
+
+```
+
+### Idea clave
+- Si la imagen es funcional, su texto alternativo DEBE describir la acción.
+- Si la imagen es informativa, describe su contenido.
+- Si es decorativa, ocúltala con `alt=""` o `aria-hidden="true"`.
+
+Siempre debe haber un mecanismo para que la tecnología asistiva conozca el propósito del enlace.
+
+<div class="nota">
+Problema común: enlaces vacíos y enlaces con imágenes sin alt Según WebAIM Million 2024, 📉 44.6% de las webs analizadas tenían enlaces vacíos o con nombre accesible inexistente.
+</div> 
+
+
+## Informar a los usuarios cuando un enlace cambia el contexto
+ A veces un enlace abre una nueva pestaña o ventana. Aunque parece algo pequeño, puede desorientar a muchos usuarios si ocurre sin avisar.
+### Problema
+Abrir enlaces en una nueva pestaña sin avisar puede generar varias dificultades:
+- Desorientación, especialmente para personas con dificultades cognitivas o visuales.
+- En móviles, no siempre es evidente que se abrió otra pestaña.
+- El botón Atrás no funciona, porque está en la pestaña original.
+- Usuarios poco técnicos pueden no saber volver a la pestaña inicial.
+- Multiplicar pestañas termina ensuciando el espacio mental del usuario.
+
+### En resumen: 
+abrir enlaces en una nueva pestaña puede romper la navegación natural si no se informa.
+
+### Solución
+Si decides que un enlace debe abrir en una nueva pestaña usando:
+`target="_blank"`
+…entonces debes avisar al usuario directamente en el texto del enlace:
+```html
+<a href="https://www.mxb.dev" target="_blank">
+  Max Böck’s website (opens in new tab)
+</a>
+```
+Esto es directo, claro y accesible.
+
+### Debate: ¿debemos abrir enlaces en nueva pestaña?
+Hay opiniones divididas.
+Muchos diseñadores quieren “retener” al usuario, pero:
+
+La mayoría de expertos en accesibilidad y usabilidad recomiendan NO abrir nuevas pestañas, salvo en casos específicos.
+Abrir un enlace en otra pestaña quita al usuario su libertad de elegir.
+El comportamiento nativo del navegador es siempre más predecible:
+— El usuario decide si quiere abrir en la misma pestaña, otra pestaña o ventana.
+
+### Excepciones razonables (según WCAG)
+Sí hay momentos donde sí es mejor abrir en una nueva pestaña o ventana:
+- ✔ Documentos que sirven como referencia mientras realizas otra tarea
+Ejemplo: instrucciones mientras rellenas un formulario.
+- ✔ Widgets como calendarios o logins en ventanas flotantes
+Evita perder el progreso de la página principal.
+- ✔ Enlaces fuera de un área segura
+
+Por ejemplo, si cerrar la pestaña actual podría cerrar sesión.
+En estos casos, abrir en nueva pestaña mejora la experiencia, siempre que lo avises.
+
+### Conclusión práctica
+Si un enlace abre una nueva pestaña:
+- Evítalo si es posible.
+- Si necesitas hacerlo, avisa siempre con texto dentro del enlace:
+(opens in new tab)
+Es lo más claro, accesible y comprensible para todos.
+
+## Client-Side Rendering y accesibilidad
+Cuando usamos SPAs (React, Vue, Angular, etc.), la navegación deja de recargar la página y se reemplaza contenido dinámicamente. Esto genera problemas de accesibilidad:
+
+- El foco sigue en el enlace y no se mueve al nuevo contenido.
+- Los lectores de pantalla no anuncian los cambios.
+- Los usuarios pueden perderse o confundirse.
+
+### Soluciones
+
+1. Gestión de foco
+```js
+mainContent.setAttribute("tabindex", "-1");
+mainContent.focus();
+
+```
+
+2. Live Regions (role="status")
+- Crea un área oculta con role="status" o `<output>` que anuncie cambios automáticamente.
+- Útil cuando quieres informar del cambio de contenido sin mover el foco.
+
+3. Actualizar `<title>` de la página
+- Cambia también `<title>` de la página para que los usuarios ciegos sepan dónde están.
+
+## Cómo hacer clicables grupos de elementos
+A veces queremos que toda una tarjeta o grupo de elementos sea clicable, por ejemplo un título, imagen y texto juntos. Esto mejora la experiencia para ratón y táctil, pero puede complicar la accesibilidad:
+
+### Problemas comunes
+- Lectores de pantalla leen demasiada información o se confunden.
+- Usuarios de teclado tienen demasiados tab stops.
+- Texto largo o elementos vacíos dificultan la selección y navegación.
+- Funciones del navegador (clic medio, menú contextual, selección de texto) pueden dejar de funcionar.
+
+### Soluciones
+1. Envolver todo en `<a>`
+- Pros: toda la tarjeta clicable, sin enlaces redundantes.
+- Contras: lectura muy larga en lectores de pantalla, no se puede seleccionar texto, enlaces internos no funcionan bien.
+```html
+<a href="/articulo">
+  <div class="card">
+    <h3>Título del artículo</h3>
+    <img src="imagen.png" alt="Imagen descriptiva">
+    <p>Resumen del contenido...</p>
+  </div>
+</a>
+
+```
+2. Varios enlaces separados
+- Pros: compatible con voz y selección de texto, soporta múltiples enlaces.
+- Contras: añade tab stops extra y enlaces redundantes, no toda la tarjeta es clicable.
+
+```html
+<div class="card">
+  <h3><a href="/articulo">Título del artículo</a></h3>
+  <p>Por <a href="/autor">Autor</a></p>
+  <img src="imagen.png" alt="Imagen descriptiva">
+  <p><a href="/articulo">Leer más</a></p>
+</div>
+```
+3. Enlace vacío posicionado sobre la tarjeta
+- Pros: evita lectura redundante, solo un tab stop.
+- Contras: texto no seleccionable, no soporta múltiples enlaces, mala práctica HTML.
+
+```html
+<div class="card">
+  <a href="/articulo" class="cover-link" aria-labelledby="titulo"></a>
+  <h3 id="titulo">Título del artículo</h3>
+  <p>Resumen del contenido...</p>
+</div>
+
+<style>
+.cover-link {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+</style>
+```
+4. Pseudoelemento sobre la tarjeta (recomendado)
+- Pros: toda la tarjeta clicable, pocos tab stops, no añade HTML extra.
+- Contras: texto no seleccionable si no se ajusta `z-index`.
+
+```css
+.card .readmore::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+```
+```html
+<div class="card">
+  <h3>Título del artículo</h3>
+  <p class="author">Por <a href="/autor">Autor</a></p>
+  <img src="imagen.png" alt="Imagen descriptiva">
+  <p><a href="/articulo" class="readmore">Leer más</a></p>
+</div>
+
+```
+5. JavaScript para toda la tarjeta
+- Pros: toda la tarjeta clicable, HTML válido, accesible vía voz.
+- Contras: rompe funciones de navegador como clic medio o vista previa de URL, solución más frágil.
+
+```html
+<div class="card">
+  <h3>Título del artículo</h3>
+  <p class="author">Por <a href="/autor">Autor</a></p>
+  <p><a href="/articulo" class="readmore">Leer más</a></p>
+</div>
+
+<script>
+const card = document.querySelector(".card");
+const link = card.querySelector(".readmore");
+
+card.addEventListener("click", (e) => {
+  const noTextSelected = !window.getSelection().toString();
+  if (noTextSelected) link.click();
+});
+</script>
+
+```
+
+### Resumen Final
+
+La accesibilidad web no es solo una cuestión técnica, sino una responsabilidad hacia todas las personas que interactúan con nuestros sitios. A lo largo del artículo vimos que:
+
+- El color no debe ser el único indicador visual, ya que muchas personas no pueden percibirlo adecuadamente. Los enlaces deben ser distinguibles mediante forma, contraste o subrayado.
+
+- Los estados de los enlaces—como hover, focus, active y visited—son esenciales para orientar al usuario y deben estar claramente diseñados.
+
+- El enfoque (focus) debe ser evidente, visible y coherente con el diseño, evitando eliminarlo sin proporcionar una alternativa accesible.
+
+- Los dispositivos modernos tienen alta densidad de píxeles, por lo que conceptos como DPR ([Device Pixel Ratio](https://docs.imgix.com/en-US/apis/rendering/device-pixel-ratio)) ayudan a que el contenido se vea bien en cualquier pantalla.
+
+En definitiva: no reinventes la rueda. Usa patrones convencionales, mejora donde sea necesario y prioriza siempre la usabilidad sobre la estética.
+
+## Continúa la serie de accesibilidad
+
+> <p> Anterior: [Capítulo 2: Estructuración de páginas — Landmarks, ...](/blog/estructuracion-de-paginas-landmarks-encabezados-orden-dom)</p>  
