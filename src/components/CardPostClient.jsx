@@ -11,6 +11,8 @@ export default function CardPostClient({
   };
 
   const date = post.data?.date ? new Date(post.data.date) : null;
+  const slug = post.slug || post.id || '';   // <-- fallback
+const href   = slug ? `/blog/${slug}` : '#';
 
   return (
     <li className="mb-6">
@@ -23,7 +25,7 @@ export default function CardPostClient({
       </small>
 
       <h3 className="size-2">
-        <a href={`/blog/${post.slug}`}>
+        <a href={href}>
           {highlightedTitle ?? post.data?.title}
         </a>
       </h3>

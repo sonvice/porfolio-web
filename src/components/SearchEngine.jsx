@@ -26,16 +26,17 @@ export default function SearchEngine({
   };
 
   // Preprocesado
-  const indexedPosts = useMemo(
-    () =>
-      allPosts.map((post) => ({
-        ...post,
-        _normTitle: normalize(post.data?.title || post.title || ""),
-        _normDesc: normalize(post.data?.description || post.description || ""),
-        _date: post.data?.date ? new Date(post.data.date) : null,
-      })),
-    [allPosts]
-  );
+const indexedPosts = useMemo(
+  () =>
+    allPosts.map((post) => ({
+      ...post,
+      _slug: post.slug || post.id || '',               // <-- siempre string
+      _normTitle: normalize(post.data?.title || post.title || ''),
+      _normDesc: normalize(post.data?.description || post.description || ''),
+      _date: post.data?.date ? new Date(post.data.date) : null,
+    })),
+  [allPosts]
+);
 
   const filterPosts = useCallback(
     (q) => {
