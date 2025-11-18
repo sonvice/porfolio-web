@@ -304,9 +304,22 @@ Esto es muy poco informativo y perjudica seriamente la accesibilidad.
 
 ### Solución
 Usa siempre alt para proporcionar el nombre accesible del enlace
- Si el logo enlaza a la Home, el alt debe ser: `alt="Home page"` 
- no `alt="Company logo"`.
+ Si el logo enlaza a la Home, el alt debe ser: `alt="Página de inicio"` 
+ no `alt="Logo empresa"`.
 Porque en imágenes funcionales se describe la acción, NO el contenido.
+```html
+<header>
+    <a href="/">
+        <img src="ruta/a/tu/logo.png" alt="Página de inicio" width="150" height="50">
+    </a>
+    <nav>
+        <ul>
+            <li><a href="/servicios">Servicios</a></li>
+            <li><a href="/contacto">Contacto</a></li>
+        </ul>
+    </nav>
+</header>
+```
 
 ### Para SVG, puedes usar `<title>` + `aria-labelledby`
 Cuando el enlace contiene un SVG:
