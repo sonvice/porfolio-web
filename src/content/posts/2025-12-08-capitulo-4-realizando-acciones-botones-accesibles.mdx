@@ -1,0 +1,501 @@
+---
+tags: ["accesibilidad", "html", "frontend", "botones", "usabilidad", "aria"]
+date: 2025-12-08
+featured: false
+cover: ./images/cap-4-realizando-acciones/cap-4-buttons.webp
+title: >
+  Capítulo 4: Realizando Acciones — Botones Accesibles
+slug: realizando-acciones-botones-accesibles
+description: >
+  Cómo crear botones accesibles en la web: requisitos esenciales, estados ARIA, estilos personalizados sin perder accesibilidad, y por qué nunca debes deshabilitar botones.
+---
+
+import Table from "@components/Table.jsx";
+import { Tag, MessageSquare, RefreshCw, Eye, Palette, Keyboard, X, Check, Heart, Settings } from 'lucide-astro';
+
+export const columnsInaccesible = [
+  { accessorKey: "elemento", header: "Elemento Inaccesible (Evitar)" },
+  { accessorKey: "problema", header: "Problema Principal" },
+];
+
+export const dataInaccesible = [
+  {
+    elemento: "<a> (con estilo de botón)",
+    problema: "Se anuncia como 'enlace', no como 'botón'. El usuario espera que lo lleve a otra página, no que ejecute una acción.",
+  },
+  {
+    elemento: "<div> o <span>",
+    problema: "Carecen de rol semántico, no son enfocables por defecto y no responden a las teclas Enter o Space",
+  },
+];
+
+export const columnsAtributos = [
+  { accessorKey: "situacion", header: "Situación" },
+  { accessorKey: "atributo", header: "Atributo" },
+];
+
+export const dataAtributos = [
+  {
+    situacion: "Mostrar/ocultar algo",
+    atributo: "aria-expanded",
+  },
+  {
+    situacion: "Botón tipo toggle",
+    atributo: "aria-pressed",
+  },
+  {
+    situacion: "Interruptor",
+    atributo: "role=\"switch\" + aria-checked",
+  },
+  {
+    situacion: "Abre un menú o cuadro",
+    atributo: "aria-haspopup",
+  },
+];
+
+> Los botones son elementos de interacción fundamentales en cualquier interfaz web. Un botón mal implementado puede excluir a usuarios que dependen de tecnologías de asistencia o que navegan solo con teclado. Este capítulo te enseña a crear botones que funcionen para todos.
+
+> <p> Anterior: [Capítulo 3: Vinculación de Contenido — Hyperlinks](/blog/vinculacion-de-contenido-hyperlinks)</p>
+
+## El problema de los botones falsos
+
+¿Alguna vez has intentado usar una web y te has encontrado con un "botón" que no parece un botón, o uno que simplemente no funciona al presionarlo? Esto es más común de lo que parece, y es un problema de accesibilidad fundamental.
+
+Cuando construyes una interfaz, el elemento que elijas para crear un botón es crucial. Si lo haces mal, podrías estar excluyendo a usuarios que dependen de tecnologías de asistencia (como lectores de pantalla) o a cualquiera que no use un ratón.
+
+## Requisitos Esenciales de un Buen Botón
+
+Para que un elemento sea un botón accesible y funcional, debe cumplir con estos criterios básicos. Piensa en ellos como la "ficha técnica" indispensable:
+
+- **Rol Semántico**: Debe decir a la tecnología de asistencia: "¡Soy un botón!". El elemento nativo `<button>` de HTML hace esto automáticamente.
+
+- **Nombre Accesible**: Debe tener un texto claro y conciso que describa su propósito ("Enviar", "Suscribirse"). Este puede ser el texto visible del botón o un texto alternativo.
+
+- **Estado**: Si el botón cambia de estado (ej. un botón de "Play/Pausa" o un interruptor), debe comunicarlo programáticamente ("Pulsado", "Expandido").
+
+- **Contraste y Apariencia**: Debe ser visualmente reconocible como un botón y sus colores deben tener suficiente contraste para que todos puedan leer el texto.
+
+- **Manejo del Foco**: Debe poder recibir el foco (normalmente usando la tecla Tab) y ser activable mediante clic, toque o eventos de teclado (como Enter o Espacio).
+
+## La Solución: Usa el Elemento Nativo `<button>`
+
+La forma más sencilla y robusta de cumplir con todos estos requisitos es utilizar el elemento nativo de HTML: `<button>`.
+
+Este elemento es tu mejor aliado porque ya trae preconfigurados muchos de los requisitos de accesibilidad:
+
+1. **Semántica**: Por defecto, los navegadores y las tecnologías de asistencia ya saben que es un botón.
+2. **Foco y Eventos**: Es enfocable y activable por teclado de forma nativa.
+
+### Añadiendo Estados Especiales
+
+A veces, necesitas un botón que actúe como un interruptor. Para esto, usamos atributos de ARIA (Accessible Rich Internet Applications), como `aria-pressed`.
+
+**Ejemplo**: Un botón que alterna entre pulsado y no pulsado:
+```html
+<button type="button" aria-pressed="true">
+  Me gusta
+</button>
+```
+
+Cuando `aria-pressed="true"`, comunica a las tecnologías de asistencia que el botón está actualmente activo o pulsado.
+
+## Los 6 Pilares de un Botón Web Accesible (WCAG)
+
+Para que un botón no excluya a nadie y ofrezca una gran experiencia de usuario (UX), debe cumplir con un conjunto de seis requisitos fundamentales definidos por las guías WCAG. Si fallas en alguno, la interacción puede volverse imposible para ciertos usuarios.
+
+### 1. <Tag className="inline w-5 h-5" /> Debe Transmitir su Rol Semántico (Programáticamente)
+
+El requisito más básico es que el código le diga al navegador y a las tecnologías de asistencia: "¡Soy un botón!"
+
+- **Lo que haces**: Utilizar el elemento `<button>` de HTML.
+- **Por qué funciona**: El elemento `<button>` tiene un rol implícito de "botón". Un lector de pantalla lo anunciará, por ejemplo, como: "Imprimir, botón."
+- **En términos WCAG (Criterio 4.1.2: Nombre, Rol, Valor)**: Este criterio asegura que la tecnología de asistencia pueda determinar programáticamente (a través del código) el nombre y el rol de todos los componentes de la interfaz, permitiendo la compatibilidad con herramientas como lectores de pantalla o software de reconocimiento de voz. Usar controles HTML estándar correctamente es la forma más sencilla de cumplirlo.
+
+### 2. <MessageSquare className="inline w-5 h-5" /> Debe Tener un Nombre Accesible
+
+Todo botón, tenga texto visible o no, debe tener un nombre accesible (etiqueta) para los usuarios de lectores de pantalla o comandos de voz. No hay excepciones.
+
+- **Lo que haces**: La mejor práctica es incluir texto visible para todos (ej. "Registrarse", "Comprar"). Si el botón es solo un icono (ej. un icono de lupa para buscar), necesitas una etiqueta alternativa que sea legible por la máquina, como usar el atributo `aria-label`.
+- **Importancia**: Sin un nombre, el lector de pantalla diría simplemente "Botón", dejando al usuario sin saber qué hace.
+
+### 3. <RefreshCw className="inline w-5 h-5" /> Debe Comunicar su Estado si es Necesario
+
+Si un botón puede cambiar de estado (como un interruptor o un toggle), o si controla el estado de otro elemento, debe comunicar ese cambio programáticamente.
+
+**Lo que haces**: Utilizar atributos ARIA específicos:
+
+- `aria-pressed="true"` / `"false"`: Indica si un botón de acción (toggle como silenciar/desilenciar) está actualmente presionado o no.
+- `aria-expanded="true"` / `"false"`: Indica si el botón está controlando la visibilidad de un elemento (como en un menú desplegable).
+
+### 4. <Eye className="inline w-5 h-5" /> Debe Ser Reconocible Visualmente
+
+El diseño de tu botón debe cumplir con las expectativas visuales del usuario, basándose en la **Ley de Jakob**: los usuarios pasan la mayor parte del tiempo en otros sitios y esperan que tu sitio funcione de manera similar a los demás.
+
+- **Lo que haces**: Diseña los botones para que parezcan botones (bordes, sombras, etc.). Si algo se ve como un botón, debe actuar como tal. Esto ayuda a todos, especialmente a personas con discapacidades cognitivas, a entender rápidamente la función de la interfaz.
+
+### 5. <Palette className="inline w-5 h-5" /> Sus Colores Deben Tener Suficiente Contraste
+
+Al igual que el texto normal, el texto de un botón debe tener un contraste de color adecuado para que las personas con baja visión puedan leerlo.
+
+- **Contraste del Texto**: La diferencia de color entre el texto del botón y su fondo debe tener una proporción mínima de **4.5:1** (para texto normal) o **3:1** (para texto grande o en negrita).
+- **Contraste de Componentes**: Los elementos no textuales del botón, como el fondo del botón, el borde o el indicador de foco (el contorno que aparece al usar el teclado), también deben tener un contraste de al menos **3:1** contra los colores adyacentes (generalmente el fondo de la página).
+
+### 6. <Keyboard className="inline w-5 h-5" /> Debe Ser Navegable (Tabbable) y Activarse por Teclado
+
+Un botón es un elemento interactivo. Si se puede hacer clic, también se debe poder interactuar con él usando solo el teclado.
+
+- **Lo que haces**: Usar el elemento `<button>`. Por defecto, este elemento es navegable (o "tabbable"), lo que significa que el usuario puede alcanzarlo presionando la tecla Tab.
+- **Activación**: Una vez que tiene el foco, debe activarse presionando las teclas Enter o Space (Espacio).
+
+## Prácticas a Evitar
+
+Muchos desarrolladores intentan crear botones usando elementos genéricos como `<div>` o `<span>`.
+
+<Table columns={columnsInaccesible} data={dataInaccesible} />
+
+## Eliminar Estilos Predeterminados de Botones
+
+Cuando diseñamos una web, muchas veces queremos que un botón no parezca un botón: quizás solo es un icono, un texto minimalista o un elemento muy personalizado. Sin embargo, aunque visualmente no tenga forma de botón, debe seguir comportándose como uno para ser accesible.
+
+### El problema: los "botones falsos"
+
+Muchos desarrolladores usan elementos como `<div>` o `<span>` para simular botones y luego les aplican un `onclick`. El resultado suele ser algo así:
+```html
+<div class="button" aria-label="Navigation">
+  <!-- icono -->
+</div>
+```
+
+Esto parece inofensivo, pero tiene consecuencias graves:
+
+- <X className="inline w-4 h-4" /> No se puede enfocar con el teclado
+- <X className="inline w-4 h-4" /> No se activa con Enter o Espacio
+- <X className="inline w-4 h-4" /> Los lectores de pantalla no lo anuncian como botón
+- <X className="inline w-4 h-4" /> Algunos ni siquiera lo anuncian
+- <X className="inline w-4 h-4" /> `aria-label` es inválido en elementos que no son interactivos
+
+En pocas palabras: es inaccesible.
+
+### <Check className="inline w-5 h-5" /> La solución: usar siempre `<button>`, incluso si no quieres su estilo
+
+Si quieres un botón sin apariencia de botón, no hace falta recurrir a elementos genéricos. Basta con usar `<button>` y eliminar o resetear sus estilos por defecto con CSS.
+
+### Tres formas de quitar los estilos por defecto de un botón
+
+#### 1. Ajustar propiedades manualmente
+
+Tú controlas qué quitar:
+```css
+button {
+  background: none;
+  border: 0.1em solid transparent;
+  font: inherit;
+  padding: 0;
+}
+```
+
+**Ventaja**: mantiene un borde visible en modo de alto contraste.
+
+#### 2. Resetear absolutamente todo con `all: initial`
+```css
+button {
+  all: initial;
+}
+
+button:focus-visible {
+  outline: 0.1em solid;
+  outline-offset: 0.1em;
+}
+```
+
+Devuelve el botón a su estado "de fábrica" según CSS, no del navegador.
+
+#### 3. Resetear todo excepto lo heredable con `all: unset`
+```css
+button {
+  all: unset;
+}
+
+button:focus-visible {
+  outline: 0.1em solid;
+  outline-offset: 0.1em;
+}
+```
+
+Ideal si quieres mantener propiedades como `font-family` o `color`.
+
+### ¿Cuál usar?
+
+Depende del control que necesites, pero en general:
+
+- `all: initial` → botón completamente "limpio".
+- `all: unset` → botón limpio pero respetando tipografías o colores heredados.
+
+En ambos casos, recuerda volver a añadir estilos de foco y hover, ya que se pierden con el reset.
+
+### Conclusión
+
+Aunque visualmente no parezca un botón, si se comporta como un botón, debe ser un `<button>`.
+
+Crear botones falsos rompe la accesibilidad y da una mala experiencia a personas que navegan con teclado o lectores de pantalla.
+
+Usando `<button>` + reset de estilos, tendrás:
+
+- Accesibilidad garantizada
+- Interacción correcta por teclado
+- Comportamiento estándar
+- Libertad total de diseño
+
+Es la forma correcta, segura y profesional de crear botones personalizados en la web moderna.
+
+## Agregar Estados y Propiedades
+
+Cuando trabajamos con botones que controlan otros elementos o activan configuraciones, no basta con que se vean bien: deben comunicar su estado real a los usuarios que navegan con lector de pantalla o teclado.
+
+Si no lo hacen, la experiencia se vuelve confusa o directamente inutilizable para ellos.
+
+Por eso existen ciertos atributos ARIA que permiten informar si algo está:
+
+- abierto o cerrado,
+- activado o desactivado,
+- seleccionado,
+- o relacionado con otros elementos.
+
+Aquí te cuento los más importantes y cómo usarlos bien.
+
+### 1. Botones que muestran/ocultan contenido: `aria-expanded`
+
+Si un botón sirve para abrir o cerrar algo (un menú, un panel, una sección), debe decir si ese contenido está expandido o colapsado.
+```html
+<button 
+  aria-expanded="false" 
+  aria-controls="nav-menu"
+>
+  Menú
+</button>
+
+<nav id="nav-menu" hidden>
+  ...
+</nav>
+```
+```javascript
+const btn = document.querySelector('button');
+const menu = document.querySelector('#nav-menu');
+
+btn.addEventListener('click', () => {
+  const open = btn.getAttribute('aria-expanded') === 'true';
+  btn.setAttribute('aria-expanded', String(!open));
+  menu.hidden = open;
+});
+```
+
+**Puntos clave**:
+
+- `aria-expanded` va en el botón, no en el contenido.
+- Debe tener valores reales: `"true"` o `"false"`.
+- `aria-controls` indica qué elemento controla (aunque su soporte es limitado, no hace daño usarlo).
+
+### 2. Botones tipo "toggle": `aria-pressed`
+
+Cuando un botón activa o desactiva una función (favoritos, activación de modo, etc.), debe comunicar si está "presionado" o no.
+```html
+<button aria-pressed="false" class="fav-btn">
+  <Heart className="inline w-4 h-4" /> Añadir a favoritos
+</button>
+```
+```javascript
+const btn = document.querySelector('.fav-btn');
+
+btn.addEventListener('click', () => {
+  const pressed = btn.getAttribute('aria-pressed') === 'true';
+  btn.setAttribute('aria-pressed', String(!pressed));
+});
+```
+
+**Ideal para**: Botones que ejecutan acciones y cambian visualmente al activarse.
+
+### 3. Botones estilo interruptor (switch): `role="switch"` + `aria-checked`
+
+Un switch comunica estados on/off, igual que un checkbox, pero con una apariencia distinta.
+```html
+<button role="switch" aria-checked="false" class="switch">
+  Modo oscuro
+</button>
+```
+```javascript
+const sw = document.querySelector('.switch');
+
+sw.addEventListener('click', () => {
+  const checked = sw.getAttribute('aria-checked') === 'true';
+  sw.setAttribute('aria-checked', String(!checked));
+});
+```
+```css
+.switch {
+  all: unset;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.switch::before {
+  content: "";
+  width: 2.5rem;
+  height: 1.4rem;
+  background: #bbb;
+  border-radius: 999px;
+  transition: .3s;
+}
+
+.switch::after {
+  content: "";
+  width: 1rem;
+  height: 1rem;
+  background: #fff;
+  border-radius: 50%;
+  position: relative;
+  left: .2rem;
+  transition: transform .3s;
+}
+
+.switch[aria-checked="true"]::before {
+  background: #4caf50;
+}
+
+.switch[aria-checked="true"]::after {
+  transform: translateX(1.1rem);
+}
+```
+
+<div class="nota">
+**Importante**: Los switches pueden confundir a los usuarios. Úsalos solo si la metáfora visual tiene sentido y pruébalos.
+</div>
+
+### 4. Botones que abren pop-ups o menús: `aria-haspopup`
+
+Cuando un botón abre un menú o cuadro de diálogo, debería indicar qué tipo de elemento se mostrará.
+```html
+<button 
+  aria-haspopup="menu" 
+  aria-expanded="false" 
+  id="settings-btn"
+>
+  Ajustes <Settings className="inline w-4 h-4" />
+</button>
+
+<ul role="menu" aria-labelledby="settings-btn" hidden>
+  <li role="none"><button role="menuitem">Guardar</button></li>
+  <li role="none"><button role="menuitem">Imprimir</button></li>
+</ul>
+```
+
+**Valores posibles**: `menu`, `dialog`, `listbox`, `grid`, `tree`, `true` (sinónimo de menu)
+
+Esto permite que lectores de pantalla anuncien algo como:
+"Ajustes, botón, menú disponible"
+
+### Resumen de atributos
+
+Usa estos atributos ARIA cuando corresponda:
+
+<Table columns={columnsAtributos} data={dataAtributos} />
+
+Con unas pocas líneas de HTML y JS haces que tus botones funcionen para todo el mundo, incluidos quienes dependen de tecnologías de asistencia.
+
+## No Desactives los Botones
+
+Deshabilitar botones parece una buena idea para evitar errores ("Hasta que completes el formulario no puedes continuar"), pero en realidad suele generar más problemas que soluciones.
+
+Vamos a ver por qué los botones deshabilitados son una mala práctica y cómo resolverlo de forma accesible y amigable.
+
+### Problemas que causan los botones deshabilitados
+
+#### No dan feedback
+
+Cuando clicas un botón deshabilitado, no pasa nada.
+
+Si el usuario cree que todo está bien, la sensación es:
+"¿La web está rota?"
+
+El UI no explica qué falta, qué está mal o cómo solucionarlo.
+
+#### No se pueden enfocar
+
+Los botones deshabilitados no pueden recibir foco.
+
+Los usuarios de teclado o lectores de pantalla ni siquiera saben que el botón existe.
+
+Esto puede dejar zonas completas del formulario inaccesibles.
+
+#### Suelen tener bajo contraste
+
+Aunque WCAG no obliga a que controles deshabilitados cumplan el contraste mínimo, en la práctica:
+
+- suelen verse apagados,
+- mal definidos,
+- y difíciles de leer para usuarios con baja visión.
+
+#### Son engañosos
+
+Muchos usuarios no se dan cuenta de que están deshabilitados.
+
+Ven un botón que dice "Enviar", hacen clic… y nada.
+Frustración asegurada.
+
+Incluso una apariencia ligeramente "apagada" no siempre basta para indicar que no funciona.
+
+### Solución: Nunca deshabilites botones
+
+En vez de bloquear la acción, deja el botón siempre disponible y da feedback claro cuando algo no se puede enviar.
+
+### ¿Qué hacer en lugar de deshabilitar?
+
+Aquí tienes alternativas modernas, accesibles y mucho más efectivas:
+
+- <Check className="inline w-4 h-4" /> **Usa etiquetas claras en los campos**: Evitas confusiones antes de que ocurran.
+- <Check className="inline w-4 h-4" /> **Añade descripciones o ayudas**: Cuando el label no basta, agrega textos guía ("Debe tener al menos 8 caracteres").
+- <Check className="inline w-4 h-4" /> **Divide formularios complejos**: Menos carga mental = menos errores.
+- <Check className="inline w-4 h-4" /> **Mantén el botón siempre habilitado**: Valida en el submit, no antes. Esto le da control al usuario.
+- <Check className="inline w-4 h-4" /> **Muestra mensajes de error claros**: Y colócalos cerca del campo afectado.
+- <Check className="inline w-4 h-4" /> **Cuando haya un solo error, mueve el foco a ese campo**: Esto es crucial para accesibilidad con teclado y lectores de pantalla.
+```html
+<button type="submit">Crear cuenta</button>
+```
+```javascript
+form.addEventListener('submit', (e) => {
+  const errors = validateForm();
+
+  if (errors.length > 0) {
+    e.preventDefault();
+    showErrors(errors);
+    errors[0].field.focus(); // mueve el foco al primer error
+  }
+});
+```
+
+Esto:
+
+- evita confusión,
+- guía al usuario,
+- y no bloquea innecesariamente la acción.
+
+## Resumen Final
+
+La accesibilidad de los botones no es solo una cuestión técnica, sino una responsabilidad hacia todas las personas que interactúan con nuestros sitios. A lo largo del capítulo vimos que:
+
+- **El elemento `<button>` nativo es la mejor opción**: viene con accesibilidad integrada y funciona en todos los contextos.
+
+- **Los 6 pilares WCAG son fundamentales**: rol semántico, nombre accesible, comunicación de estado, apariencia reconocible, contraste adecuado y navegación por teclado.
+
+- **Los estilos se pueden resetear sin perder accesibilidad**: usa `all: initial` o `all: unset` pero siempre mantén los estados de foco.
+
+- **Los atributos ARIA comunican estados**: `aria-expanded`, `aria-pressed`, `aria-checked` y `aria-haspopup` hacen que tus interfaces sean comprensibles para todos.
+
+- **Nunca deshabilites botones**: es mejor validar al enviar y dar feedback claro que bloquear la interacción.
+
+En definitiva: usa `<button>`, comunica estados claramente, mantén el foco visible y nunca bloquees acciones sin dar explicaciones. Tus usuarios te lo agradecerán.
+
+## Continúa la serie de accesibilidad
+
+> <p> Anterior: [Capítulo 3: Vinculación de Contenido — Hyperlinks](/blog/vinculacion-de-contenido-hyperlinks)</p>
