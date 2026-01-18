@@ -1,0 +1,503 @@
+---
+tags: ["accesibilidad", "css", "frontend", "diseño", "usabilidad", "colores", "animaciones"]
+date: 2026-01-18
+featured: false
+cover: ./images/cap-5-estilizando-contenido/cap-5-css-accessible.webp
+title: >
+  Capítulo 5: Estilizando Contenido — CSS Accesible
+slug: estilizando-contenido-css-accesible
+description: >
+  Cómo usar CSS de forma inclusiva: color y contraste, preferencias del usuario, unidades relativas, semántica y animaciones seguras. Todo lo que necesitas saber para que tu CSS no excluya a nadie.
+---
+
+import { Palette, Eye, Settings, Type, Zap, AlertTriangle } from 'lucide-astro';
+import { Picture } from "astro:assets"
+import { colorContrasteImg,
+    preferenciasImg,
+    unidadesImg,
+    animacionesImg} from './images/cap-5-estilizando-contenido';
+
+> Respetar las preferencias del usuario es uno de los aspectos más críticos del diseño inclusivo. Los sistemas operativos y navegadores ofrecen opciones para ajustar la interfaz según las necesidades de cada persona. Este capítulo te enseña a detectar esas preferencias y adaptar tu CSS en consecuencia.
+
+> <p> Anterior: [Capítulo 4: Vinculación de Contenido — Hyperlinks](/blog/realizando-acciones-botones-accesibles)</p>
+
+## Introducción: CSS va más allá de lo visual
+
+Cuando pensamos en CSS, solemos pensar solo en colores, tipografías y layouts. Pero hay algo que muchos desarrolladores pasan por alto: **CSS también afecta la semántica y la operabilidad** de los elementos HTML.
+
+¿Sabías que ciertas propiedades CSS pueden eliminar completamente la información semántica de un elemento? ¿O que una animación mal implementada puede provocar náuseas y mareos a algunas personas?
+
+Este capítulo aborda cinco áreas clave donde CSS impacta directamente en la accesibilidad:
+
+1. El uso del color
+2. Las preferencias del usuario
+3. Las unidades y tamaños
+4. La preservación de la semántica
+5. Las animaciones y el movimiento
+
+
+## 5.1 Trabajar con Color
+
+{/* 
+📸 IMAGEN: cap-5-color-contraste.webp
+🎨 PROMPT NANO BANANA:
+Split illustration showing two versions of the same button: one with poor color contrast (light gray text on white) and one with good contrast (dark text on white), with a checkmark on the accessible version, flat design, minimal, educational style
+*/}
+<Picture 
+  src={colorContrasteImg} 
+  quality={100} 
+  widths={[720, colorContrasteImg.width]} 
+  sizes={`(min-width: 39.9em) 720px`} 
+  alt="Comparación de dos botones: uno con bajo contraste (texto gris claro sobre blanco) marcado con X, y otro con buen contraste (texto oscuro sobre blanco) marcado con check"
+/>
+
+El color es una parte integral del diseño web. Lo usamos para decorar, enfatizar, indicar estados e importancia. Pero aquí viene el problema: **no todo el mundo percibe el color de la misma manera**.
+
+Si dependes únicamente del color para comunicar información, estarás excluyendo a muchas personas, especialmente aquellas con baja visión o deficiencias en la percepción del color.
+
+### El contraste: tu primera línea de defensa
+
+El contraste entre el texto y su fondo determina si alguien puede leer tu contenido o no. Para calcularlo, el W3C creó una fórmula que produce ratios desde 1:1 (mismo color) hasta 21:1 (negro sobre blanco o viceversa).
+
+**Los requisitos mínimos de WCAG son:**
+
+- Texto regular: ratio de **4.5:1**
+- Texto de 24px o más: ratio de **3:1**
+- Texto en negrita de 19px o más: ratio de **3:1**
+- Logos y elementos decorativos: sin requisitos
+
+Puedes usar herramientas como el [Contrast Checker de WebAIM](https://webaim.org/resources/contrastchecker/) o las DevTools de Chrome para verificar tus combinaciones de colores.
+
+### La fórmula tiene sus críticas
+
+La fórmula actual de contraste fue creada a mediados de los 2000 y tiene limitaciones importantes:
+
+- No considera la percepción humana real
+- No tiene en cuenta las características de la fuente
+- Trata el color de fondo y texto como iguales (cuando invertirlos sí afecta la percepción)
+
+El borrador de WCAG 3.0 menciona un nuevo algoritmo llamado **APCA** (Accessible Perceptual Contrast Algorithm), pero aún no está listo para uso oficial.
+
+### Deficiencia en la visión del color
+
+Aproximadamente **1 de cada 12 hombres** (8%) y **1 de cada 200 mujeres** (0.5%) tienen algún tipo de deficiencia en la visión del color. Algunos no ven ciertos colores bien; en casos raros, no ven color alguno.
+
+**La regla de oro: nunca uses el color como único medio para transmitir información.**
+
+Por ejemplo:
+- Los enlaces en texto corrido deben tener subrayado, no solo color diferente
+- Los mensajes de error deben incluir iconos y texto, no solo el color rojo
+- Los gráficos de soporte de navegadores pueden usar patrones además de colores
+
+```html
+<!-- Ejemplo: mensaje de error accesible -->
+<div id="error">
+  <svg class="error-icon"><!-- icono X --></svg>
+  Por favor, introduce un email válido
+</div>
+```
+
+### Conclusión sobre el color
+
+Es imposible acertar el color para absolutamente todos, pero al menos debes cumplir estos dos requisitos básicos:
+
+1. Usa colores con buen contraste
+2. No uses el color como único medio de comunicación
+
+
+## 5.2 Respetar las Preferencias del Usuario
+
+{/* 
+📸 IMAGEN: cap-5-preferencias-usuario.webp
+🎨 PROMPT NANO BANANA:
+Flat design illustration showing a smartphone and laptop displaying the same website in different modes: light mode, dark mode, and high contrast mode, with small settings icons floating around, soft blues and purples, minimal clean style
+*/}
+<Picture 
+  src={preferenciasImg} 
+  quality={100} 
+  widths={[720, preferenciasImg.width]} 
+  sizes={`(min-width: 39.9em) 720px`} 
+  alt="Smartphone y laptop mostrando el mismo sitio web en tres modos: claro, oscuro y alto contraste, con iconos de configuración flotando alrededor"
+/>
+
+Los usuarios pueden configurar opciones de accesibilidad en sus sistemas operativos y navegadores. Cuando ignoras esas configuraciones en tu código, estás faltando al respeto a sus decisiones.
+
+Los efectos van desde limitar el acceso hasta hacer que sea **completamente imposible** usar tu sitio.
+
+### Las preferencias que puedes detectar
+
+CSS te permite consultar varias configuraciones del usuario mediante media queries:
+
+#### Modo oscuro (Dark Mode)
+```css
+@media (prefers-color-scheme: dark) {
+  html {
+    --background: var(--dark);
+    --text: var(--light);
+  }
+}
+```
+
+Muchas personas con fotofobia (sensibilidad extrema a la luz) necesitan interfaces oscuras. La luz brillante de una pantalla puede dificultar la lectura o incluso causar dolor.
+
+#### Contraste aumentado
+```css
+@media (prefers-contrast: more) {
+  html {
+    --text: oklch(from blue calc(l - 16) c h);
+  }
+}
+```
+
+Algunos usuarios necesitan más contraste del que normalmente ofrecemos en nuestros diseños.
+
+#### Colores forzados (Windows)
+```css
+@media (forced-colors: active) {
+  /* estilos personalizados */
+}
+```
+
+En Windows, los usuarios pueden activar temas de alto contraste donde ellos mismos eligen los colores para fondos, texto, enlaces y botones. No intentes "arreglar" los colores aquí; usa esta media query para ajustar elementos que se vuelvan irreconocibles.
+
+#### Colores invertidos
+```css
+@media (inverted-colors: inverted) {
+  img, video {
+    filter: invert(100%);
+  }
+}
+```
+
+Invertir colores es otra opción para personas con condiciones fotosensibles. Si tu sitio no ofrece modo oscuro, esta puede ser su alternativa.
+
+#### JavaScript deshabilitado
+```css
+@media (scripting: enabled) {
+  .disclosure-content {
+    display: none;
+  }
+}
+```
+
+Algunas personas deshabilitan JavaScript por rendimiento o seguridad. Con esta media query puedes adaptar tu interfaz.
+
+#### Transparencia reducida
+```css
+@media (prefers-reduced-transparency: reduce) {
+  dialog {
+    --transparency: 1;
+  }
+}
+```
+
+Tendencias como el *Glassmorphism* usan fondos translúcidos que pueden distraer o dificultar la lectura para algunas personas.
+
+### El principio de mejora progresiva
+
+El concepto clave aquí es la **mejora progresiva**: el contenido es lo más importante y debe ser accesible sin importar el hardware, software o configuraciones del usuario.
+
+Las capas de estilo e interactividad se apilan encima. Si una capa no está disponible, el sitio no se rompe; simplemente vuelve a la capa anterior.
+
+HTML y CSS están diseñados para ser tolerantes a errores. Aprovecha eso construyendo experiencias que funcionen para todos.
+
+
+## 5.3 Trabajar con Unidades y Tamaños
+
+{/* 
+📸 IMAGEN: cap-5-unidades-relativas.webp
+🎨 PROMPT NANO BANANA:
+Illustration of the letter "A" shown in three different sizes (small, medium, large) with "rem" and "px" labels, showing how relative units scale proportionally, flat design, educational diagram style, teal and coral colors, white background
+*/}
+<Picture 
+  src={unidadesImg} 
+  quality={100} 
+  widths={[720, unidadesImg.width]} 
+  sizes={`(min-width: 39.9em) 720px`} 
+  alt="La letra A mostrada en tres tamaños diferentes (pequeño, mediano, grande) con etiquetas rem y px, ilustrando cómo las unidades relativas escalan proporcionalmente"
+/>
+
+Los usuarios pueden ajustar el tamaño de fuente base en sus navegadores según sus necesidades. Cuando usas unidades absolutas como `px` para todo, **ignoras sus preferencias** y potencialmente les fuerzas a leer texto demasiado pequeño.
+
+### El problema con los píxeles
+
+```css
+/* ❌ Mala práctica */
+html {
+  font-size: 14px;
+}
+```
+
+El tamaño de fuente base en la mayoría de los navegadores es `16px`, pero esto no es un valor fijo. Los usuarios pueden cambiarlo en la configuración. Si defines un valor en píxeles, estás ignorando completamente esa preferencia.
+
+### La solución: unidades relativas
+
+CSS ofrece varias unidades relativas: `em`, `rem`, `ch`, `%`, viewport units, y números.
+
+#### La unidad `rem`
+
+`1rem` es relativo al tamaño de fuente del elemento raíz. Por defecto, `1rem = 16px`. Si el usuario cambia su tamaño base a `24px`, entonces `1rem = 24px`.
+
+**La fórmula de conversión:**
+```
+tamaño en px ÷ 16 = tamaño en rem
+```
+
+Ejemplos:
+- `18px ÷ 16 = 1.125rem`
+- `450px ÷ 16 = 28.125rem`
+
+```css
+/* ✅ Buena práctica */
+.component {
+  font-size: 1.125rem;
+  line-height: 1.5;
+  max-width: 28.125rem;
+}
+```
+
+#### La unidad `ch`
+
+`1ch` equivale al ancho del carácter "0" en la fuente actual. Es perfecta para limitar el ancho de párrafos a un número aproximado de caracteres:
+
+```css
+p {
+  max-width: 65ch; /* ~65 caracteres por línea */
+}
+```
+
+La regla general es que las líneas no deberían superar los 60-80 caracteres para una lectura cómoda.
+
+#### La unidad `em`
+
+`em` es relativo al tamaño de fuente del propio elemento. Es ideal para componentes que deben escalar proporcionalmente:
+
+```css
+button {
+  font-size: 1.2rem;
+  padding: 0.4em 0.8em; /* escala con el tamaño del botón */
+}
+```
+
+### ¿Cuándo usar píxeles?
+
+Los píxeles todavía tienen su lugar. Para propiedades como `margin`, `padding`, `border`, `box-shadow` o `border-radius`, usar valores fijos puede ser mejor porque cuando el espaciado crece, puede consumir espacio vital en pantalla.
+
+No hay una respuesta única. Prueba con tu layout específico.
+
+### Media queries en unidades relativas
+
+```css
+/* ✅ Recomendado */
+@media (min-width: 60em) {
+  .wrapper {
+    display: flex;
+  }
+}
+```
+
+Usar `em` en media queries beneficia a los usuarios que han cambiado el tamaño de fuente base. Con una fuente de `22px`, la media query de `60em` se activará a `1320px` (60 x 22) en lugar de `960px` (60 x 16), dándoles un layout optimizado para el espacio real disponible.
+
+### El tamaño de fuente ideal
+
+Mi recomendación:
+- No definas un tamaño de fuente predeterminado; deja que se adapte al default del navegador
+- Nunca uses menos de `16px` para texto corrido
+- Considera aumentar el tamaño en pantallas más grandes (mayor distancia visual)
+- Line-height de 1.5 a 2 para texto corrido (ayuda especialmente a personas con discapacidades cognitivas)
+
+---
+
+## 5.4 Preservar la Información Semántica y la Operabilidad
+
+Aquí viene algo que sorprende a muchos desarrolladores: **algunas propiedades CSS no solo afectan el estilo visual, sino también la información semántica de los elementos**.
+
+Esto puede dificultar o impedir completamente el acceso para usuarios de tecnologías asistivas.
+
+### Botones y enlaces
+
+```css
+/* ❌ Problema */
+button {
+  display: contents;
+}
+```
+
+Los botones o enlaces con `display: contents` **no aceptan foco de teclado** en varios navegadores. Este bug está reportado pero persiste.
+
+Los enlaces con dimensiones cero tampoco aceptan foco en Safari.
+
+### Tablas
+
+Aplicar `display: contents`, `display: flex`, `display: grid` o `display: block` a elementos de tabla puede eliminar toda su información semántica en versiones de Safari hasta la 16 (corregido en Safari 17).
+
+Usar `display: none` en `<caption>` puede eliminar el nombre accesible de la tabla.
+
+### Elementos de formulario
+
+Si quieres ocultar visualmente un checkbox o radio button nativo para reemplazarlo con uno personalizado, **no uses `display: none` ni `visibility: hidden`**:
+
+```css
+/* ❌ Esto elimina el elemento del árbol de accesibilidad */
+input[type="checkbox"] {
+  display: none;
+}
+```
+
+En su lugar, usa la clase `.visually-hidden` (o `.sr-only`):
+
+```css
+/* ✅ Oculto visualmente pero accesible */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+```
+
+Lo mismo aplica para etiquetas que nombran a otros elementos.
+
+### Listas
+
+Usando `list-style: none` en VoiceOver con Safari, la lista puede dejar de anunciarse como lista. El equipo de WebKit decidió intencionalmente que si una lista no parece lista, no debería anunciarse como tal.
+
+**El workaround:**
+```css
+/* ✅ Quita el estilo sin afectar la semántica */
+ul {
+  list-style-type: '';
+}
+```
+
+### Elementos interactivos
+
+`pointer-events: none` en un elemento interactivo permite que reciba foco de teclado pero no que se active. Los usuarios de lectores de pantalla lo encontrarán pero no sabrán que está inactivo.
+
+### La propiedad `content-visibility`
+
+`content-visibility: hidden` en elementos semánticos puede producir resultados inesperados: un heading oculto podría seguir en el árbol de accesibilidad, o una región nombrada podría aparecer como grupo vacío sin etiqueta.
+
+**Conclusión de esta sección:** Ten cuidado con estas propiedades CSS y siempre prueba que tus componentes funcionen correctamente, incluso cuando hagas cambios "solo de estilo".
+
+
+## 5.5 Añadir Movimiento y Animación
+
+{/* 
+📸 IMAGEN: cap-5-animaciones-seguras.webp
+🎨 PROMPT NANO BANANA:
+Split illustration: left side shows a person looking dizzy with spiral motion lines and parallax effects, right side shows the same person comfortable with subtle fade animations, flat design, soft colors, accessibility concept, minimal style
+*/}
+<Picture 
+  src={animacionesImg} 
+  quality={100} 
+  widths={[720, animacionesImg.width]} 
+  sizes={`(min-width: 39.9em) 720px`} 
+  alt="Ilustración dividida: a la izquierda una persona mareada con líneas de movimiento en espiral y efectos parallax; a la derecha la misma persona cómoda con animaciones suaves de fade"
+/>
+
+Las animaciones web son herramientas poderosas. Pueden crear experiencias atractivas, ayudar a los usuarios a entender la interfaz y mejorar las microinteracciones.
+
+Pero también pueden **causar daño físico**.
+
+### Cuando las animaciones van mal
+
+En su forma más leve, las animaciones pueden ser molestas o distractoras. Pero para algunas personas pueden causar:
+
+- Náuseas
+- Mareos
+- Dolores de cabeza
+- Para personas con trastornos vestibulares: **dolor real** que les obliga a dejar de usar el ordenador y tomarse tiempo para recuperarse
+
+Los desencadenantes más comunes son:
+
+- Animaciones que mueven objetos a través de grandes espacios
+- Direcciones y velocidades que no coinciden (parallax scrolling)
+- Animaciones que cubren grandes distancias perceptuales (zoom, escalado)
+- Imágenes de fondo fijas (`background-attachment: fixed`)
+
+> "No hay palabras para describir lo mal que un simple efecto parallax, scrolljacking o incluso background-attachment: fixed me haría sentir. Preferiría subirme a una de esas centrífugas de 20G que usan los astronautas antes que mirar un sitio web con parallax scrolling."
+> — Facundo Corradini
+
+### La solución: `prefers-reduced-motion`
+
+Desde que iOS7 provocó malestar en muchos usuarios con sus animaciones agresivas, la mayoría de sistemas operativos incluyen opciones para reducir el movimiento.
+
+Y tú puedes detectar esa preferencia:
+
+```css
+/* La animación por defecto es un fade suave */
+.banner {
+  --animation: fade;
+}
+
+/* Solo si el usuario NO ha pedido reducir movimiento, usamos la animación con movimiento */
+@media (prefers-reduced-motion: no-preference) {
+  .banner {
+    --animation: move;
+  }
+}
+```
+
+También funciona en HTML:
+```html
+<picture>
+  <source 
+    srcset="/imagen-estatica.jpg" 
+    media="(prefers-reduced-motion: reduce)"
+  />
+  <img src="/imagen-animada.gif" alt="Descripción" />
+</picture>
+```
+
+Y en JavaScript:
+```javascript
+const motionQuery = matchMedia('(prefers-reduced-motion: reduce)');
+
+let scrollBehavior = motionQuery.matches ? 'instant' : 'smooth';
+
+// Escuchar cambios en la preferencia
+motionQuery.addListener(() => {
+  scrollBehavior = motionQuery.matches ? 'instant' : 'smooth';
+});
+```
+
+### La clave: reducir, no eliminar
+
+La media query se llama `prefers-reduced-motion`, no `prefers-no-motion`. El objetivo no es eliminar todo movimiento, sino reducir el movimiento no esencial y asegurar que los elementos críticos todavía se muestren.
+
+Además de respetar las preferencias del sistema, **dale control al usuario**:
+- Evita reproducir animaciones o videos automáticamente
+- Siempre proporciona controles para pausar y detener
+
+---
+
+## Resumen Final
+
+El CSS accesible no es solo una cuestión de colores bonitos y layouts responsivos. Es sobre **respetar a todos los usuarios** y sus necesidades.
+
+Los puntos clave de este capítulo:
+
+- **Color**: Usa contraste adecuado (4.5:1 mínimo para texto) y nunca dependas solo del color para comunicar información.
+
+- **Preferencias del usuario**: Detecta y respeta las configuraciones del sistema (modo oscuro, contraste alto, movimiento reducido, transparencia reducida).
+
+- **Unidades**: Prefiere `rem` y `em` sobre `px` para que tu interfaz respete las preferencias de tamaño de texto del usuario.
+
+- **Semántica**: Ten cuidado con propiedades como `display: contents`, `display: none` y `visibility: hidden` que pueden eliminar información semántica crucial.
+
+- **Animaciones**: Reduce o elimina animaciones agresivas para usuarios que lo prefieran, y siempre proporciona controles para pausar el movimiento.
+
+La accesibilidad en CSS es un compromiso continuo. Prueba tus sitios con diferentes configuraciones, usa las DevTools para emular preferencias, y recuerda: **un sitio que funciona para todos es un sitio mejor diseñado**.
+
+## Recursos adicionales
+
+- [Diverse Abilities and Barriers (visual)](https://www.w3.org/WAI/people-use-web/abilities-barriers/) — WAI
+- [Designing Safer Web Animation For Motion Sensitivity](https://alistapart.com/article/designing-safer-web-animation-for-motion-sensitivity/) — Val Head
+- [The ideal line length & line height in web design](https://pimpmytype.com/line-length/) — Oliver Schöndorfer
+- [Display: Contents Is Not a CSS Reset](https://adrianroselli.com/2018/05/display-contents-is-not-a-css-reset.html) — Adrian Roselli
