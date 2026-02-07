@@ -3,6 +3,14 @@ dist/
 
 # generated types
 .astro/
+.agents/
+.claude/
+.cursor/
+.kilocode/
+.qwen/
+.windsurf/
+.codeium/
+.continue/
 
 # dependencies
 node_modules/
