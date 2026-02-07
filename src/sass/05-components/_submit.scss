@@ -1,11 +1,13 @@
 @use '../01-abstracts' as ab;
 
 .submit{
+    // Estilos compartidos para el formulario de suscripcion (Submit.astro con d-flex)
     --a-vertical:stretch;
     --gutter:var(--space-s);
     @include ab.breakpoint(sm){
-    --gutter:0;
+        --gutter:0;
     }
+
     &__input-mail,&__button,textarea{
         padding-inline:var(--space-xs);
         padding-block: var(--space-xs);
@@ -17,14 +19,107 @@
         border: none;
         border: 1px solid var(--color-slate-600);
         border-radius: 4px;
+    }
 
+    // Formulario de contacto — campos con label visible
+    &__field{
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-3xs);
+    }
+
+    &__label{
+        font-family: system-ui, sans-serif;
+        font-weight: var(--fw-semiBold);
+        font-size: var(--size--1);
+    }
+
+    &__input{
+        padding-inline: var(--space-xs);
+        padding-block: var(--space-xs);
+        border: 1px solid var(--color-slate-600);
+        border-radius: 4px;
+        background: transparent;
+        color: inherit;
+        width: 100%;
+        transition: border-color 0.2s, box-shadow 0.2s;
+
+        &:focus{
+            outline: none;
+            border-color: var(--color-secondary);
+            box-shadow: 0 0 0 3px hsl(var(--color-secondary-hsl) / 0.15);
+        }
+
+        &::placeholder{
+            color: var(--color-slate-500, #62748e);
+        }
+    }
+
+    &__char-count{
+        display: block;
+        text-align: right;
+        font-size: var(--size--1);
+        color: var(--color-slate-500, #62748e);
     }
 
     &__button{
-    flex-grow: 1;
-    border-radius: 4px;
-    &:hover{
-        background-color: var(--color-redDark);
+        flex-grow: 1;
+        border-radius: 4px;
+        color: var(--color-slate-50);
+        font-weight: var(--fw-semiBold);
+        font-family: system-ui, sans-serif;
+        transition: background-color 0.2s, opacity 0.2s;
+
+        &:hover:not([disabled]){
+            background-color: var(--color-redDark);
+        }
+
+        &[disabled]{
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
     }
+
+    &__button-loading{
+        font-style: italic;
+    }
+
+    &__status{
+        padding: var(--space-xs);
+        border-radius: 4px;
+        font-size: var(--size--1);
+        font-family: system-ui, sans-serif;
+
+        &:empty{
+            display: none;
+        }
+
+        &--success{
+            background: hsl(142 71% 93%);
+            color: hsl(142 71% 29%);
+            border: 1px solid hsl(142 71% 70%);
+        }
+
+        &--error{
+            background: hsl(0 84% 95%);
+            color: hsl(0 84% 32%);
+            border: 1px solid hsl(0 84% 70%);
+        }
+    }
+}
+
+@media (prefers-color-scheme: dark){
+    .submit__status{
+        &--success{
+            background: hsl(142 30% 14%);
+            color: hsl(142 60% 72%);
+            border-color: hsl(142 30% 30%);
+        }
+
+        &--error{
+            background: hsl(0 30% 14%);
+            color: hsl(0 60% 72%);
+            border-color: hsl(0 30% 30%);
+        }
     }
 }

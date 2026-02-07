@@ -2,82 +2,184 @@
 
 ---
 
-<p class="mt-space-2xl">¿Tiene alguna pregunta o comentario? Déjame un mensaje para ponernos en contacto.</p>
-<form
-  name="contact"
-  id="form"
-  method="POST"
-  class="submit | flow mt-space-m"
->
-<input type="hidden" name="access_key" value="bbf7e249-4ae4-4a54-9b17-5559b10286e8">
-  <p class="d-flex">
-    <label class="visually-hidden">
-      Email: 
+<form id="contact-form" class="submit | flow mt-space-m" novalidate>
+  <!-- Anti-spam: Honeypot — campo invisible que solo los bots rellenan -->
+  <div aria-hidden="true" style="position: absolute; left: -9999px; top: -9999px;">
+    <label for="website">Website</label>
+    <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <!-- Anti-spam: Timestamp de carga de pagina -->
+  <input type="hidden" name="_timestamp" />
+
+  <!-- Nombre -->
+  <div class="submit__field">
+    <label for="name" class="submit__label">
+      Nombre <span aria-hidden="true">*</span>
     </label>
-    <input class="submit__input-mail" required type="text" placeholder="email" name="name" />
-  </p>
-  <p class="d-flex">
-    <label class="visually-hidden">
-      Message: 
+    <input
+      type="text"
+      id="name"
+      name="name"
+      class="submit__input"
+      required
+      aria-required="true"
+      autocomplete="name"
+      maxlength="100"
+      placeholder="Tu nombre"
+    />
+  </div>
+
+  <!-- Email -->
+  <div class="submit__field">
+    <label for="email" class="submit__label">
+      Email <span aria-hidden="true">*</span>
     </label>
-    <textarea name="message" required rows="4" cols="50"  placeholder="Message"></textarea>
-  </p>
-  <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
-  <p>
-    <button class="submit__button | bg-color-primary" type="submit">Send</button>
-  </p>
-  <div id="result"></div>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      class="submit__input"
+      required
+      aria-required="true"
+      autocomplete="email"
+      placeholder="tu@email.com"
+    />
+  </div>
+
+  <!-- Mensaje -->
+  <div class="submit__field">
+    <label for="message" class="submit__label">
+      Mensaje <span aria-hidden="true">*</span>
+    </label>
+    <textarea
+      id="message"
+      name="message"
+      class="submit__input"
+      rows="5"
+      required
+      aria-required="true"
+      maxlength="2000"
+      placeholder="Escribe tu mensaje aquí..."
+    ></textarea>
+    <small class="submit__char-count">
+      <span id="char-count">0</span> / 2000
+    </small>
+  </div>
+
+  <!-- Enviar -->
+  <div>
+    <button type="submit" class="submit__button | bg-color-primary">
+      <span class="submit__button-text">Enviar mensaje</span>
+      <span class="submit__button-loading" hidden>Enviando...</span>
+    </button>
+  </div>
+
+  <!-- Mensajes de estado -->
+  <div id="form-status" class="submit__status" role="status" aria-live="polite"></div>
 </form>
 
-
-
-<script is:inline>
-  //Código para msj al enviar el email
-  const form = document.getElementById('form');
-  const result = document.getElementById('result');
-  
-  form.addEventListener('submit', function(e) {
-      const formData = new FormData(form);
-      e.preventDefault();
-  
-      const object = Object.fromEntries(formData);
-      const json = JSON.stringify(object);
-  
-      result.innerHTML = "Please wait..."
-  
-      fetch('https://api.web3forms.com/submit', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-                  'Accept': 'application/json'
-              },
-              body: json
-          })
-          .then(async (response) => {
-              let json = await response.json();
-              if (response.status == 200) {
-                  result.innerHTML = json.message;
-              } else {
-                  console.log(response);
-                  result.innerHTML = json.message;
-              }
-          })
-          .catch(error => {
-              console.log(error);
-              result.innerHTML = "Something went wrong!";
-          })
-          .then(function() {
-              form.reset();
-              setTimeout(() => {
-                  result.style.display = "none";
-              }, 3000);
-          });
-  });
-  </script>
-
 <script>
-  window.onload = function() {
-      // Reset the form fields when the page loads
-      document.getElementById("form").reset();
-  };
+  document.addEventListener('astro:page-load', () => {
+    const form = document.getElementById('contact-form') as HTMLFormElement | null;
+    if (!form) return;
+
+    const status = document.getElementById('form-status');
+    const charCount = document.getElementById('char-count');
+    const messageField = form.querySelector<HTMLTextAreaElement>('#message');
+    const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    const btnText = submitBtn?.querySelector('.submit__button-text') as HTMLElement | null;
+    const btnLoading = submitBtn?.querySelector('.submit__button-loading') as HTMLElement | null;
+    const timestampField = form.querySelector<HTMLInputElement>('[name="_timestamp"]');
+
+    // Registrar timestamp de carga (anti-spam)
+    if (timestampField) timestampField.value = String(Date.now());
+
+    // Contador de caracteres
+    messageField?.addEventListener('input', () => {
+      if (charCount) charCount.textContent = String(messageField.value.length);
+    });
+
+    // Limpiar estado al empezar a escribir de nuevo
+    form.addEventListener(
+      'input',
+      () => {
+        if (status && status.textContent) {
+          status.textContent = '';
+          status.className = 'submit__status';
+        }
+      },
+      { once: true },
+    );
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!status || !submitBtn || !btnText || !btnLoading) return;
+
+      // Limpiar estado previo
+      status.textContent = '';
+      status.className = 'submit__status';
+
+      // Validacion del lado del cliente
+      const nameVal = (form.querySelector('#name') as HTMLInputElement)?.value.trim();
+      const emailVal = (form.querySelector('#email') as HTMLInputElement)?.value.trim();
+      const messageVal = messageField?.value.trim();
+
+      if (!nameVal || !emailVal || !messageVal) {
+        showError('Todos los campos son obligatorios.');
+        return;
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(emailVal)) {
+        showError('Por favor, introduce un email válido.');
+        return;
+      }
+
+      // Estado de carga
+      submitBtn.disabled = true;
+      btnText.hidden = true;
+      btnLoading.hidden = false;
+
+      try {
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData);
+
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          showSuccess(result.message || '¡Mensaje enviado! Te responderé pronto.');
+          form.reset();
+          if (timestampField) timestampField.value = String(Date.now());
+          if (charCount) charCount.textContent = '0';
+        } else {
+          showError(result.error || 'Error al enviar el mensaje. Inténtalo de nuevo.');
+        }
+      } catch {
+        showError('Error de conexión. Verifica tu conexión a internet.');
+      } finally {
+        submitBtn.disabled = false;
+        btnText.hidden = false;
+        btnLoading.hidden = true;
+      }
+    });
+
+    function showError(msg: string) {
+      if (!status) return;
+      status.textContent = msg;
+      status.className = 'submit__status submit__status--error';
+    }
+
+    function showSuccess(msg: string) {
+      if (!status) return;
+      status.textContent = msg;
+      status.className = 'submit__status submit__status--success';
+    }
+  });
 </script>
