@@ -25,13 +25,31 @@ const options: Intl.DateTimeFormatOptions = {
 // Props
 const { post } = Astro.props;
 const { Content } = await render(post);
+const coverURL = new URL(post.data.cover.src, Astro.site).href;
+const postURL = new URL(`/blog/${post.id}`, Astro.site).href;
 ---
 
 <Layout
   title={post.data.title}
   canonical={`/blog/${post.id}`}
   description={post.data.description}
+  image={coverURL}
 >
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": post.data.title,
+    "description": post.data.description,
+    "datePublished": post.data.date.toISOString(),
+    "author": {
+      "@type": "Person",
+      "name": "Wilson Muñoz Castro",
+      "url": "https://wilsonmunoz.com"
+    },
+    "image": coverURL,
+    "url": postURL
+  })} />
+
   <div class="hero-nav | container">
     <nav class="nav mt-space-xl">
       <ul role="list" class="nav__list nav-post | d-flex">
