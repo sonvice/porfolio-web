@@ -8,4 +8,10 @@
         background-position: right bottom;
         background-size: 100% 4px;
     }
+
+    // Estado activo (pagina actual)
+    &.active[aria-current="page"],
+    &.active {
+        background-size: 100% 4px;
+    }
 }

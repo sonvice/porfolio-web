@@ -1,0 +1,7 @@
+@use "../01-abstracts/tokens" as s;
+
+@each $class-name, $css-variable in s.$spaces {
+  .gap-#{$class-name} {
+    gap: var(#{$css-variable});
+  }
+}

@@ -9,7 +9,7 @@ Este archivo es la fuente de verdad para cualquier modelo de IA que trabaje en e
 - **Tipo:** Portfolio web personal / Blog — [wilsonmunoz.com](https://wilsonmunoz.com)
 - **Framework:** Astro 5 (SSG) con integracion React 19
 - **Lenguaje:** TypeScript (`strictNullChecks: true`). Los componentes React usan `.jsx`
-- **Estilos:** SASS (API `modern`) con arquitectura modular de 5 capas
+- **Estilos:** SASS (API `modern`) con arquitectura modular de 5 capas + CSS `@layer`
 - **Content:** Astro Content Collections con loader `glob` y archivos `.mdx`
 - **Deploy:** Netlify (`npm run build` -> `dist/`)
 - **Routing:** File-based (Astro). Paginacion con `[...page].astro`, rutas dinamicas con `[id].astro` y `[tags].astro`
@@ -61,17 +61,23 @@ src/
 
 ## IV. SISTEMA DE ESTILOS (SASS)
 
-### Arquitectura de 5 capas (ITCSS-like)
+### Arquitectura de 5 capas con CSS `@layer`
 
-Punto de entrada: `src/sass/style.scss` usa `@forward` para cada capa. Cada capa tiene un `_index.scss` que re-exporta sus modulos.
+Punto de entrada: `src/sass/style.scss` usa `sass:meta` con `load-css()` para inyectar cada capa dentro de su `@layer` CSS correspondiente. Cada capa tiene un `_index.scss` que re-exporta sus modulos con `@forward`.
 
-| Capa | Ruta | Contenido |
-|:---|:---|:---|
-| **01-abstracts** | `sass/01-abstracts/` | `_tokens.scss` (design tokens), `_mixins.scss` (breakpoints), `_functions.scss` |
-| **02-base** | `sass/02-base/` | `_reset.scss` (modern CSS reset), `_global.scss` (tipografia, colores, elementos base) |
-| **03-utilities** | `sass/03-utilities/` | Clases utilitarias generadas (spacing, colors, flex, grid, text, etc.) |
-| **04-layout** | `sass/04-layout/` | Layouts de pagina: hero, hero-nav, blog-post, post, footer, search, tag-block |
-| **05-components** | `sass/05-components/` | Estilos de componentes: card, nav, tag, submit, head, blog-roll, search-form |
+**Orden de cascada (de menor a mayor prioridad):**
+```
+@layer base, layout, components, utilities;
+```
+Las utilidades siempre ganan sobre componentes — ITCSS correcto. `01-abstracts` no tiene `@layer` porque solo contiene SASS (maps, mixins, funciones) sin output CSS.
+
+| Capa | `@layer` | Ruta | Contenido |
+|:---|:---|:---|:---|
+| **01-abstracts** | *(sin layer)* | `sass/01-abstracts/` | `_tokens.scss` (design tokens), `_mixins.scss` (breakpoints), `_functions.scss` |
+| **02-base** | `base` | `sass/02-base/` | `_reset.scss` (CSS reset + `prefers-reduced-motion`), `_variables.scss` (`:root` custom properties), `_elements.scss` (estilos de elementos) |
+| **03-layout** | `layout` | `sass/03-layout/` | Layouts de pagina: hero, blog-post, post, footer, search, tag-block |
+| **04-components** | `components` | `sass/04-components/` | Estilos de componentes: card, nav, tag, submit, head, blog-roll, search-form |
+| **05-utilities** | `utilities` | `sass/05-utilities/` | Clases utilitarias generadas (spacing, colors, flex, grid, gap, alignment, aspect-ratio, object-fit, text, etc.) |
 
 ### Design Tokens (`_tokens.scss`)
 
@@ -104,7 +110,15 @@ Punto de entrada: `src/sass/style.scss` usa `@forward` para cada capa. Cada capa
 - `.container` — `max-width: 56.25rem` (900px), centrado con padding `--space-s`
 - `.container-lg` — `max-width: 90rem` (1440px)
 
-**Otras**: `.d-block`, `.relative`, `.uppercase`, `.fw-semibold`, `.fw-regular`, `.visually-hidden`, `.radius`, `.size-full`, `.text-ellipsis`, `.border-animated`
+**Gap**: `gap-space-3xs`, `gap-space-2xs`, `gap-space-xs`, `gap-space-s`, `gap-space-m`, `gap-space-l`, `gap-space-xl`, `gap-space-2xl`, `gap-space-3xl`
+
+**Alignment**:
+- `.items-center`, `.items-start`, `.items-end`, `.items-stretch`, `.items-baseline`
+- `.justify-center`, `.justify-start`, `.justify-end`, `.justify-between`
+
+**Media**: `.aspect-video` (16/9), `.aspect-square` (1), `.object-cover`, `.object-contain`
+
+**Otras**: `.d-block`, `.relative`, `.uppercase`, `.fw-semibold`, `.fw-regular`, `.visually-hidden`, `.radius`, `.size-full`, `.text-ellipsis`, `.border-animated`, `.w-full`
 
 ### Breakpoints (`_mixins.scss`)
 
@@ -341,9 +355,9 @@ No instalar nuevas dependencias sin permiso explicito. Estas son las que ya exis
 4. **Usar path aliases** (`@components/*`, `@layouts/*`, etc.) para todos los imports internos.
 5. **Respetar el patron `|`** en las clases HTML: nombre BEM primero, luego utilidades.
 6. **Usar las utilidades SASS existentes** antes de escribir CSS nuevo. Revisar las clases disponibles en la seccion IV.
-7. **SASS nuevo:** Si se necesita un nuevo componente, crear el archivo en la capa correcta (`04-layout/` o `05-components/`) y registrarlo en el `_index.scss` de esa capa con `@forward`.
+7. **SASS nuevo:** Si se necesita un nuevo componente, crear el archivo en la capa correcta (`03-layout/` o `04-components/`) y registrarlo en el `_index.scss` de esa capa con `@forward`. Para nuevas utilidades, crearlas en `05-utilities/`. Todo el CSS se envuelve automaticamente en su `@layer` correspondiente via `style.scss`.
 8. **Idioma:** Texto visible al usuario y comentarios en espanol. Identificadores de codigo (variables, funciones, clases CSS) en ingles.
 9. **React en `.jsx`**, no `.tsx`. Los componentes React de este proyecto no usan TypeScript.
 10. **Componentes Astro** son la opcion por defecto. Solo usar React cuando se necesite interactividad del lado del cliente (state, effects, event handlers complejos).
-11. **Formulario de contacto** usa Web3Forms API con `access_key` existente. No modificar la integracion.
+11. **Formulario de contacto** usa Brevo Transactional Email API via Netlify Function (`netlify/functions/send-email.mjs`). Variables de entorno: `API_BREVO` y `CONTACT_EMAIL`.
 12. **No crear archivos de documentacion** (.md, README) salvo que se pida explicitamente.
