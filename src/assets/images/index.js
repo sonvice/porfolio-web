@@ -1,5 +1,5 @@
-import codeIllustration from './code-illustration.svg'
-import imgCodeDark from './code-illustration-dark.svg'
+import codeIllustration from './code-illustration.svg?url'
+import imgCodeDark from './code-illustration-dark.svg?url'
 
 import imgCareerrist from './careerist.jpg'
 import imgDentis from './dentis.jpg'
