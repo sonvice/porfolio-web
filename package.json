@@ -13,7 +13,6 @@
     "defu": "^6.1.6"
   },
   "dependencies": {
-    "@astrojs/markdown-remark": "^7.1.0",
     "@astrojs/mdx": "^5.0.3",
     "@astrojs/partytown": "^2.1.6",
     "@astrojs/react": "^5.0.2",
